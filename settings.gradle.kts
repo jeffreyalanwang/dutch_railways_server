@@ -1,4 +1,9 @@
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
-rootProject.name = "server"
+
+rootProject.name = "backend"
+
+include("server")
+include("routeQuery")
+include("dataSource")
