@@ -1,0 +1,7 @@
+schema: schema.graphql
+documents: '**/*.graphql'
+extensions:
+  endpoints:
+    # Allows us to use IntelliJ scratch files to query the server
+    # when running it on localhost
+    default: http://localhost:8080/graphql
