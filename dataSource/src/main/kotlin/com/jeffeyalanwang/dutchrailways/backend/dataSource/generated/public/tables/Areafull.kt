@@ -4,6 +4,8 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.AreafullRecord
 import kotlin.collections.Collection
 
 import org.jooq.Condition
@@ -35,14 +37,14 @@ import org.jooq.impl.TableImpl
 open class Areafull(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord>?,
+    childPath: ForeignKey<out Record, AreafullRecord>?,
+    parentPath: InverseForeignKey<out Record, AreafullRecord>?,
+    aliased: Table<AreafullRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord>(
+): TableImpl<AreafullRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -69,26 +71,26 @@ open class Areafull(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord::class.java
+    override fun getRecordType(): Class<AreafullRecord> = AreafullRecord::class.java
 
     /**
      * The column <code>public.areafull.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
+    val ID: TableField<AreafullRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.areafull.name</code>.
      */
-    val NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128), this, "")
+    val NAME: TableField<AreafullRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128), this, "")
 
     /**
      * The column <code>public.areafull.geom</code>.
      */
-    val GEOM: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "")
+    val GEOM: TableField<AreafullRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreafullRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<AreafullRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<AreafullRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<AreafullRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.areafull</code> table reference
@@ -104,7 +106,7 @@ open class Areafull(
      * Create a <code>public.areafull</code> table reference
      */
     constructor(): this(DSL.name("areafull"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): Areafull = Areafull(DSL.name(alias), this)
     override fun `as`(alias: Name): Areafull = Areafull(alias, this)
     override fun `as`(alias: Table<*>): Areafull = Areafull(alias.qualifiedName, this)

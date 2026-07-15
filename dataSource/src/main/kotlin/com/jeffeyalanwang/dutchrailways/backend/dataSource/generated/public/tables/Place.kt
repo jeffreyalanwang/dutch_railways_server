@@ -4,6 +4,12 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.enums.Placesubclass
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.PLACE_PKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.PLACE__PARENTAREA
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.STATION__STATION_ID_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PlaceRecord
 import kotlin.collections.Collection
 import kotlin.collections.List
 
@@ -38,14 +44,14 @@ import org.jooq.impl.TableImpl
 open class Place(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?,
+    childPath: ForeignKey<out Record, PlaceRecord>?,
+    parentPath: InverseForeignKey<out Record, PlaceRecord>?,
+    aliased: Table<PlaceRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>(
+): TableImpl<PlaceRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -66,31 +72,31 @@ open class Place(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord::class.java
+    override fun getRecordType(): Class<PlaceRecord> = PlaceRecord::class.java
 
     /**
      * The column <code>public.place.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).generatedAlwaysAsIdentity(), this, "")
+    val ID: TableField<PlaceRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).generatedAlwaysAsIdentity(), this, "")
 
     /**
      * The column <code>public.place.subclass</code>.
      */
-    val SUBCLASS: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.enums.Placesubclass?> = createField(DSL.name("subclass"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.enums.Placesubclass::class.java), this, "")
+    val SUBCLASS: TableField<PlaceRecord, Placesubclass?> = createField(DSL.name("subclass"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(Placesubclass::class.java), this, "")
 
     /**
      * The column <code>public.place.name</code>.
      */
-    val NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128).nullable(false), this, "")
+    val NAME: TableField<PlaceRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128).nullable(false), this, "")
 
     /**
      * The column <code>public.place.locatedin</code>.
      */
-    val LOCATEDIN: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord, Int?> = createField(DSL.name("locatedin"), SQLDataType.INTEGER, this, "")
+    val LOCATEDIN: TableField<PlaceRecord, Int?> = createField(DSL.name("locatedin"), SQLDataType.INTEGER, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<PlaceRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<PlaceRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<PlaceRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.place</code> table reference
@@ -107,44 +113,44 @@ open class Place(
      */
     constructor(): this(DSL.name("place"), null)
 
-    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, PLACE, null, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, PlaceRecord>?, parentPath: InverseForeignKey<out Record, PlaceRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, PLACE, null, null)
 
     /**
      * A subtype implementing {@link Path} for simplified path-based joins.
      */
-    open class PlacePath : Place, Path<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord> {
-        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>?): super(path, childPath, parentPath)
-        private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord>): super(alias, aliased)
+    open class PlacePath : Place, Path<PlaceRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, PlaceRecord>?, parentPath: InverseForeignKey<out Record, PlaceRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<PlaceRecord>): super(alias, aliased)
         override fun `as`(alias: String): PlacePath = PlacePath(DSL.name(alias), this)
         override fun `as`(alias: Name): PlacePath = PlacePath(alias, this)
         override fun `as`(alias: Table<*>): PlacePath = PlacePath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
-    override fun getIdentity(): Identity<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord, Int?> = super.getIdentity() as Identity<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord, Int?>
-    override fun getPrimaryKey(): UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PLACE_PKEY
-    override fun getReferences(): List<ForeignKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlaceRecord, *>> = listOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PLACE__PARENTAREA)
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
+    override fun getIdentity(): Identity<PlaceRecord, Int?> = super.getIdentity() as Identity<PlaceRecord, Int?>
+    override fun getPrimaryKey(): UniqueKey<PlaceRecord> = PLACE_PKEY
+    override fun getReferences(): List<ForeignKey<PlaceRecord, *>> = listOf(PLACE__PARENTAREA)
 
     /**
      * Get the implicit join path to the <code>public.area</code> table.
      */
-    fun area(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area.AreaPath = area
-    val area: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area.AreaPath by lazy { com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area.AreaPath(this, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PLACE__PARENTAREA, null) }
+    fun area(): Area.AreaPath = area
+    val area: Area.AreaPath by lazy { Area.AreaPath(this, PLACE__PARENTAREA, null) }
 
-    private lateinit var _station: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.StationPath
+    private lateinit var _station: Station.StationPath
 
     /**
      * Get the implicit to-many join path to the <code>public.station</code>
      * table
      */
-    fun station(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.StationPath {
+    fun station(): Station.StationPath {
         if (!this::_station.isInitialized)
-            _station = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.StationPath(this, null, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.STATION__STATION_ID_FKEY.inverseKey)
+            _station = Station.StationPath(this, null, STATION__STATION_ID_FKEY.inverseKey)
 
         return _station;
     }
 
-    val station: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.StationPath
-        get(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.StationPath = station()
+    val station: Station.StationPath
+        get(): Station.StationPath = station()
     override fun `as`(alias: String): Place = Place(DSL.name(alias), this)
     override fun `as`(alias: Name): Place = Place(alias, this)
     override fun `as`(alias: Table<*>): Place = Place(alias.qualifiedName, this)

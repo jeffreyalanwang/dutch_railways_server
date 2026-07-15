@@ -4,6 +4,11 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.indexes.IDXAREAGEOM
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.AREA_PKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.AREA__AREA_ID_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.AreaRecord
 import kotlin.collections.Collection
 import kotlin.collections.List
 
@@ -40,14 +45,14 @@ import org.jooq.impl.TableImpl
 open class Area(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?,
+    childPath: ForeignKey<out Record, AreaRecord>?,
+    parentPath: InverseForeignKey<out Record, AreaRecord>?,
+    aliased: Table<AreaRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>(
+): TableImpl<AreaRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -68,21 +73,21 @@ open class Area(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord::class.java
+    override fun getRecordType(): Class<AreaRecord> = AreaRecord::class.java
 
     /**
      * The column <code>public.area.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false), this, "")
+    val ID: TableField<AreaRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false), this, "")
 
     /**
      * The column <code>public.area.geom</code>.
      */
-    val GEOM: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY.nullable(false), this, "")
+    val GEOM: TableField<AreaRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY.nullable(false), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<AreaRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<AreaRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<AreaRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.area</code> table reference
@@ -99,29 +104,29 @@ open class Area(
      */
     constructor(): this(DSL.name("area"), null)
 
-    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, AREA, null, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, AreaRecord>?, parentPath: InverseForeignKey<out Record, AreaRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, AREA, null, null)
 
     /**
      * A subtype implementing {@link Path} for simplified path-based joins.
      */
-    open class AreaPath : Area, Path<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord> {
-        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>?): super(path, childPath, parentPath)
-        private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>): super(alias, aliased)
+    open class AreaPath : Area, Path<AreaRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, AreaRecord>?, parentPath: InverseForeignKey<out Record, AreaRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<AreaRecord>): super(alias, aliased)
         override fun `as`(alias: String): AreaPath = AreaPath(DSL.name(alias), this)
         override fun `as`(alias: Name): AreaPath = AreaPath(alias, this)
         override fun `as`(alias: Table<*>): AreaPath = AreaPath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
-    override fun getIndexes(): List<Index> = listOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.indexes.IDXAREAGEOM)
-    override fun getPrimaryKey(): UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.AREA_PKEY
-    override fun getReferences(): List<ForeignKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord, *>> = listOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.AREA__AREA_ID_FKEY)
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
+    override fun getIndexes(): List<Index> = listOf(IDXAREAGEOM)
+    override fun getPrimaryKey(): UniqueKey<AreaRecord> = AREA_PKEY
+    override fun getReferences(): List<ForeignKey<AreaRecord, *>> = listOf(AREA__AREA_ID_FKEY)
 
     /**
      * Get the implicit join path to the <code>public.place</code> table.
      */
-    fun place(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PlacePath = place
-    val place: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PlacePath by lazy { com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PlacePath(this, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.AREA__AREA_ID_FKEY, null) }
-    override fun getChecks(): List<Check<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AreaRecord>> = listOf(
+    fun place(): Place.PlacePath = place
+    val place: Place.PlacePath by lazy { Place.PlacePath(this, AREA__AREA_ID_FKEY, null) }
+    override fun getChecks(): List<Check<AreaRecord>> = listOf(
         Internal.createCheck(this, DSL.name("areasrid"), "((st_srid(geom) = 28992))", true)
     )
     override fun `as`(alias: String): Area = Area(DSL.name(alias), this)

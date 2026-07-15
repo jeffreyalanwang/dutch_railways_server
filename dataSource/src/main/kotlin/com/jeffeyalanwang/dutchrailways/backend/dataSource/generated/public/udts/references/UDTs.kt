@@ -4,7 +4,11 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udts.references
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.GeometryDump
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.ValidDetail
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.records.GeometryDumpRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.records.ValidDetailRecord
 import org.jooq.Field
 import org.jooq.Geometry
 
@@ -13,7 +17,7 @@ import org.jooq.Geometry
 /**
  * The type <code>public.geometry_dump</code>
  */
-val GEOMETRY_DUMP: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.GeometryDump = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.GeometryDump.GEOMETRY_DUMP
+val GEOMETRY_DUMP: GeometryDump = GeometryDump.GEOMETRY_DUMP
 
 /**
  * Create a constructor expression for <code>public.geometry_dump</code>
@@ -21,7 +25,7 @@ val GEOMETRY_DUMP: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated
 fun GEOMETRY_DUMP(
     path: Array<Int?>?,
     geom: Geometry?
-): Field<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.GeometryDump.GEOMETRY_DUMP(
+): Field<GeometryDumpRecord> = GeometryDump.GEOMETRY_DUMP(
     path,
     geom
 )
@@ -32,7 +36,7 @@ fun GEOMETRY_DUMP(
 fun GEOMETRY_DUMP(
     path: Field<Array<Int?>?>,
     geom: Field<Geometry?>
-): Field<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.GeometryDump.GEOMETRY_DUMP(
+): Field<GeometryDumpRecord> = GeometryDump.GEOMETRY_DUMP(
     path,
     geom
 )
@@ -40,7 +44,7 @@ fun GEOMETRY_DUMP(
 /**
  * The type <code>public.valid_detail</code>
  */
-val VALID_DETAIL: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.ValidDetail = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.ValidDetail.VALID_DETAIL
+val VALID_DETAIL: ValidDetail = ValidDetail.VALID_DETAIL
 
 /**
  * Create a constructor expression for <code>public.valid_detail</code>
@@ -49,7 +53,7 @@ fun VALID_DETAIL(
     valid: Boolean?,
     reason: String?,
     location: Geometry?
-): Field<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.ValidDetail.VALID_DETAIL(
+): Field<ValidDetailRecord> = ValidDetail.VALID_DETAIL(
     valid,
     reason,
     location
@@ -62,7 +66,7 @@ fun VALID_DETAIL(
     valid: Field<Boolean?>,
     reason: Field<String?>,
     location: Field<Geometry?>
-): Field<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.ValidDetail.VALID_DETAIL(
+): Field<ValidDetailRecord> = ValidDetail.VALID_DETAIL(
     valid,
     reason,
     location

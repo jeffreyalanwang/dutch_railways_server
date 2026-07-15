@@ -3,7 +3,9 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.paths
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.ValidDetail
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.records.ValidDetailRecord
 import org.jooq.Binding
 import org.jooq.Comment
 import org.jooq.DataType
@@ -28,23 +30,23 @@ open class ValidDetailPath<R : Record, T>(
     qualifier: RecordQualifier<R>,
     comment: Comment,
     binding: Binding<*, T>
-) : UDTPathTableFieldImpl<R, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord, T>(
-    name, type, qualifier, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.ValidDetail.VALID_DETAIL, comment, binding
+) : UDTPathTableFieldImpl<R, ValidDetailRecord, T>(
+    name, type, qualifier, ValidDetail.VALID_DETAIL, comment, binding
 ) {
 
     /**
      * The attribute <code>public.valid_detail.valid</code>.
      */
-    val VALID: UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord, Boolean> = Internal.createUDTPathField(DSL.name("valid"), SQLDataType.BOOLEAN, this, "", UDTField::class.java as Class<UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord, Boolean>>)
+    val VALID: UDTField<ValidDetailRecord, Boolean> = Internal.createUDTPathField(DSL.name("valid"), SQLDataType.BOOLEAN, this, "", UDTField::class.java as Class<UDTField<ValidDetailRecord, Boolean>>)
 
     /**
      * The attribute <code>public.valid_detail.reason</code>.
      */
-    val REASON: UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord, String> = Internal.createUDTPathField(DSL.name("reason"), SQLDataType.VARCHAR, this, "", UDTField::class.java as Class<UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord, String>>)
+    val REASON: UDTField<ValidDetailRecord, String> = Internal.createUDTPathField(DSL.name("reason"), SQLDataType.VARCHAR, this, "", UDTField::class.java as Class<UDTField<ValidDetailRecord, String>>)
 
     /**
      * The attribute <code>public.valid_detail.location</code>.
      */
-    val LOCATION: UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord, Geometry> = Internal.createUDTPathField(DSL.name("location"), SQLDataType.GEOMETRY, this, "", UDTField::class.java as Class<UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.ValidDetailRecord, Geometry>>)
+    val LOCATION: UDTField<ValidDetailRecord, Geometry> = Internal.createUDTPathField(DSL.name("location"), SQLDataType.GEOMETRY, this, "", UDTField::class.java as Class<UDTField<ValidDetailRecord, Geometry>>)
 
 }

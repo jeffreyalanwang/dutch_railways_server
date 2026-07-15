@@ -4,6 +4,10 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.AMENITY_PKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.TRAINSETAMENITIES__TRAINSETAMENITIES_AMENITY_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.AmenityRecord
 import kotlin.collections.Collection
 
 import org.jooq.Condition
@@ -37,14 +41,14 @@ import org.jooq.impl.TableImpl
 open class Amenity(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?,
+    childPath: ForeignKey<out Record, AmenityRecord>?,
+    parentPath: InverseForeignKey<out Record, AmenityRecord>?,
+    aliased: Table<AmenityRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>(
+): TableImpl<AmenityRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -65,21 +69,21 @@ open class Amenity(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord::class.java
+    override fun getRecordType(): Class<AmenityRecord> = AmenityRecord::class.java
 
     /**
      * The column <code>public.amenity.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).generatedAlwaysAsIdentity(), this, "")
+    val ID: TableField<AmenityRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).generatedAlwaysAsIdentity(), this, "")
 
     /**
      * The column <code>public.amenity.description</code>.
      */
-    val DESCRIPTION: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord, String?> = createField(DSL.name("description"), SQLDataType.VARCHAR(256).nullable(false), this, "")
+    val DESCRIPTION: TableField<AmenityRecord, String?> = createField(DSL.name("description"), SQLDataType.VARCHAR(256).nullable(false), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<AmenityRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<AmenityRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<AmenityRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.amenity</code> table reference
@@ -96,37 +100,37 @@ open class Amenity(
      */
     constructor(): this(DSL.name("amenity"), null)
 
-    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, AMENITY, null, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, AmenityRecord>?, parentPath: InverseForeignKey<out Record, AmenityRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, AMENITY, null, null)
 
     /**
      * A subtype implementing {@link Path} for simplified path-based joins.
      */
-    open class AmenityPath : Amenity, Path<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord> {
-        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>?): super(path, childPath, parentPath)
-        private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord>): super(alias, aliased)
+    open class AmenityPath : Amenity, Path<AmenityRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, AmenityRecord>?, parentPath: InverseForeignKey<out Record, AmenityRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<AmenityRecord>): super(alias, aliased)
         override fun `as`(alias: String): AmenityPath = AmenityPath(DSL.name(alias), this)
         override fun `as`(alias: Name): AmenityPath = AmenityPath(alias, this)
         override fun `as`(alias: Table<*>): AmenityPath = AmenityPath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
-    override fun getIdentity(): Identity<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord, Int?> = super.getIdentity() as Identity<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord, Int?>
-    override fun getPrimaryKey(): UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.AmenityRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.AMENITY_PKEY
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
+    override fun getIdentity(): Identity<AmenityRecord, Int?> = super.getIdentity() as Identity<AmenityRecord, Int?>
+    override fun getPrimaryKey(): UniqueKey<AmenityRecord> = AMENITY_PKEY
 
-    private lateinit var _trainsetamenities: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath
+    private lateinit var _trainsetamenities: Trainsetamenities.TrainsetamenitiesPath
 
     /**
      * Get the implicit to-many join path to the
      * <code>public.trainsetamenities</code> table
      */
-    fun trainsetamenities(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath {
+    fun trainsetamenities(): Trainsetamenities.TrainsetamenitiesPath {
         if (!this::_trainsetamenities.isInitialized)
-            _trainsetamenities = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath(this, null, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.TRAINSETAMENITIES__TRAINSETAMENITIES_AMENITY_FKEY.inverseKey)
+            _trainsetamenities = Trainsetamenities.TrainsetamenitiesPath(this, null, TRAINSETAMENITIES__TRAINSETAMENITIES_AMENITY_FKEY.inverseKey)
 
         return _trainsetamenities;
     }
 
-    val trainsetamenities: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath
-        get(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath = trainsetamenities()
+    val trainsetamenities: Trainsetamenities.TrainsetamenitiesPath
+        get(): Trainsetamenities.TrainsetamenitiesPath = trainsetamenities()
     override fun `as`(alias: String): Amenity = Amenity(DSL.name(alias), this)
     override fun `as`(alias: Name): Amenity = Amenity(alias, this)
     override fun `as`(alias: Table<*>): Amenity = Amenity(alias.qualifiedName, this)

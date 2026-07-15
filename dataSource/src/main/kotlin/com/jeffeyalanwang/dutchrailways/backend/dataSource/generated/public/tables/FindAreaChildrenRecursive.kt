@@ -4,6 +4,8 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.FindAreaChildrenRecursiveRecord
 import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
@@ -26,14 +28,14 @@ import org.jooq.impl.TableImpl
 open class FindAreaChildrenRecursive(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord>?,
+    childPath: ForeignKey<out Record, FindAreaChildrenRecursiveRecord>?,
+    parentPath: InverseForeignKey<out Record, FindAreaChildrenRecursiveRecord>?,
+    aliased: Table<FindAreaChildrenRecursiveRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord>(
+): TableImpl<FindAreaChildrenRecursiveRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -55,17 +57,17 @@ open class FindAreaChildrenRecursive(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord::class.java
+    override fun getRecordType(): Class<FindAreaChildrenRecursiveRecord> = FindAreaChildrenRecursiveRecord::class.java
 
     /**
      * The column <code>public.find_area_children_recursive.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
+    val ID: TableField<FindAreaChildrenRecursiveRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<FindAreaChildrenRecursiveRecord>?): this(alias, null, null, null, aliased, arrayOf(
         DSL.value(null, SQLDataType.INTEGER)
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<FindAreaChildrenRecursiveRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.find_area_children_recursive</code> table
@@ -83,7 +85,7 @@ open class FindAreaChildrenRecursive(
      * Create a <code>public.find_area_children_recursive</code> table reference
      */
     constructor(): this(DSL.name("find_area_children_recursive"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): FindAreaChildrenRecursive = FindAreaChildrenRecursive(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): FindAreaChildrenRecursive = FindAreaChildrenRecursive(alias, this, parameters)
     override fun `as`(alias: Table<*>): FindAreaChildrenRecursive = FindAreaChildrenRecursive(alias.qualifiedName, this, parameters)

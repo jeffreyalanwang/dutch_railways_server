@@ -27,14 +27,14 @@ import org.jooq.impl.TableImpl
 open class FindPlaceParentRecursive(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord>?,
+    childPath: ForeignKey<out Record, FindPlaceParentRecursiveRecord>?,
+    parentPath: InverseForeignKey<out Record, FindPlaceParentRecursiveRecord>?,
+    aliased: Table<FindPlaceParentRecursiveRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord>(
+): TableImpl<FindPlaceParentRecursiveRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -56,17 +56,17 @@ open class FindPlaceParentRecursive(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord::class.java
+    override fun getRecordType(): Class<FindPlaceParentRecursiveRecord> = FindPlaceParentRecursiveRecord::class.java
 
     /**
      * The column <code>public.find_place_parent_recursive.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
+    val ID: TableField<FindPlaceParentRecursiveRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<FindPlaceParentRecursiveRecord>?): this(alias, null, null, null, aliased, arrayOf(
         DSL.value(null, SQLDataType.GEOMETRY)
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<FindPlaceParentRecursiveRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.find_place_parent_recursive</code> table
@@ -84,7 +84,7 @@ open class FindPlaceParentRecursive(
      * Create a <code>public.find_place_parent_recursive</code> table reference
      */
     constructor(): this(DSL.name("find_place_parent_recursive"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): FindPlaceParentRecursive = FindPlaceParentRecursive(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): FindPlaceParentRecursive = FindPlaceParentRecursive(alias, this, parameters)
     override fun `as`(alias: Table<*>): FindPlaceParentRecursive = FindPlaceParentRecursive(alias.qualifiedName, this, parameters)

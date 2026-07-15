@@ -5,6 +5,8 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.indexes
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Area.Companion.AREA
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Station.Companion.STATION
 import org.jooq.Index
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
@@ -15,5 +17,5 @@ import org.jooq.impl.Internal
 // INDEX definitions
 // -------------------------------------------------------------------------
 
-val IDXAREAGEOM: Index = Internal.createIndex(DSL.name("idxareageom"), com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area.AREA, arrayOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area.AREA.GEOM), false)
-val IDXSTATIONGEOM: Index = Internal.createIndex(DSL.name("idxstationgeom"), com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.STATION, arrayOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.STATION.GEOM), false)
+val IDXAREAGEOM: Index = Internal.createIndex(DSL.name("idxareageom"), AREA, arrayOf(AREA.GEOM), false)
+val IDXSTATIONGEOM: Index = Internal.createIndex(DSL.name("idxstationgeom"), STATION, arrayOf(STATION.GEOM), false)

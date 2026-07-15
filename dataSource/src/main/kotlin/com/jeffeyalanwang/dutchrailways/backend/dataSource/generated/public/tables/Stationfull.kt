@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StationfullRecord
 import kotlin.collections.Collection
 
 import org.jooq.Condition
@@ -35,14 +36,14 @@ import org.jooq.impl.TableImpl
 open class Stationfull(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord>?,
+    childPath: ForeignKey<out Record, StationfullRecord>?,
+    parentPath: InverseForeignKey<out Record, StationfullRecord>?,
+    aliased: Table<StationfullRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord>(
+): TableImpl<StationfullRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -71,36 +72,36 @@ open class Stationfull(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord::class.java
+    override fun getRecordType(): Class<StationfullRecord> = StationfullRecord::class.java
 
     /**
      * The column <code>public.stationfull.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
+    val ID: TableField<StationfullRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.stationfull.name</code>.
      */
-    val NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128), this, "")
+    val NAME: TableField<StationfullRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128), this, "")
 
     /**
      * The column <code>public.stationfull.locatedin</code>.
      */
-    val LOCATEDIN: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord, Int?> = createField(DSL.name("locatedin"), SQLDataType.INTEGER, this, "")
+    val LOCATEDIN: TableField<StationfullRecord, Int?> = createField(DSL.name("locatedin"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.stationfull.address</code>.
      */
-    val ADDRESS: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord, String?> = createField(DSL.name("address"), SQLDataType.VARCHAR(256), this, "")
+    val ADDRESS: TableField<StationfullRecord, String?> = createField(DSL.name("address"), SQLDataType.VARCHAR(256), this, "")
 
     /**
      * The column <code>public.stationfull.geom</code>.
      */
-    val GEOM: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "")
+    val GEOM: TableField<StationfullRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationfullRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<StationfullRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<StationfullRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<StationfullRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.stationfull</code> table reference
@@ -116,7 +117,7 @@ open class Stationfull(
      * Create a <code>public.stationfull</code> table reference
      */
     constructor(): this(DSL.name("stationfull"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): Stationfull = Stationfull(DSL.name(alias), this)
     override fun `as`(alias: Name): Stationfull = Stationfull(alias, this)
     override fun `as`(alias: Table<*>): Stationfull = Stationfull(alias.qualifiedName, this)

@@ -3,7 +3,10 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.PASSSERVICE__PASSSERVICE_CONSIST_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.TRAINSETAMENITIES__TRAINSETAMENITIES_TRAINSETTYPE_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.TrainsettypeRecord
 import kotlin.collections.Collection
 
 import org.jooq.Condition
@@ -36,14 +39,14 @@ import org.jooq.impl.TableImpl
 open class Trainsettype(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?,
+    childPath: ForeignKey<out Record, TrainsettypeRecord>?,
+    parentPath: InverseForeignKey<out Record, TrainsettypeRecord>?,
+    aliased: Table<TrainsettypeRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>(
+): TableImpl<TrainsettypeRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -64,16 +67,16 @@ open class Trainsettype(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord::class.java
+    override fun getRecordType(): Class<TrainsettypeRecord> = TrainsettypeRecord::class.java
 
     /**
      * The column <code>public.trainsettype.name</code>.
      */
-    val NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(64).nullable(false), this, "")
+    val NAME: TableField<TrainsettypeRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(64).nullable(false), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<TrainsettypeRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<TrainsettypeRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<TrainsettypeRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.trainsettype</code> table reference
@@ -90,52 +93,52 @@ open class Trainsettype(
      */
     constructor(): this(DSL.name("trainsettype"), null)
 
-    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, TRAINSETTYPE, null, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, TrainsettypeRecord>?, parentPath: InverseForeignKey<out Record, TrainsettypeRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, TRAINSETTYPE, null, null)
 
     /**
      * A subtype implementing {@link Path} for simplified path-based joins.
      */
-    open class TrainsettypePath : Trainsettype, Path<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord> {
-        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>?): super(path, childPath, parentPath)
-        private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord>): super(alias, aliased)
+    open class TrainsettypePath : Trainsettype, Path<TrainsettypeRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, TrainsettypeRecord>?, parentPath: InverseForeignKey<out Record, TrainsettypeRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<TrainsettypeRecord>): super(alias, aliased)
         override fun `as`(alias: String): TrainsettypePath = TrainsettypePath(DSL.name(alias), this)
         override fun `as`(alias: Name): TrainsettypePath = TrainsettypePath(alias, this)
         override fun `as`(alias: Table<*>): TrainsettypePath = TrainsettypePath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
-    override fun getPrimaryKey(): UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.TrainsettypeRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.TRAINSETTYPE_PKEY
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
+    override fun getPrimaryKey(): UniqueKey<TrainsettypeRecord> = TRAINSETTYPE_PKEY
 
-    private lateinit var _passservice: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice.PassservicePath
+    private lateinit var _passservice: Passservice.PassservicePath
 
     /**
      * Get the implicit to-many join path to the <code>public.passservice</code>
      * table
      */
-    fun passservice(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice.PassservicePath {
+    fun passservice(): Passservice.PassservicePath {
         if (!this::_passservice.isInitialized)
-            _passservice = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice.PassservicePath(this, null, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PASSSERVICE__PASSSERVICE_CONSIST_FKEY.inverseKey)
+            _passservice = Passservice.PassservicePath(this, null, PASSSERVICE__PASSSERVICE_CONSIST_FKEY.inverseKey)
 
         return _passservice;
     }
 
-    val passservice: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice.PassservicePath
-        get(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice.PassservicePath = passservice()
+    val passservice: Passservice.PassservicePath
+        get(): Passservice.PassservicePath = passservice()
 
-    private lateinit var _trainsetamenities: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath
+    private lateinit var _trainsetamenities: Trainsetamenities.TrainsetamenitiesPath
 
     /**
      * Get the implicit to-many join path to the
      * <code>public.trainsetamenities</code> table
      */
-    fun trainsetamenities(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath {
+    fun trainsetamenities(): Trainsetamenities.TrainsetamenitiesPath {
         if (!this::_trainsetamenities.isInitialized)
-            _trainsetamenities = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath(this, null, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.TRAINSETAMENITIES__TRAINSETAMENITIES_TRAINSETTYPE_FKEY.inverseKey)
+            _trainsetamenities = Trainsetamenities.TrainsetamenitiesPath(this, null, TRAINSETAMENITIES__TRAINSETAMENITIES_TRAINSETTYPE_FKEY.inverseKey)
 
         return _trainsetamenities;
     }
 
-    val trainsetamenities: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath
-        get(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TrainsetamenitiesPath = trainsetamenities()
+    val trainsetamenities: Trainsetamenities.TrainsetamenitiesPath
+        get(): Trainsetamenities.TrainsetamenitiesPath = trainsetamenities()
     override fun `as`(alias: String): Trainsettype = Trainsettype(DSL.name(alias), this)
     override fun `as`(alias: Name): Trainsettype = Trainsettype(alias, this)
     override fun `as`(alias: Table<*>): Trainsettype = Trainsettype(alias.qualifiedName, this)

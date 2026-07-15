@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PostgisSrsCodesRecord
 import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
@@ -26,14 +27,14 @@ import org.jooq.impl.TableImpl
 open class PostgisSrsCodes(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord>?,
+    childPath: ForeignKey<out Record, PostgisSrsCodesRecord>?,
+    parentPath: InverseForeignKey<out Record, PostgisSrsCodesRecord>?,
+    aliased: Table<PostgisSrsCodesRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord>(
+): TableImpl<PostgisSrsCodesRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -54,17 +55,17 @@ open class PostgisSrsCodes(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord::class.java
+    override fun getRecordType(): Class<PostgisSrsCodesRecord> = PostgisSrsCodesRecord::class.java
 
     /**
      * The column <code>public.postgis_srs_codes.postgis_srs_codes</code>.
      */
-    val POSTGIS_SRS_CODES_: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord, String?> = createField(DSL.name("postgis_srs_codes"), SQLDataType.CLOB, this, "")
+    val POSTGIS_SRS_CODES_: TableField<PostgisSrsCodesRecord, String?> = createField(DSL.name("postgis_srs_codes"), SQLDataType.CLOB, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<PostgisSrsCodesRecord>?): this(alias, null, null, null, aliased, arrayOf(
         DSL.value(null, SQLDataType.CLOB)
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<PostgisSrsCodesRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.postgis_srs_codes</code> table reference
@@ -80,7 +81,7 @@ open class PostgisSrsCodes(
      * Create a <code>public.postgis_srs_codes</code> table reference
      */
     constructor(): this(DSL.name("postgis_srs_codes"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): PostgisSrsCodes = PostgisSrsCodes(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): PostgisSrsCodes = PostgisSrsCodes(alias, this, parameters)
     override fun `as`(alias: Table<*>): PostgisSrsCodes = PostgisSrsCodes(alias.qualifiedName, this, parameters)

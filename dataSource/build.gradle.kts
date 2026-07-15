@@ -6,15 +6,14 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jooq:jooq:3.21.5")
     runtimeOnly("org.postgresql:postgresql:42.7.13")
+    implementation("org.jooq:jooq:3.21.5")
     jooqCodegen("org.jooq:jooq-postgres-extensions:3.21.6")
 }
 
 jooq {
     configuration {
         jdbc {
-            // When DB schema updated, generate using `gradlew :dataSource:jooqCodegen`
             val localProperties = rootProject
                 .file("local.properties")
                 .absolutePath

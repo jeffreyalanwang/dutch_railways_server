@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm")
+    kotlin("plugin.spring")
+    id("io.spring.dependency-management")
 }
 
 group = "com.jeffeyalanwang.dutchrailways.backend"
@@ -11,7 +13,13 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-Xjsr305=strict",
+            "-Xannotation-default-target=param-property"
+        )
+    }
 }
 
 dependencies {

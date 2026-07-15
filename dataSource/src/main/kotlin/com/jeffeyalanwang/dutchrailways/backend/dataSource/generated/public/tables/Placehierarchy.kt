@@ -4,6 +4,8 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PlacehierarchyRecord
 import kotlin.collections.Collection
 
 import org.jooq.Condition
@@ -34,14 +36,14 @@ import org.jooq.impl.TableImpl
 open class Placehierarchy(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord>?,
+    childPath: ForeignKey<out Record, PlacehierarchyRecord>?,
+    parentPath: InverseForeignKey<out Record, PlacehierarchyRecord>?,
+    aliased: Table<PlacehierarchyRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord>(
+): TableImpl<PlacehierarchyRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -78,21 +80,21 @@ open class Placehierarchy(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord::class.java
+    override fun getRecordType(): Class<PlacehierarchyRecord> = PlacehierarchyRecord::class.java
 
     /**
      * The column <code>public.placehierarchy.parent</code>.
      */
-    val PARENT: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord, Int?> = createField(DSL.name("parent"), SQLDataType.INTEGER, this, "")
+    val PARENT: TableField<PlacehierarchyRecord, Int?> = createField(DSL.name("parent"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.placehierarchy.child</code>.
      */
-    val CHILD: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord, Int?> = createField(DSL.name("child"), SQLDataType.INTEGER, this, "")
+    val CHILD: TableField<PlacehierarchyRecord, Int?> = createField(DSL.name("child"), SQLDataType.INTEGER, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacehierarchyRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<PlacehierarchyRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<PlacehierarchyRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<PlacehierarchyRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.placehierarchy</code> table reference
@@ -108,7 +110,7 @@ open class Placehierarchy(
      * Create a <code>public.placehierarchy</code> table reference
      */
     constructor(): this(DSL.name("placehierarchy"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): Placehierarchy = Placehierarchy(DSL.name(alias), this)
     override fun `as`(alias: Name): Placehierarchy = Placehierarchy(alias, this)
     override fun `as`(alias: Table<*>): Placehierarchy = Placehierarchy(alias.qualifiedName, this)

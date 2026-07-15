@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PostgisSrsAllRecord
 import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
@@ -27,14 +28,14 @@ import org.jooq.impl.TableImpl
 open class PostgisSrsAll(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord>?,
+    childPath: ForeignKey<out Record, PostgisSrsAllRecord>?,
+    parentPath: InverseForeignKey<out Record, PostgisSrsAllRecord>?,
+    aliased: Table<PostgisSrsAllRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord>(
+): TableImpl<PostgisSrsAllRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -55,40 +56,40 @@ open class PostgisSrsAll(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord::class.java
+    override fun getRecordType(): Class<PostgisSrsAllRecord> = PostgisSrsAllRecord::class.java
 
     /**
      * The column <code>public.postgis_srs_all.auth_name</code>.
      */
-    val AUTH_NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord, String?> = createField(DSL.name("auth_name"), SQLDataType.CLOB, this, "")
+    val AUTH_NAME: TableField<PostgisSrsAllRecord, String?> = createField(DSL.name("auth_name"), SQLDataType.CLOB, this, "")
 
     /**
      * The column <code>public.postgis_srs_all.auth_srid</code>.
      */
-    val AUTH_SRID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord, String?> = createField(DSL.name("auth_srid"), SQLDataType.CLOB, this, "")
+    val AUTH_SRID: TableField<PostgisSrsAllRecord, String?> = createField(DSL.name("auth_srid"), SQLDataType.CLOB, this, "")
 
     /**
      * The column <code>public.postgis_srs_all.srname</code>.
      */
-    val SRNAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord, String?> = createField(DSL.name("srname"), SQLDataType.CLOB, this, "")
+    val SRNAME: TableField<PostgisSrsAllRecord, String?> = createField(DSL.name("srname"), SQLDataType.CLOB, this, "")
 
     /**
      * The column <code>public.postgis_srs_all.srtext</code>.
      */
-    val SRTEXT: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord, String?> = createField(DSL.name("srtext"), SQLDataType.CLOB, this, "")
+    val SRTEXT: TableField<PostgisSrsAllRecord, String?> = createField(DSL.name("srtext"), SQLDataType.CLOB, this, "")
 
     /**
      * The column <code>public.postgis_srs_all.proj4text</code>.
      */
-    val PROJ4TEXT: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord, String?> = createField(DSL.name("proj4text"), SQLDataType.CLOB, this, "")
+    val PROJ4TEXT: TableField<PostgisSrsAllRecord, String?> = createField(DSL.name("proj4text"), SQLDataType.CLOB, this, "")
     @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
-    val POINT_SW: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord, Any?> = createField(DSL.name("point_sw"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
+    val POINT_SW: TableField<PostgisSrsAllRecord, Any?> = createField(DSL.name("point_sw"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
     @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
-    val POINT_NE: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord, Any?> = createField(DSL.name("point_ne"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
+    val POINT_NE: TableField<PostgisSrsAllRecord, Any?> = createField(DSL.name("point_ne"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<PostgisSrsAllRecord>?): this(alias, null, null, null, aliased, arrayOf(
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<PostgisSrsAllRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.postgis_srs_all</code> table reference
@@ -104,7 +105,7 @@ open class PostgisSrsAll(
      * Create a <code>public.postgis_srs_all</code> table reference
      */
     constructor(): this(DSL.name("postgis_srs_all"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): PostgisSrsAll = PostgisSrsAll(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): PostgisSrsAll = PostgisSrsAll(alias, this, parameters)
     override fun `as`(alias: Table<*>): PostgisSrsAll = PostgisSrsAll(alias.qualifiedName, this, parameters)

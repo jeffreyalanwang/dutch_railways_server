@@ -34,14 +34,14 @@ import org.jooq.impl.TableImpl
 open class GeometryColumns(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord>?,
+    childPath: ForeignKey<out Record, GeometryColumnsRecord>?,
+    parentPath: InverseForeignKey<out Record, GeometryColumnsRecord>?,
+    aliased: Table<GeometryColumnsRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord>(
+): TableImpl<GeometryColumnsRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -105,46 +105,46 @@ open class GeometryColumns(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord::class.java
+    override fun getRecordType(): Class<GeometryColumnsRecord> = GeometryColumnsRecord::class.java
 
     /**
      * The column <code>public.geometry_columns.f_table_catalog</code>.
      */
-    val F_TABLE_CATALOG: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord, String?> = createField(DSL.name("f_table_catalog"), SQLDataType.VARCHAR(256), this, "")
+    val F_TABLE_CATALOG: TableField<GeometryColumnsRecord, String?> = createField(DSL.name("f_table_catalog"), SQLDataType.VARCHAR(256), this, "")
 
     /**
      * The column <code>public.geometry_columns.f_table_schema</code>.
      */
-    val F_TABLE_SCHEMA: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord, String?> = createField(DSL.name("f_table_schema"), SQLDataType.VARCHAR, this, "")
+    val F_TABLE_SCHEMA: TableField<GeometryColumnsRecord, String?> = createField(DSL.name("f_table_schema"), SQLDataType.VARCHAR, this, "")
 
     /**
      * The column <code>public.geometry_columns.f_table_name</code>.
      */
-    val F_TABLE_NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord, String?> = createField(DSL.name("f_table_name"), SQLDataType.VARCHAR, this, "")
+    val F_TABLE_NAME: TableField<GeometryColumnsRecord, String?> = createField(DSL.name("f_table_name"), SQLDataType.VARCHAR, this, "")
 
     /**
      * The column <code>public.geometry_columns.f_geometry_column</code>.
      */
-    val F_GEOMETRY_COLUMN: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord, String?> = createField(DSL.name("f_geometry_column"), SQLDataType.VARCHAR, this, "")
+    val F_GEOMETRY_COLUMN: TableField<GeometryColumnsRecord, String?> = createField(DSL.name("f_geometry_column"), SQLDataType.VARCHAR, this, "")
 
     /**
      * The column <code>public.geometry_columns.coord_dimension</code>.
      */
-    val COORD_DIMENSION: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord, Int?> = createField(DSL.name("coord_dimension"), SQLDataType.INTEGER, this, "")
+    val COORD_DIMENSION: TableField<GeometryColumnsRecord, Int?> = createField(DSL.name("coord_dimension"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.geometry_columns.srid</code>.
      */
-    val SRID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord, Int?> = createField(DSL.name("srid"), SQLDataType.INTEGER, this, "")
+    val SRID: TableField<GeometryColumnsRecord, Int?> = createField(DSL.name("srid"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.geometry_columns.type</code>.
      */
-    val TYPE: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord, String?> = createField(DSL.name("type"), SQLDataType.VARCHAR(30), this, "")
+    val TYPE: TableField<GeometryColumnsRecord, String?> = createField(DSL.name("type"), SQLDataType.VARCHAR(30), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeometryColumnsRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<GeometryColumnsRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<GeometryColumnsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<GeometryColumnsRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.geometry_columns</code> table reference
@@ -160,7 +160,7 @@ open class GeometryColumns(
      * Create a <code>public.geometry_columns</code> table reference
      */
     constructor(): this(DSL.name("geometry_columns"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): GeometryColumns = GeometryColumns(DSL.name(alias), this)
     override fun `as`(alias: Name): GeometryColumns = GeometryColumns(alias, this)
     override fun `as`(alias: Table<*>): GeometryColumns = GeometryColumns(alias.qualifiedName, this)

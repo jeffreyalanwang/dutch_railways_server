@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StSquaregridRecord
 import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
@@ -28,14 +29,14 @@ import org.jooq.impl.TableImpl
 open class StSquaregrid(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord>?,
+    childPath: ForeignKey<out Record, StSquaregridRecord>?,
+    parentPath: InverseForeignKey<out Record, StSquaregridRecord>?,
+    aliased: Table<StSquaregridRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord>(
+): TableImpl<StSquaregridRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -56,25 +57,25 @@ open class StSquaregrid(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord::class.java
+    override fun getRecordType(): Class<StSquaregridRecord> = StSquaregridRecord::class.java
     @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
-    val GEOM: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord, Any?> = createField(DSL.name("geom"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
+    val GEOM: TableField<StSquaregridRecord, Any?> = createField(DSL.name("geom"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
 
     /**
      * The column <code>public.st_squaregrid.i</code>.
      */
-    val I: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord, Int?> = createField(DSL.name("i"), SQLDataType.INTEGER, this, "")
+    val I: TableField<StSquaregridRecord, Int?> = createField(DSL.name("i"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.st_squaregrid.j</code>.
      */
-    val J: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord, Int?> = createField(DSL.name("j"), SQLDataType.INTEGER, this, "")
+    val J: TableField<StSquaregridRecord, Int?> = createField(DSL.name("j"), SQLDataType.INTEGER, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<StSquaregridRecord>?): this(alias, null, null, null, aliased, arrayOf(
         DSL.value(null, SQLDataType.DOUBLE),
         DSL.value(null, SQLDataType.GEOMETRY)
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<StSquaregridRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.st_squaregrid</code> table reference
@@ -90,7 +91,7 @@ open class StSquaregrid(
      * Create a <code>public.st_squaregrid</code> table reference
      */
     constructor(): this(DSL.name("st_squaregrid"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): StSquaregrid = StSquaregrid(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): StSquaregrid = StSquaregrid(alias, this, parameters)
     override fun `as`(alias: Table<*>): StSquaregrid = StSquaregrid(alias.qualifiedName, this, parameters)

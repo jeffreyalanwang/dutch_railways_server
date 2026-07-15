@@ -4,6 +4,12 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.PASSSERVICE_NAME_KEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.PASSSERVICE_PKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.PASSSERVICE__PASSSERVICE_CONSIST_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.STOP__STOP_SERVICE_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PassserviceRecord
 import kotlin.collections.Collection
 import kotlin.collections.List
 
@@ -38,14 +44,14 @@ import org.jooq.impl.TableImpl
 open class Passservice(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?,
+    childPath: ForeignKey<out Record, PassserviceRecord>?,
+    parentPath: InverseForeignKey<out Record, PassserviceRecord>?,
+    aliased: Table<PassserviceRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>(
+): TableImpl<PassserviceRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -66,26 +72,26 @@ open class Passservice(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord::class.java
+    override fun getRecordType(): Class<PassserviceRecord> = PassserviceRecord::class.java
 
     /**
      * The column <code>public.passservice.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).generatedAlwaysAsIdentity(), this, "")
+    val ID: TableField<PassserviceRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).generatedAlwaysAsIdentity(), this, "")
 
     /**
      * The column <code>public.passservice.name</code>.
      */
-    val NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128).nullable(false), this, "")
+    val NAME: TableField<PassserviceRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(128).nullable(false), this, "")
 
     /**
      * The column <code>public.passservice.consist</code>.
      */
-    val CONSIST: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord, String?> = createField(DSL.name("consist"), SQLDataType.VARCHAR(64).nullable(false), this, "")
+    val CONSIST: TableField<PassserviceRecord, String?> = createField(DSL.name("consist"), SQLDataType.VARCHAR(64).nullable(false), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<PassserviceRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<PassserviceRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<PassserviceRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.passservice</code> table reference
@@ -102,44 +108,44 @@ open class Passservice(
      */
     constructor(): this(DSL.name("passservice"), null)
 
-    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, PASSSERVICE, null, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, PassserviceRecord>?, parentPath: InverseForeignKey<out Record, PassserviceRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, PASSSERVICE, null, null)
 
     /**
      * A subtype implementing {@link Path} for simplified path-based joins.
      */
-    open class PassservicePath : Passservice, Path<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord> {
-        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>?): super(path, childPath, parentPath)
-        private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>): super(alias, aliased)
+    open class PassservicePath : Passservice, Path<PassserviceRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, PassserviceRecord>?, parentPath: InverseForeignKey<out Record, PassserviceRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<PassserviceRecord>): super(alias, aliased)
         override fun `as`(alias: String): PassservicePath = PassservicePath(DSL.name(alias), this)
         override fun `as`(alias: Name): PassservicePath = PassservicePath(alias, this)
         override fun `as`(alias: Table<*>): PassservicePath = PassservicePath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
-    override fun getIdentity(): Identity<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord, Int?> = super.getIdentity() as Identity<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord, Int?>
-    override fun getPrimaryKey(): UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PASSSERVICE_PKEY
-    override fun getUniqueKeys(): List<UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord>> = listOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PASSSERVICE_NAME_KEY)
-    override fun getReferences(): List<ForeignKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PassserviceRecord, *>> = listOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PASSSERVICE__PASSSERVICE_CONSIST_FKEY)
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
+    override fun getIdentity(): Identity<PassserviceRecord, Int?> = super.getIdentity() as Identity<PassserviceRecord, Int?>
+    override fun getPrimaryKey(): UniqueKey<PassserviceRecord> = PASSSERVICE_PKEY
+    override fun getUniqueKeys(): List<UniqueKey<PassserviceRecord>> = listOf(PASSSERVICE_NAME_KEY)
+    override fun getReferences(): List<ForeignKey<PassserviceRecord, *>> = listOf(PASSSERVICE__PASSSERVICE_CONSIST_FKEY)
 
     /**
      * Get the implicit join path to the <code>public.trainsettype</code> table.
      */
-    fun trainsettype(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsettype.TrainsettypePath = trainsettype
-    val trainsettype: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsettype.TrainsettypePath by lazy { com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsettype.TrainsettypePath(this, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.PASSSERVICE__PASSSERVICE_CONSIST_FKEY, null) }
+    fun trainsettype(): Trainsettype.TrainsettypePath = trainsettype
+    val trainsettype: Trainsettype.TrainsettypePath by lazy { Trainsettype.TrainsettypePath(this, PASSSERVICE__PASSSERVICE_CONSIST_FKEY, null) }
 
-    private lateinit var _stop: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath
+    private lateinit var _stop: Stop.StopPath
 
     /**
      * Get the implicit to-many join path to the <code>public.stop</code> table
      */
-    fun stop(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath {
+    fun stop(): Stop.StopPath {
         if (!this::_stop.isInitialized)
-            _stop = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath(this, null, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.STOP__STOP_SERVICE_FKEY.inverseKey)
+            _stop = Stop.StopPath(this, null, STOP__STOP_SERVICE_FKEY.inverseKey)
 
         return _stop;
     }
 
-    val stop: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath
-        get(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath = stop()
+    val stop: Stop.StopPath
+        get(): Stop.StopPath = stop()
     override fun `as`(alias: String): Passservice = Passservice(DSL.name(alias), this)
     override fun `as`(alias: Name): Passservice = Passservice(alias, this)
     override fun `as`(alias: Table<*>): Passservice = Passservice(alias.qualifiedName, this)

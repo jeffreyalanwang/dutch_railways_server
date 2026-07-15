@@ -3,7 +3,12 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.indexes.IDXSTATIONGEOM
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.STATION_PKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.STATION__STATION_ID_FKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.STOP__STOPSTATION
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StationRecord
 import kotlin.collections.Collection
 import kotlin.collections.List
 
@@ -40,14 +45,14 @@ import org.jooq.impl.TableImpl
 open class Station(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?,
+    childPath: ForeignKey<out Record, StationRecord>?,
+    parentPath: InverseForeignKey<out Record, StationRecord>?,
+    aliased: Table<StationRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>(
+): TableImpl<StationRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -68,26 +73,26 @@ open class Station(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord::class.java
+    override fun getRecordType(): Class<StationRecord> = StationRecord::class.java
 
     /**
      * The column <code>public.station.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false), this, "")
+    val ID: TableField<StationRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false), this, "")
 
     /**
      * The column <code>public.station.address</code>.
      */
-    val ADDRESS: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord, String?> = createField(DSL.name("address"), SQLDataType.VARCHAR(256), this, "")
+    val ADDRESS: TableField<StationRecord, String?> = createField(DSL.name("address"), SQLDataType.VARCHAR(256), this, "")
 
     /**
      * The column <code>public.station.geom</code>.
      */
-    val GEOM: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY.nullable(false), this, "")
+    val GEOM: TableField<StationRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY.nullable(false), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<StationRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<StationRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<StationRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.station</code> table reference
@@ -104,44 +109,44 @@ open class Station(
      */
     constructor(): this(DSL.name("station"), null)
 
-    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, STATION, null, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, StationRecord>?, parentPath: InverseForeignKey<out Record, StationRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, STATION, null, null)
 
     /**
      * A subtype implementing {@link Path} for simplified path-based joins.
      */
-    open class StationPath : Station, Path<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord> {
-        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?, parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>?): super(path, childPath, parentPath)
-        private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>): super(alias, aliased)
+    open class StationPath : Station, Path<StationRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, StationRecord>?, parentPath: InverseForeignKey<out Record, StationRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<StationRecord>): super(alias, aliased)
         override fun `as`(alias: String): StationPath = StationPath(DSL.name(alias), this)
         override fun `as`(alias: Name): StationPath = StationPath(alias, this)
         override fun `as`(alias: Table<*>): StationPath = StationPath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
-    override fun getIndexes(): List<Index> = listOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.indexes.IDXSTATIONGEOM)
-    override fun getPrimaryKey(): UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.STATION_PKEY
-    override fun getReferences(): List<ForeignKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord, *>> = listOf(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.STATION__STATION_ID_FKEY)
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
+    override fun getIndexes(): List<Index> = listOf(IDXSTATIONGEOM)
+    override fun getPrimaryKey(): UniqueKey<StationRecord> = STATION_PKEY
+    override fun getReferences(): List<ForeignKey<StationRecord, *>> = listOf(STATION__STATION_ID_FKEY)
 
     /**
      * Get the implicit join path to the <code>public.place</code> table.
      */
-    fun place(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PlacePath = place
-    val place: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PlacePath by lazy { com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PlacePath(this, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.STATION__STATION_ID_FKEY, null) }
+    fun place(): Place.PlacePath = place
+    val place: Place.PlacePath by lazy { Place.PlacePath(this, STATION__STATION_ID_FKEY, null) }
 
-    private lateinit var _stop: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath
+    private lateinit var _stop: Stop.StopPath
 
     /**
      * Get the implicit to-many join path to the <code>public.stop</code> table
      */
-    fun stop(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath {
+    fun stop(): Stop.StopPath {
         if (!this::_stop.isInitialized)
-            _stop = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath(this, null, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.STOP__STOPSTATION.inverseKey)
+            _stop = Stop.StopPath(this, null, STOP__STOPSTATION.inverseKey)
 
         return _stop;
     }
 
-    val stop: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath
-        get(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.StopPath = stop()
-    override fun getChecks(): List<Check<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StationRecord>> = listOf(
+    val stop: Stop.StopPath
+        get(): Stop.StopPath = stop()
+    override fun getChecks(): List<Check<StationRecord>> = listOf(
         Internal.createCheck(this, DSL.name("stationsrid"), "((st_srid(geom) = 28992))", true)
     )
     override fun `as`(alias: String): Station = Station(DSL.name(alias), this)

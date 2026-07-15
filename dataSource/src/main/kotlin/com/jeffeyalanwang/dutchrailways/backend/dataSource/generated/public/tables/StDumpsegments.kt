@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.records.GeometryDumpRecord
 import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
@@ -28,14 +29,14 @@ import org.jooq.impl.TableImpl
 open class StDumpsegments(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord>?,
+    childPath: ForeignKey<out Record, GeometryDumpRecord>?,
+    parentPath: InverseForeignKey<out Record, GeometryDumpRecord>?,
+    aliased: Table<GeometryDumpRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord>(
+): TableImpl<GeometryDumpRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -56,19 +57,19 @@ open class StDumpsegments(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord::class.java
+    override fun getRecordType(): Class<GeometryDumpRecord> = GeometryDumpRecord::class.java
 
     /**
      * The column <code>public.st_dumpsegments.path</code>.
      */
-    val PATH: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord, Array<Int?>?> = createField(DSL.name("path"), SQLDataType.INTEGER.array(), this, "")
+    val PATH: TableField<GeometryDumpRecord, Array<Int?>?> = createField(DSL.name("path"), SQLDataType.INTEGER.array(), this, "")
     @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
-    val GEOM: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord, Any?> = createField(DSL.name("geom"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
+    val GEOM: TableField<GeometryDumpRecord, Any?> = createField(DSL.name("geom"), DefaultDataType.getDefaultDataType("\"public\".\"geometry\""), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<GeometryDumpRecord>?): this(alias, null, null, null, aliased, arrayOf(
         DSL.value(null, SQLDataType.GEOMETRY)
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<GeometryDumpRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.st_dumpsegments</code> table reference
@@ -84,7 +85,7 @@ open class StDumpsegments(
      * Create a <code>public.st_dumpsegments</code> table reference
      */
     constructor(): this(DSL.name("st_dumpsegments"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): StDumpsegments = StDumpsegments(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): StDumpsegments = StDumpsegments(alias, this, parameters)
     override fun `as`(alias: Table<*>): StDumpsegments = StDumpsegments(alias.qualifiedName, this, parameters)

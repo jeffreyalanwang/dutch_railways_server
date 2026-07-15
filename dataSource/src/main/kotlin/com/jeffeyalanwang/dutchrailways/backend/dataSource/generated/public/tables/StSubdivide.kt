@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StSubdivideRecord
 import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
@@ -28,14 +29,14 @@ import org.jooq.impl.TableImpl
 open class StSubdivide(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord>?,
+    childPath: ForeignKey<out Record, StSubdivideRecord>?,
+    parentPath: InverseForeignKey<out Record, StSubdivideRecord>?,
+    aliased: Table<StSubdivideRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord>(
+): TableImpl<StSubdivideRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -56,16 +57,16 @@ open class StSubdivide(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord::class.java
+    override fun getRecordType(): Class<StSubdivideRecord> = StSubdivideRecord::class.java
     @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
-    val ST_SUBDIVIDE_: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord, Any?> = createField(DSL.name("st_subdivide"), DefaultDataType.getDefaultDataType("\"geometry\""), this, "")
+    val ST_SUBDIVIDE_: TableField<StSubdivideRecord, Any?> = createField(DSL.name("st_subdivide"), DefaultDataType.getDefaultDataType("\"geometry\""), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<StSubdivideRecord>?): this(alias, null, null, null, aliased, arrayOf(
         DSL.value(null, SQLDataType.GEOMETRY),
         DSL.value(null, SQLDataType.INTEGER.defaultValue(DSL.field(DSL.raw("256"), SQLDataType.INTEGER))),
         DSL.value(null, SQLDataType.DOUBLE.defaultValue(DSL.field(DSL.raw("'-1.0'::numeric"), SQLDataType.DOUBLE)))
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<StSubdivideRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.st_subdivide</code> table reference
@@ -81,7 +82,7 @@ open class StSubdivide(
      * Create a <code>public.st_subdivide</code> table reference
      */
     constructor(): this(DSL.name("st_subdivide"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): StSubdivide = StSubdivide(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): StSubdivide = StSubdivide(alias, this, parameters)
     override fun `as`(alias: Table<*>): StSubdivide = StSubdivide(alias.qualifiedName, this, parameters)

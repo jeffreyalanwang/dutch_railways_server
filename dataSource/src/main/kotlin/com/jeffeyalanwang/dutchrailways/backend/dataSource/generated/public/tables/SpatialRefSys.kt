@@ -3,7 +3,9 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.keys.SPATIAL_REF_SYS_PKEY
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.SpatialRefSysRecord
 import kotlin.collections.Collection
 import kotlin.collections.List
 
@@ -37,14 +39,14 @@ import org.jooq.impl.TableImpl
 open class SpatialRefSys(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>?,
+    childPath: ForeignKey<out Record, SpatialRefSysRecord>?,
+    parentPath: InverseForeignKey<out Record, SpatialRefSysRecord>?,
+    aliased: Table<SpatialRefSysRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>(
+): TableImpl<SpatialRefSysRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -65,36 +67,36 @@ open class SpatialRefSys(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord::class.java
+    override fun getRecordType(): Class<SpatialRefSysRecord> = SpatialRefSysRecord::class.java
 
     /**
      * The column <code>public.spatial_ref_sys.srid</code>.
      */
-    val SRID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord, Int?> = createField(DSL.name("srid"), SQLDataType.INTEGER.nullable(false), this, "")
+    val SRID: TableField<SpatialRefSysRecord, Int?> = createField(DSL.name("srid"), SQLDataType.INTEGER.nullable(false), this, "")
 
     /**
      * The column <code>public.spatial_ref_sys.auth_name</code>.
      */
-    val AUTH_NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord, String?> = createField(DSL.name("auth_name"), SQLDataType.VARCHAR(256), this, "")
+    val AUTH_NAME: TableField<SpatialRefSysRecord, String?> = createField(DSL.name("auth_name"), SQLDataType.VARCHAR(256), this, "")
 
     /**
      * The column <code>public.spatial_ref_sys.auth_srid</code>.
      */
-    val AUTH_SRID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord, Int?> = createField(DSL.name("auth_srid"), SQLDataType.INTEGER, this, "")
+    val AUTH_SRID: TableField<SpatialRefSysRecord, Int?> = createField(DSL.name("auth_srid"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.spatial_ref_sys.srtext</code>.
      */
-    val SRTEXT: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord, String?> = createField(DSL.name("srtext"), SQLDataType.VARCHAR(2048), this, "")
+    val SRTEXT: TableField<SpatialRefSysRecord, String?> = createField(DSL.name("srtext"), SQLDataType.VARCHAR(2048), this, "")
 
     /**
      * The column <code>public.spatial_ref_sys.proj4text</code>.
      */
-    val PROJ4TEXT: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord, String?> = createField(DSL.name("proj4text"), SQLDataType.VARCHAR(2048), this, "")
+    val PROJ4TEXT: TableField<SpatialRefSysRecord, String?> = createField(DSL.name("proj4text"), SQLDataType.VARCHAR(2048), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<SpatialRefSysRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<SpatialRefSysRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<SpatialRefSysRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.spatial_ref_sys</code> table reference
@@ -110,9 +112,9 @@ open class SpatialRefSys(
      * Create a <code>public.spatial_ref_sys</code> table reference
      */
     constructor(): this(DSL.name("spatial_ref_sys"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
-    override fun getPrimaryKey(): UniqueKey<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.keys.SPATIAL_REF_SYS_PKEY
-    override fun getChecks(): List<Check<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.SpatialRefSysRecord>> = listOf(
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
+    override fun getPrimaryKey(): UniqueKey<SpatialRefSysRecord> = SPATIAL_REF_SYS_PKEY
+    override fun getChecks(): List<Check<SpatialRefSysRecord>> = listOf(
         Internal.createCheck(this, DSL.name("spatial_ref_sys_srid_check"), "(((srid > 0) AND (srid <= 998999)))", true)
     )
     override fun `as`(alias: String): SpatialRefSys = SpatialRefSys(DSL.name(alias), this)

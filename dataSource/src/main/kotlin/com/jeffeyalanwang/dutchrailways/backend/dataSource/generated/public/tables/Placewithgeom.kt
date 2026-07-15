@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PlacewithgeomRecord
 import kotlin.collections.Collection
 
 import org.jooq.Condition
@@ -35,14 +36,14 @@ import org.jooq.impl.TableImpl
 open class Placewithgeom(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord>?,
+    childPath: ForeignKey<out Record, PlacewithgeomRecord>?,
+    parentPath: InverseForeignKey<out Record, PlacewithgeomRecord>?,
+    aliased: Table<PlacewithgeomRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord>(
+): TableImpl<PlacewithgeomRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -71,21 +72,21 @@ open class Placewithgeom(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord::class.java
+    override fun getRecordType(): Class<PlacewithgeomRecord> = PlacewithgeomRecord::class.java
 
     /**
      * The column <code>public.placewithgeom.id</code>.
      */
-    val ID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
+    val ID: TableField<PlacewithgeomRecord, Int?> = createField(DSL.name("id"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.placewithgeom.geom</code>.
      */
-    val GEOM: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "")
+    val GEOM: TableField<PlacewithgeomRecord, Geometry?> = createField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PlacewithgeomRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<PlacewithgeomRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<PlacewithgeomRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<PlacewithgeomRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.placewithgeom</code> table reference
@@ -101,7 +102,7 @@ open class Placewithgeom(
      * Create a <code>public.placewithgeom</code> table reference
      */
     constructor(): this(DSL.name("placewithgeom"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): Placewithgeom = Placewithgeom(DSL.name(alias), this)
     override fun `as`(alias: Name): Placewithgeom = Placewithgeom(alias, this)
     override fun `as`(alias: Table<*>): Placewithgeom = Placewithgeom(alias.qualifiedName, this)

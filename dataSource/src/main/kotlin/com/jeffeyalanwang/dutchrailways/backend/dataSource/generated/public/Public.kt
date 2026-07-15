@@ -5,6 +5,48 @@ package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`
 
 
 import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.DefaultCatalog
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Amenity
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Area
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Areafull
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.FindAreaChildrenRecursive
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.FindPlaceParentRecursive
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.GeographyColumns
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.GeometryColumns
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Passservice
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Place
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Placehierarchy
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Placewithgeom
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.PostgisSrs
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.PostgisSrsAll
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.PostgisSrsCodes
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.PostgisSrsSearch
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.SpatialRefSys
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StDump
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StDumppoints
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StDumprings
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StDumpsegments
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StFromflatgeobuf
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StHexagongrid
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StSquaregrid
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.StSubdivide
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Station
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Stationfull
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Stop
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Trainsetamenities
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.Trainsettype
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.FindAreaChildrenRecursiveRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.FindPlaceParentRecursiveRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PostgisSrsAllRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PostgisSrsCodesRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PostgisSrsRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.PostgisSrsSearchRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StFromflatgeobufRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StHexagongridRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StSquaregridRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StSubdivideRecord
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.GeometryDump
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.ValidDetail
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.records.GeometryDumpRecord
 
 import kotlin.collections.List
 
@@ -35,22 +77,22 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     /**
      * The table <code>public.amenity</code>.
      */
-    val AMENITY: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Amenity get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Amenity.AMENITY
+    val AMENITY: Amenity get() = AMENITY
 
     /**
      * The table <code>public.area</code>.
      */
-    val AREA: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area.AREA
+    val AREA: Area get() = AREA
 
     /**
      * The table <code>public.areafull</code>.
      */
-    val AREAFULL: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Areafull get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Areafull.AREAFULL
+    val AREAFULL: Areafull get() = AREAFULL
 
     /**
      * The table <code>public.find_area_children_recursive</code>.
      */
-    val FIND_AREA_CHILDREN_RECURSIVE: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive.FIND_AREA_CHILDREN_RECURSIVE
+    val FIND_AREA_CHILDREN_RECURSIVE: FindAreaChildrenRecursive get() = FIND_AREA_CHILDREN_RECURSIVE
 
     /**
      * Call <code>public.find_area_children_recursive</code>.
@@ -58,7 +100,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun FIND_AREA_CHILDREN_RECURSIVE(
           configuration: Configuration
         , aid: Int?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindAreaChildrenRecursiveRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive.FIND_AREA_CHILDREN_RECURSIVE.call(
+    ): Result<FindAreaChildrenRecursiveRecord> = configuration.dsl().selectFrom<FindAreaChildrenRecursiveRecord>(FIND_AREA_CHILDREN_RECURSIVE.call(
           aid
     )).fetch()
 
@@ -67,7 +109,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun FIND_AREA_CHILDREN_RECURSIVE(
           aid: Int?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive.FIND_AREA_CHILDREN_RECURSIVE.call(
+    ): FindAreaChildrenRecursive = FIND_AREA_CHILDREN_RECURSIVE.call(
         aid
     )
 
@@ -76,14 +118,14 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun FIND_AREA_CHILDREN_RECURSIVE(
           aid: Field<Int?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive.FIND_AREA_CHILDREN_RECURSIVE.call(
+    ): FindAreaChildrenRecursive = FIND_AREA_CHILDREN_RECURSIVE.call(
         aid
     )
 
     /**
      * The table <code>public.find_place_parent_recursive</code>.
      */
-    val FIND_PLACE_PARENT_RECURSIVE: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive.FIND_PLACE_PARENT_RECURSIVE
+    val FIND_PLACE_PARENT_RECURSIVE: FindPlaceParentRecursive get() = FIND_PLACE_PARENT_RECURSIVE
 
     /**
      * Call <code>public.find_place_parent_recursive</code>.
@@ -91,7 +133,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun FIND_PLACE_PARENT_RECURSIVE(
           configuration: Configuration
         , g: Geometry?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.FindPlaceParentRecursiveRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive.FIND_PLACE_PARENT_RECURSIVE.call(
+    ): Result<FindAreaChildrenRecursiveRecord> = configuration.dsl().selectFrom<FindAreaChildrenRecursiveRecord>(FIND_PLACE_PARENT_RECURSIVE.call(
           g
     )).fetch()
 
@@ -100,7 +142,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun FIND_PLACE_PARENT_RECURSIVE(
           g: Geometry?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive.FIND_PLACE_PARENT_RECURSIVE.call(
+    ): FindPlaceParentRecursive = FIND_PLACE_PARENT_RECURSIVE.call(
         g
     )
 
@@ -109,44 +151,44 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun FIND_PLACE_PARENT_RECURSIVE(
           g: Field<Geometry?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive.FIND_PLACE_PARENT_RECURSIVE.call(
+    ): FindPlaceParentRecursive = FIND_PLACE_PARENT_RECURSIVE.call(
         g
     )
 
     /**
      * The table <code>public.geography_columns</code>.
      */
-    val GEOGRAPHY_COLUMNS: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.GeographyColumns get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.GeographyColumns.GEOGRAPHY_COLUMNS
+    val GEOGRAPHY_COLUMNS: GeographyColumns get() = GEOGRAPHY_COLUMNS
 
     /**
      * The table <code>public.geometry_columns</code>.
      */
-    val GEOMETRY_COLUMNS: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.GeometryColumns get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.GeometryColumns.GEOMETRY_COLUMNS
+    val GEOMETRY_COLUMNS: GeometryColumns get() = GEOMETRY_COLUMNS
 
     /**
      * The table <code>public.passservice</code>.
      */
-    val PASSSERVICE: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice.PASSSERVICE
+    val PASSSERVICE: Passservice get() = PASSSERVICE
 
     /**
      * The table <code>public.place</code>.
      */
-    val PLACE: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PLACE
+    val PLACE: Place get() = PLACE
 
     /**
      * The table <code>public.placehierarchy</code>.
      */
-    val PLACEHIERARCHY: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Placehierarchy get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Placehierarchy.PLACEHIERARCHY
+    val PLACEHIERARCHY: Placehierarchy get() = PLACEHIERARCHY
 
     /**
      * The table <code>public.placewithgeom</code>.
      */
-    val PLACEWITHGEOM: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Placewithgeom get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Placewithgeom.PLACEWITHGEOM
+    val PLACEWITHGEOM: Placewithgeom get() = PLACEWITHGEOM
 
     /**
      * The table <code>public.postgis_srs</code>.
      */
-    val POSTGIS_SRS: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs.POSTGIS_SRS
+    val POSTGIS_SRS: PostgisSrs get() = POSTGIS_SRS
 
     /**
      * Call <code>public.postgis_srs</code>.
@@ -155,7 +197,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
           configuration: Configuration
         , authName: String?
         , authSrid: String?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs.POSTGIS_SRS.call(
+    ): Result<PostgisSrsRecord> = configuration.dsl().selectFrom<PostgisSrsRecord>(POSTGIS_SRS.call(
           authName
         , authSrid
     )).fetch()
@@ -166,7 +208,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun POSTGIS_SRS(
           authName: String?
         , authSrid: String?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs.POSTGIS_SRS.call(
+    ): PostgisSrs = POSTGIS_SRS.call(
         authName,
         authSrid
     )
@@ -177,7 +219,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun POSTGIS_SRS(
           authName: Field<String?>
         , authSrid: Field<String?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs.POSTGIS_SRS.call(
+    ): PostgisSrs = POSTGIS_SRS.call(
         authName,
         authSrid
     )
@@ -185,26 +227,26 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     /**
      * The table <code>public.postgis_srs_all</code>.
      */
-    val POSTGIS_SRS_ALL: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsAll get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsAll.POSTGIS_SRS_ALL
+    val POSTGIS_SRS_ALL: PostgisSrsAll get() = POSTGIS_SRS_ALL
 
     /**
      * Call <code>public.postgis_srs_all</code>.
      */
     fun POSTGIS_SRS_ALL(
           configuration: Configuration
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsAllRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsAll.POSTGIS_SRS_ALL.call(
+    ): Result<PostgisSrsAllRecord> = configuration.dsl().selectFrom<PostgisSrsAllRecord>(POSTGIS_SRS_ALL.call(
     )).fetch()
 
     /**
      * Get <code>public.postgis_srs_all</code> as a table.
      */
-    fun POSTGIS_SRS_ALL(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsAll = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsAll.POSTGIS_SRS_ALL.call(
+    fun POSTGIS_SRS_ALL(): PostgisSrsAll = POSTGIS_SRS_ALL.call(
     )
 
     /**
      * The table <code>public.postgis_srs_codes</code>.
      */
-    val POSTGIS_SRS_CODES: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes.POSTGIS_SRS_CODES
+    val POSTGIS_SRS_CODES: PostgisSrsCodes get() = POSTGIS_SRS_CODES
 
     /**
      * Call <code>public.postgis_srs_codes</code>.
@@ -212,7 +254,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun POSTGIS_SRS_CODES(
           configuration: Configuration
         , authName: String?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsCodesRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes.POSTGIS_SRS_CODES.call(
+    ): Result<PostgisSrsCodesRecord> = configuration.dsl().selectFrom<PostgisSrsCodesRecord>(POSTGIS_SRS_CODES.call(
           authName
     )).fetch()
 
@@ -221,7 +263,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun POSTGIS_SRS_CODES(
           authName: String?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes.POSTGIS_SRS_CODES.call(
+    ): PostgisSrsCodes = POSTGIS_SRS_CODES.call(
         authName
     )
 
@@ -230,14 +272,14 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun POSTGIS_SRS_CODES(
           authName: Field<String?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes.POSTGIS_SRS_CODES.call(
+    ): PostgisSrsCodes = POSTGIS_SRS_CODES.call(
         authName
     )
 
     /**
      * The table <code>public.postgis_srs_search</code>.
      */
-    val POSTGIS_SRS_SEARCH: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch.POSTGIS_SRS_SEARCH
+    val POSTGIS_SRS_SEARCH: PostgisSrsSearch get() = POSTGIS_SRS_SEARCH
 
     /**
      * Call <code>public.postgis_srs_search</code>.
@@ -246,7 +288,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
           configuration: Configuration
         , bounds: Geometry?
         , authname: String?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.PostgisSrsSearchRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch.POSTGIS_SRS_SEARCH.call(
+    ): Result<PostgisSrsSearchRecord> = configuration.dsl().selectFrom<PostgisSrsSearchRecord>(POSTGIS_SRS_SEARCH.call(
           bounds
         , authname
     )).fetch()
@@ -257,7 +299,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun POSTGIS_SRS_SEARCH(
           bounds: Geometry?
         , authname: String?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch.POSTGIS_SRS_SEARCH.call(
+    ): PostgisSrsSearch = POSTGIS_SRS_SEARCH.call(
         bounds,
         authname
     )
@@ -268,7 +310,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun POSTGIS_SRS_SEARCH(
           bounds: Field<Geometry?>
         , authname: Field<String?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch.POSTGIS_SRS_SEARCH.call(
+    ): PostgisSrsSearch = POSTGIS_SRS_SEARCH.call(
         bounds,
         authname
     )
@@ -276,12 +318,12 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     /**
      * The table <code>public.spatial_ref_sys</code>.
      */
-    val SPATIAL_REF_SYS: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.SpatialRefSys get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.SpatialRefSys.SPATIAL_REF_SYS
+    val SPATIAL_REF_SYS: SpatialRefSys get() = SPATIAL_REF_SYS
 
     /**
      * The table <code>public.st_dump</code>.
      */
-    val ST_DUMP: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump.ST_DUMP
+    val ST_DUMP: StDump get() = ST_DUMP
 
     /**
      * Call <code>public.st_dump</code>.
@@ -289,7 +331,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_DUMP(
           configuration: Configuration
         , __1: Geometry?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump.ST_DUMP.call(
+    ): Result<GeometryDumpRecord> = configuration.dsl().selectFrom<GeometryDumpRecord>(ST_DUMP.call(
           __1
     )).fetch()
 
@@ -298,7 +340,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMP(
           __1: Geometry?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump.ST_DUMP.call(
+    ): StDump = ST_DUMP.call(
         __1
     )
 
@@ -307,14 +349,14 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMP(
           __1: Field<Geometry?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump.ST_DUMP.call(
+    ): StDump = ST_DUMP.call(
         __1
     )
 
     /**
      * The table <code>public.st_dumppoints</code>.
      */
-    val ST_DUMPPOINTS: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints.ST_DUMPPOINTS
+    val ST_DUMPPOINTS: StDumppoints get() = ST_DUMPPOINTS
 
     /**
      * Call <code>public.st_dumppoints</code>.
@@ -322,7 +364,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_DUMPPOINTS(
           configuration: Configuration
         , __1: Geometry?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints.ST_DUMPPOINTS.call(
+    ): Result<GeometryDumpRecord> = configuration.dsl().selectFrom<GeometryDumpRecord>(ST_DUMPPOINTS.call(
           __1
     )).fetch()
 
@@ -331,7 +373,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMPPOINTS(
           __1: Geometry?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints.ST_DUMPPOINTS.call(
+    ): StDumppoints = ST_DUMPPOINTS.call(
         __1
     )
 
@@ -340,14 +382,14 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMPPOINTS(
           __1: Field<Geometry?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints.ST_DUMPPOINTS.call(
+    ): StDumppoints = ST_DUMPPOINTS.call(
         __1
     )
 
     /**
      * The table <code>public.st_dumprings</code>.
      */
-    val ST_DUMPRINGS: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings.ST_DUMPRINGS
+    val ST_DUMPRINGS: StDumprings get() = ST_DUMPRINGS
 
     /**
      * Call <code>public.st_dumprings</code>.
@@ -355,7 +397,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_DUMPRINGS(
           configuration: Configuration
         , __1: Geometry?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings.ST_DUMPRINGS.call(
+    ): Result<GeometryDumpRecord> = configuration.dsl().selectFrom<GeometryDumpRecord>(ST_DUMPRINGS.call(
           __1
     )).fetch()
 
@@ -364,7 +406,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMPRINGS(
           __1: Geometry?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings.ST_DUMPRINGS.call(
+    ): StDumprings = ST_DUMPRINGS.call(
         __1
     )
 
@@ -373,14 +415,14 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMPRINGS(
           __1: Field<Geometry?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings.ST_DUMPRINGS.call(
+    ): StDumprings = ST_DUMPRINGS.call(
         __1
     )
 
     /**
      * The table <code>public.st_dumpsegments</code>.
      */
-    val ST_DUMPSEGMENTS: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments.ST_DUMPSEGMENTS
+    val ST_DUMPSEGMENTS: StDumpsegments get() = ST_DUMPSEGMENTS
 
     /**
      * Call <code>public.st_dumpsegments</code>.
@@ -388,7 +430,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_DUMPSEGMENTS(
           configuration: Configuration
         , __1: Geometry?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments.ST_DUMPSEGMENTS.call(
+    ): Result<GeometryDumpRecord> = configuration.dsl().selectFrom<GeometryDumpRecord>(ST_DUMPSEGMENTS.call(
           __1
     )).fetch()
 
@@ -397,7 +439,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMPSEGMENTS(
           __1: Geometry?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments.ST_DUMPSEGMENTS.call(
+    ): StDumpsegments = ST_DUMPSEGMENTS.call(
         __1
     )
 
@@ -406,20 +448,20 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
      */
     fun ST_DUMPSEGMENTS(
           __1: Field<Geometry?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments.ST_DUMPSEGMENTS.call(
+    ): StDumpsegments = ST_DUMPSEGMENTS.call(
         __1
     )
 
     /**
      * The table <code>public.st_fromflatgeobuf</code>.
      */
-    val ST_FROMFLATGEOBUF: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf.ST_FROMFLATGEOBUF
+    val ST_FROMFLATGEOBUF: StFromflatgeobuf get() = ST_FROMFLATGEOBUF
     @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
     fun ST_FROMFLATGEOBUF(
           configuration: Configuration
         , __1: Any?
         , __2: ByteArray?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf.ST_FROMFLATGEOBUF.call(
+    ): Result<StFromflatgeobufRecord> = configuration.dsl().selectFrom<StFromflatgeobufRecord>(ST_FROMFLATGEOBUF.call(
           __1
         , __2
     )).fetch()
@@ -427,7 +469,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_FROMFLATGEOBUF(
           __1: Any?
         , __2: ByteArray?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf.ST_FROMFLATGEOBUF.call(
+    ): StFromflatgeobuf = ST_FROMFLATGEOBUF.call(
         __1,
         __2
     )
@@ -435,7 +477,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_FROMFLATGEOBUF(
           __1: Field<Any?>
         , __2: Field<ByteArray?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf.ST_FROMFLATGEOBUF.call(
+    ): StFromflatgeobuf = ST_FROMFLATGEOBUF.call(
         __1,
         __2
     )
@@ -443,7 +485,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     /**
      * The table <code>public.st_hexagongrid</code>.
      */
-    val ST_HEXAGONGRID: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid.ST_HEXAGONGRID
+    val ST_HEXAGONGRID: StHexagongrid get() = ST_HEXAGONGRID
 
     /**
      * Call <code>public.st_hexagongrid</code>.
@@ -452,7 +494,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
           configuration: Configuration
         , size: Double?
         , bounds: Geometry?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StHexagongridRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid.ST_HEXAGONGRID.call(
+    ): Result<StHexagongridRecord> = configuration.dsl().selectFrom<StHexagongridRecord>(ST_HEXAGONGRID.call(
           size
         , bounds
     )).fetch()
@@ -463,7 +505,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_HEXAGONGRID(
           size: Double?
         , bounds: Geometry?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid.ST_HEXAGONGRID.call(
+    ): StHexagongrid = ST_HEXAGONGRID.call(
         size,
         bounds
     )
@@ -474,7 +516,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_HEXAGONGRID(
           size: Field<Double?>
         , bounds: Field<Geometry?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid.ST_HEXAGONGRID.call(
+    ): StHexagongrid = ST_HEXAGONGRID.call(
         size,
         bounds
     )
@@ -482,7 +524,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     /**
      * The table <code>public.st_squaregrid</code>.
      */
-    val ST_SQUAREGRID: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid.ST_SQUAREGRID
+    val ST_SQUAREGRID: StSquaregrid get() = ST_SQUAREGRID
 
     /**
      * Call <code>public.st_squaregrid</code>.
@@ -491,7 +533,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
           configuration: Configuration
         , size: Double?
         , bounds: Geometry?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSquaregridRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid.ST_SQUAREGRID.call(
+    ): Result<StSquaregridRecord> = configuration.dsl().selectFrom<StSquaregridRecord>(ST_SQUAREGRID.call(
           size
         , bounds
     )).fetch()
@@ -502,7 +544,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_SQUAREGRID(
           size: Double?
         , bounds: Geometry?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid.ST_SQUAREGRID.call(
+    ): StSquaregrid = ST_SQUAREGRID.call(
         size,
         bounds
     )
@@ -513,7 +555,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     fun ST_SQUAREGRID(
           size: Field<Double?>
         , bounds: Field<Geometry?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid.ST_SQUAREGRID.call(
+    ): StSquaregrid = StSquaregrid.ST_SQUAREGRID.call(
         size,
         bounds
     )
@@ -521,7 +563,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     /**
      * The table <code>public.st_subdivide</code>.
      */
-    val ST_SUBDIVIDE: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide.ST_SUBDIVIDE
+    val ST_SUBDIVIDE: StSubdivide get() = StSubdivide.ST_SUBDIVIDE
 
     /**
      * Call <code>public.st_subdivide</code>.
@@ -531,7 +573,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
         , geom: Geometry?
         , maxvertices: Int?
         , gridsize: Double?
-    ): Result<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StSubdivideRecord> = configuration.dsl().selectFrom(com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide.ST_SUBDIVIDE.call(
+    ): Result<StSubdivideRecord> = configuration.dsl().selectFrom<StSubdivideRecord>(StSubdivide.ST_SUBDIVIDE.call(
           geom
         , maxvertices
         , gridsize
@@ -544,7 +586,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
           geom: Geometry?
         , maxvertices: Int?
         , gridsize: Double?
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide.ST_SUBDIVIDE.call(
+    ): StSubdivide = StSubdivide.ST_SUBDIVIDE.call(
         geom,
         maxvertices,
         gridsize
@@ -557,7 +599,7 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
           geom: Field<Geometry?>
         , maxvertices: Field<Int?>
         , gridsize: Field<Double?>
-    ): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide.ST_SUBDIVIDE.call(
+    ): StSubdivide = StSubdivide.ST_SUBDIVIDE.call(
         geom,
         maxvertices,
         gridsize
@@ -566,64 +608,64 @@ open class Public : SchemaImpl(DSL.name("public"), DefaultCatalog.DEFAULT_CATALO
     /**
      * The table <code>public.station</code>.
      */
-    val STATION: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.STATION
+    val STATION: Station get() = STATION
 
     /**
      * The table <code>public.stationfull</code>.
      */
-    val STATIONFULL: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stationfull get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stationfull.STATIONFULL
+    val STATIONFULL: Stationfull get() = STATIONFULL
 
     /**
      * The table <code>public.stop</code>.
      */
-    val STOP: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.STOP
+    val STOP: Stop get() = STOP
 
     /**
      * The table <code>public.trainsetamenities</code>.
      */
-    val TRAINSETAMENITIES: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TRAINSETAMENITIES
+    val TRAINSETAMENITIES: Trainsetamenities get() = TRAINSETAMENITIES
 
     /**
      * The table <code>public.trainsettype</code>.
      */
-    val TRAINSETTYPE: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsettype get() = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsettype.TRAINSETTYPE
+    val TRAINSETTYPE: Trainsettype get() = TRAINSETTYPE
 
     override fun getCatalog(): Catalog = DefaultCatalog.DEFAULT_CATALOG
 
     override fun getTables(): List<Table<*>> = listOf(
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Amenity.AMENITY,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Area.AREA,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Areafull.AREAFULL,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindAreaChildrenRecursive.FIND_AREA_CHILDREN_RECURSIVE,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.FindPlaceParentRecursive.FIND_PLACE_PARENT_RECURSIVE,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.GeographyColumns.GEOGRAPHY_COLUMNS,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.GeometryColumns.GEOMETRY_COLUMNS,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Passservice.PASSSERVICE,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Place.PLACE,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Placehierarchy.PLACEHIERARCHY,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Placewithgeom.PLACEWITHGEOM,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrs.POSTGIS_SRS,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsAll.POSTGIS_SRS_ALL,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsCodes.POSTGIS_SRS_CODES,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.PostgisSrsSearch.POSTGIS_SRS_SEARCH,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.SpatialRefSys.SPATIAL_REF_SYS,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDump.ST_DUMP,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumppoints.ST_DUMPPOINTS,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumprings.ST_DUMPRINGS,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StDumpsegments.ST_DUMPSEGMENTS,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StFromflatgeobuf.ST_FROMFLATGEOBUF,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StHexagongrid.ST_HEXAGONGRID,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSquaregrid.ST_SQUAREGRID,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.StSubdivide.ST_SUBDIVIDE,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Station.STATION,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stationfull.STATIONFULL,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Stop.STOP,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsetamenities.TRAINSETAMENITIES,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.Trainsettype.TRAINSETTYPE
+        AMENITY,
+        AREA,
+        AREAFULL,
+        FindAreaChildrenRecursive.FIND_AREA_CHILDREN_RECURSIVE,
+        FindPlaceParentRecursive.FIND_PLACE_PARENT_RECURSIVE,
+        GeographyColumns.GEOGRAPHY_COLUMNS,
+        GeometryColumns.GEOMETRY_COLUMNS,
+        PASSSERVICE,
+        PLACE,
+        PLACEHIERARCHY,
+        PLACEWITHGEOM,
+        PostgisSrs.POSTGIS_SRS,
+        PostgisSrsAll.POSTGIS_SRS_ALL,
+        PostgisSrsCodes.POSTGIS_SRS_CODES,
+        PostgisSrsSearch.POSTGIS_SRS_SEARCH,
+        SpatialRefSys.SPATIAL_REF_SYS,
+        StDump.ST_DUMP,
+        StDumppoints.ST_DUMPPOINTS,
+        StDumprings.ST_DUMPRINGS,
+        StDumpsegments.ST_DUMPSEGMENTS,
+        StFromflatgeobuf.ST_FROMFLATGEOBUF,
+        StHexagongrid.ST_HEXAGONGRID,
+        StSquaregrid.ST_SQUAREGRID,
+        StSubdivide.ST_SUBDIVIDE,
+        STATION,
+        STATIONFULL,
+        STOP,
+        TRAINSETAMENITIES,
+        TRAINSETTYPE
     )
 
     override fun getUDTs(): List<UDT<*>> = listOf(
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.GeometryDump.GEOMETRY_DUMP,
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.ValidDetail.VALID_DETAIL
+        GeometryDump.GEOMETRY_DUMP,
+        ValidDetail.VALID_DETAIL
     )
 }

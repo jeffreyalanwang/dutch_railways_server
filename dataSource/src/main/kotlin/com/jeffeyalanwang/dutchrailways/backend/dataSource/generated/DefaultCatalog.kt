@@ -4,6 +4,7 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public
 import kotlin.collections.List
 
 import org.jooq.Constants
@@ -27,10 +28,10 @@ open class DefaultCatalog : CatalogImpl("") {
     /**
      * standard public schema
      */
-    val PUBLIC: com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public get(): com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    val PUBLIC: Public get(): Public = Public.PUBLIC
 
     override fun getSchemas(): List<Schema> = listOf(
-        com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+        PUBLIC
     )
 
     /**

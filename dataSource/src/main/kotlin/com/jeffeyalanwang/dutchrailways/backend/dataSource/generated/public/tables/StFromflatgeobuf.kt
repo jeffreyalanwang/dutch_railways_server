@@ -3,7 +3,8 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.StFromflatgeobufRecord
 import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
@@ -27,14 +28,14 @@ import org.jooq.impl.TableImpl
 open class StFromflatgeobuf(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord>?,
+    childPath: ForeignKey<out Record, StFromflatgeobufRecord>?,
+    parentPath: InverseForeignKey<out Record, StFromflatgeobufRecord>?,
+    aliased: Table<StFromflatgeobufRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord>(
+): TableImpl<StFromflatgeobufRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -55,15 +56,15 @@ open class StFromflatgeobuf(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord::class.java
+    override fun getRecordType(): Class<StFromflatgeobufRecord> = StFromflatgeobufRecord::class.java
     @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
-    val ST_FROMFLATGEOBUF_: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord, Any?> = createField(DSL.name("st_fromflatgeobuf"), DefaultDataType.getDefaultDataType("\"anyelement\""), this, "")
+    val ST_FROMFLATGEOBUF_: TableField<StFromflatgeobufRecord, Any?> = createField(DSL.name("st_fromflatgeobuf"), DefaultDataType.getDefaultDataType("\"anyelement\""), this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord>?): this(alias, null, null, null, aliased, arrayOf(
+    private constructor(alias: Name, aliased: Table<StFromflatgeobufRecord>?): this(alias, null, null, null, aliased, arrayOf(
         DSL.value(null, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"anyelement\"")),
         DSL.value(null, SQLDataType.BLOB)
     ), null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.StFromflatgeobufRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<StFromflatgeobufRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
 
     /**
      * Create an aliased <code>public.st_fromflatgeobuf</code> table reference
@@ -79,7 +80,7 @@ open class StFromflatgeobuf(
      * Create a <code>public.st_fromflatgeobuf</code> table reference
      */
     constructor(): this(DSL.name("st_fromflatgeobuf"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): StFromflatgeobuf = StFromflatgeobuf(DSL.name(alias), this, parameters)
     override fun `as`(alias: Name): StFromflatgeobuf = StFromflatgeobuf(alias, this, parameters)
     override fun `as`(alias: Table<*>): StFromflatgeobuf = StFromflatgeobuf(alias.qualifiedName, this, parameters)

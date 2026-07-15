@@ -4,6 +4,7 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.enums
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
 import org.jooq.Catalog
 import org.jooq.EnumType
 import org.jooq.Schema
@@ -17,7 +18,7 @@ enum class Placesubclass(@get:JvmName("literal") public val literal: String) : E
     Area("Area"),
     Station("Station");
     override fun getCatalog(): Catalog? = schema.catalog
-    override fun getSchema(): Schema = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema = PUBLIC
     override fun getName(): String = "placesubclass"
     override fun getLiteral(): String = literal
 }

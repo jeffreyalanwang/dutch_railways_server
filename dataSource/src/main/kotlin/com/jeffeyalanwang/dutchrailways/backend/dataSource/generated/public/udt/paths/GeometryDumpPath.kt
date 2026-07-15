@@ -3,7 +3,9 @@
  */
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.paths
 
-
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.GeometryDump
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.udt.records.GeometryDumpRecord
 import org.jooq.Binding
 import org.jooq.Comment
 import org.jooq.DataType
@@ -28,18 +30,18 @@ open class GeometryDumpPath<R : Record, T>(
     qualifier: RecordQualifier<R>,
     comment: Comment,
     binding: Binding<*, T>
-) : UDTPathTableFieldImpl<R, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord, T>(
-    name, type, qualifier, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.GeometryDump.GEOMETRY_DUMP, comment, binding
+) : UDTPathTableFieldImpl<R, GeometryDumpRecord, T>(
+    name, type, qualifier, GeometryDump.GEOMETRY_DUMP, comment, binding
 ) {
 
     /**
      * The attribute <code>public.geometry_dump.path</code>.
      */
-    val PATH: UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord, Array<Int?>> = Internal.createUDTPathField(DSL.name("path"), SQLDataType.INTEGER.array(), this, "", UDTField::class.java as Class<UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord, Array<Int?>>>)
+    val PATH: UDTField<GeometryDumpRecord, Array<Int?>> = Internal.createUDTPathField(DSL.name("path"), SQLDataType.INTEGER.array(), this, "", UDTField::class.java as Class<UDTField<GeometryDumpRecord, Array<Int?>>>)
 
     /**
      * The attribute <code>public.geometry_dump.geom</code>.
      */
-    val GEOM: UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord, Geometry> = Internal.createUDTPathField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "", UDTField::class.java as Class<UDTField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.udt.records.GeometryDumpRecord, Geometry>>)
+    val GEOM: UDTField<GeometryDumpRecord, Geometry> = Internal.createUDTPathField(DSL.name("geom"), SQLDataType.GEOMETRY, this, "", UDTField::class.java as Class<UDTField<GeometryDumpRecord, Geometry>>)
 
 }

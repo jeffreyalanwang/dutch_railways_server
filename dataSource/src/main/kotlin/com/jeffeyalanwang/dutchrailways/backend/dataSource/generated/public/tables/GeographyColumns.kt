@@ -4,6 +4,8 @@
 package com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables
 
 
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.Public.Companion.PUBLIC
+import com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.public.tables.records.GeographyColumnsRecord
 import kotlin.collections.Collection
 
 import org.jooq.Condition
@@ -34,14 +36,14 @@ import org.jooq.impl.TableImpl
 open class GeographyColumns(
     alias: Name,
     path: Table<out Record>?,
-    childPath: ForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord>?,
-    parentPath: InverseForeignKey<out Record, com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord>?,
-    aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord>?,
+    childPath: ForeignKey<out Record, GeographyColumnsRecord>?,
+    parentPath: InverseForeignKey<out Record, GeographyColumnsRecord>?,
+    aliased: Table<GeographyColumnsRecord>?,
     parameters: Array<Field<*>?>?,
     where: Condition?
-): TableImpl<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord>(
+): TableImpl<GeographyColumnsRecord>(
     alias,
-    com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC,
+    PUBLIC,
     path,
     childPath,
     parentPath,
@@ -75,46 +77,46 @@ open class GeographyColumns(
     /**
      * The class holding records for this type
      */
-    override fun getRecordType(): Class<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord> = com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord::class.java
+    override fun getRecordType(): Class<GeographyColumnsRecord> = GeographyColumnsRecord::class.java
 
     /**
      * The column <code>public.geography_columns.f_table_catalog</code>.
      */
-    val F_TABLE_CATALOG: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord, String?> = createField(DSL.name("f_table_catalog"), SQLDataType.VARCHAR, this, "")
+    val F_TABLE_CATALOG: TableField<GeographyColumnsRecord, String?> = createField(DSL.name("f_table_catalog"), SQLDataType.VARCHAR, this, "")
 
     /**
      * The column <code>public.geography_columns.f_table_schema</code>.
      */
-    val F_TABLE_SCHEMA: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord, String?> = createField(DSL.name("f_table_schema"), SQLDataType.VARCHAR, this, "")
+    val F_TABLE_SCHEMA: TableField<GeographyColumnsRecord, String?> = createField(DSL.name("f_table_schema"), SQLDataType.VARCHAR, this, "")
 
     /**
      * The column <code>public.geography_columns.f_table_name</code>.
      */
-    val F_TABLE_NAME: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord, String?> = createField(DSL.name("f_table_name"), SQLDataType.VARCHAR, this, "")
+    val F_TABLE_NAME: TableField<GeographyColumnsRecord, String?> = createField(DSL.name("f_table_name"), SQLDataType.VARCHAR, this, "")
 
     /**
      * The column <code>public.geography_columns.f_geography_column</code>.
      */
-    val F_GEOGRAPHY_COLUMN: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord, String?> = createField(DSL.name("f_geography_column"), SQLDataType.VARCHAR, this, "")
+    val F_GEOGRAPHY_COLUMN: TableField<GeographyColumnsRecord, String?> = createField(DSL.name("f_geography_column"), SQLDataType.VARCHAR, this, "")
 
     /**
      * The column <code>public.geography_columns.coord_dimension</code>.
      */
-    val COORD_DIMENSION: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord, Int?> = createField(DSL.name("coord_dimension"), SQLDataType.INTEGER, this, "")
+    val COORD_DIMENSION: TableField<GeographyColumnsRecord, Int?> = createField(DSL.name("coord_dimension"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.geography_columns.srid</code>.
      */
-    val SRID: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord, Int?> = createField(DSL.name("srid"), SQLDataType.INTEGER, this, "")
+    val SRID: TableField<GeographyColumnsRecord, Int?> = createField(DSL.name("srid"), SQLDataType.INTEGER, this, "")
 
     /**
      * The column <code>public.geography_columns.type</code>.
      */
-    val TYPE: TableField<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord, String?> = createField(DSL.name("type"), SQLDataType.CLOB, this, "")
+    val TYPE: TableField<GeographyColumnsRecord, String?> = createField(DSL.name("type"), SQLDataType.CLOB, this, "")
 
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord>?): this(alias, null, null, null, aliased, null, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
-    private constructor(alias: Name, aliased: Table<com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.tables.records.GeographyColumnsRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
+    private constructor(alias: Name, aliased: Table<GeographyColumnsRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<GeographyColumnsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<GeographyColumnsRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.geography_columns</code> table reference
@@ -130,7 +132,7 @@ open class GeographyColumns(
      * Create a <code>public.geography_columns</code> table reference
      */
     constructor(): this(DSL.name("geography_columns"), null)
-    override fun getSchema(): Schema? = if (aliased()) null else com.jeffeyalanwang.dutchrailways.backend.dataSource.generated.`public`.Public.PUBLIC
+    override fun getSchema(): Schema? = if (aliased()) null else PUBLIC
     override fun `as`(alias: String): GeographyColumns = GeographyColumns(DSL.name(alias), this)
     override fun `as`(alias: Name): GeographyColumns = GeographyColumns(alias, this)
     override fun `as`(alias: Table<*>): GeographyColumns = GeographyColumns(alias.qualifiedName, this)
