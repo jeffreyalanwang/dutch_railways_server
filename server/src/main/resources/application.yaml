@@ -1,0 +1,12 @@
+spring:
+  application.name: Dutch Railways Server
+  graphql.schema:
+    locations: classpath:/graphql
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:dutch_railways}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect #Or any other dialect if you're using updated.

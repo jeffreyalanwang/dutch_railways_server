@@ -6,4 +6,3 @@ rootProject.name = "backend"
 
 include("server")
 include("routeQuery")
-include("dataSource")

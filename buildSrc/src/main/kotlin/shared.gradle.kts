@@ -4,7 +4,7 @@ plugins {
     id("io.spring.dependency-management")
 }
 
-group = "com.jeffeyalanwang.dutchrailways.backend"
+group = "com.jeffreyalanwang.dutchrailways.backend"
 version = "0.0.1-SNAPSHOT"
 description = "Dutch Railways Backend"
 

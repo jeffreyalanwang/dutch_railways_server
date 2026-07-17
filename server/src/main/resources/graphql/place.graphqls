@@ -1,0 +1,43 @@
+extend type Query {
+    placeById(id: ID!): Place
+    areaById(id: ID!): Area
+    stationById(id: ID!): Station
+}
+
+interface Place {
+    id: ID!
+    name: String!
+    locatedIn: Area
+    geom: GeographicGeometry
+}
+
+type Area {
+    id: ID!
+    name: String!
+    locatedIn: Area
+    contains: [Place!]!
+    geom: GeoMultiPolygon!
+}
+
+type Station {
+    id: ID!
+    name: String!
+    address: String!
+    locatedIn: Area
+    geom: GeoCoords!
+}
+
+extend type Mutation {
+    updateArea(id: ID!, details: MutationArea): Area!
+    updateStation(id: ID!, details: MutationStation): Station!
+}
+
+input MutationArea {
+    name: String!
+}
+
+input MutationStation {
+    name: String!
+    address: String!
+    geom: InputGeoCoords!
+}

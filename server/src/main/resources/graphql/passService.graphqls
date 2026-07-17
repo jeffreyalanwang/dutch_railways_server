@@ -1,0 +1,45 @@
+extend type Query {
+    passServiceById(id: ID!): PassService
+}
+
+type PassService {
+    id: ID!
+    name: String!
+    trainset: Trainset!
+    amenities: [TrainAmenity!]!
+}
+
+extend type Mutation {
+    createPassService(details: MutationPassService!): PassService!
+    updatePassService(id: ID!, details: MutationPassService!): PassService!
+    deletePassService(id: ID!): ID!
+}
+
+# TODO modify database so that amenities are applied on the Trainset
+input MutationPassService {
+    name: String!
+    trainset: Trainset!
+    amenities: TrainAmenity!
+}
+
+enum Trainset {
+    SLT
+    ICM
+    DDZ
+    VIRM
+    SNG
+    ICNG
+    GTW
+    Flirt
+    other
+}
+
+enum TrainAmenity {
+    STROOM
+    TOILET
+    WIFI
+    STILTE
+    FIETS
+    TOEGANKELIJK
+    unknown
+}

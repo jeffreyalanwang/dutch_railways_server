@@ -1,0 +1,28 @@
+extend type Query {
+    stopOfPassServiceAtStation(passService: ID!, station: ID!): Stop
+}
+
+extend type PassService {
+    stops(after: DateTime = null, maxCount: Int = null): [Stop!]!
+}
+
+extend type Station {
+    stops(after: DateTime = null, maxCount: Int = null): [Stop!]!
+}
+
+type Stop {
+    passService: PassService!
+    station: Station!
+    arriveTime: DateTime
+    departTime: DateTime
+}
+
+extend input MutationPassService {
+    stops: [MutationStop!]!
+}
+
+input MutationStop {
+    station: ID!
+    arriveTime: DateTime # TODO double-check that arriveTime and departTime are only nullable at start/end
+    departTime: DateTime
+}
