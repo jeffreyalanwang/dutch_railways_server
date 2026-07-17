@@ -29,7 +29,7 @@ private class DataConverterImpl<ETrip, EStation>(
     private val tripsKey: List<ETrip>,
     private val stationsKey: List<EStation>,
 ): DataConverter<ETrip, EStation> {
-    override fun EStation.convertToInternal() = StationId(stationsKey.indexOf(this))
+    override fun EStation.convertToInternal() = stationsKey.indexOf(this).also { require(it >= 0) }.let { StationId(it) }
 
     override fun TripId.convertToExternal() = tripsKey[index]
     override fun StationId.convertToExternal() = stationsKey[index]

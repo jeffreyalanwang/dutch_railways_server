@@ -133,7 +133,7 @@ internal fun reconstructJourney(
     // excess rounds.
     val labels = labels
         .dropLastWhile { it[destination] == labels.last()[destination] }
-    val parentStations = parentStations.take(labels.size - 1)
+    val parentStations = parentStations.take(labels.size)
     // From this point, every parent station value on the path between
     // the origin and the destination is non-null.
 

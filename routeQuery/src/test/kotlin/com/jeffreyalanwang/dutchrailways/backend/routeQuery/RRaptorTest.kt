@@ -6,6 +6,7 @@ import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.Gener
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.time.Instant
 
 class RRaptorTest {
@@ -19,20 +20,75 @@ class RRaptorTest {
     }
 
     @Test
-    fun testRRaptorSameOriginAndDestination() {
+    fun testRRaptorDoesNotExistWhenEmpty() {
         val rep = RouteQueryDataSource.fromTrips<Int, Int>() // empty
+
+        assertThrows<IllegalArgumentException> {
+            val journeys = with(rep) {
+                RRaptor(
+                    origin = 0,
+                    destination = 0,
+                    timeRange = parseTime("09:00")..parseTime("11:00"),
+                )
+            }
+        }
+    }
+
+    @Test
+    fun testRRaptorDoesNotExist() {
+        val rep = RouteQueryDataSource.fromTrips(
+            "Trip1" to GenericTripDetails.of(
+                stations = listOf("Amsterdam", "Utrecht"),
+                times = listOf(Pair(parseTime("10:00"), parseTime("10:30")))
+            ),
+            "Trip2" to GenericTripDetails.of(
+                stations = listOf("Amsterdam", "Utrecht"),
+                times = listOf(Pair(parseTime("11:00"), parseTime("11:30")))
+            ),
+        )
+
+        assertThrows<IllegalArgumentException> {
+            val journeys = with(rep) {
+                RRaptor(
+                    origin = "Utrecht",
+                    destination = "Rotterdam",
+                    timeRange = parseTime("09:00")..parseTime("11:00"),
+                )
+            }
+        }
+
+        assertThrows<IllegalArgumentException> {
+            val journeys = with(rep) {
+                RRaptor(
+                    origin = "Arnhem",
+                    destination = "Utrecht",
+                    timeRange = parseTime("09:00")..parseTime("11:00"),
+                )
+            }
+        }
+    }
+
+    @Test
+    fun testRRaptorSameOriginAndDestination() {
+        val rep = RouteQueryDataSource.fromTrips(
+            "Trip1" to GenericTripDetails.of(
+                stations = listOf("Amsterdam", "Utrecht"),
+                times = listOf(Pair(parseTime("10:00"), parseTime("10:30")))
+            ),
+        )
 
         val journeys = with(rep) {
             RRaptor(
-                origin = 0,
-                destination = 0,
-                timeRange = parseTime("09:00")..parseTime("11:00"),
+                origin = "Utrecht",
+                destination = "Utrecht",
+                // Even at a time when no trains pass
+                timeRange = parseTime("01:00")..parseTime("2:00"),
             )
         }
 
         assertEquals(1, journeys.size)
         assertTrue(journeys[0].legs.isEmpty())
-        assertEquals(0, journeys[0].finalStation)
+        assertEquals("Utrecht", journeys[0].finalStation)
     }
 
     @Test

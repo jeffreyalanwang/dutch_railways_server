@@ -1,13 +1,12 @@
 package com.jeffreyalanwang.dutchrailways.backend.routeQuery
 
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.impl.raptor.Raptor
-import com.jeffreyalanwang.dutchrailways.backend.routeQuery.impl.raptor.raptor
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.RouteQueryDataSource
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails
-import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph.StationId
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.time.Instant
 
 class RaptorTest {
@@ -21,21 +20,75 @@ class RaptorTest {
     }
 
     @Test
-    fun testRaptorSameOriginAndDestination() {
-        val rep = RouteQueryDataSource.fromTrips<String, String>() // empty list
+    fun testRRaptorDoesNotExistWhenEmpty() {
+        val rep = RouteQueryDataSource.fromTrips<Int, Int>() // empty
 
-        // When origin == destination, should return 1 journey with empty legs
-        val journeys = with(rep.transitGraph) {
-            raptor(
-                origin = StationId(0),
-                destination = StationId(0),
-                startTime = parseTime("09:00"),
+        assertThrows<IllegalArgumentException> {
+            val journeys = with(rep) {
+                Raptor(
+                    origin = 0,
+                    destination = 0,
+                    startTime = parseTime("09:00"),
+                )
+            }
+        }
+    }
+
+
+    @Test
+    fun testRRaptorDoesNotExist() {
+        val rep = RouteQueryDataSource.fromTrips(
+            "Trip1" to GenericTripDetails.of(
+                stations = listOf("Amsterdam", "Utrecht"),
+                times = listOf(Pair(parseTime("10:00"), parseTime("10:30")))
+            ),
+            "Trip2" to GenericTripDetails.of(
+                stations = listOf("Amsterdam", "Utrecht"),
+                times = listOf(Pair(parseTime("11:00"), parseTime("11:30")))
+            ),
+        )
+
+        assertThrows<IllegalArgumentException> {
+            val journeys = with(rep) {
+                Raptor(
+                    origin = "Utrecht",
+                    destination = "Rotterdam",
+                    startTime = parseTime("09:00"),
+                )
+            }
+        }
+
+        assertThrows<IllegalArgumentException> {
+            val journeys = with(rep) {
+                Raptor(
+                    origin = "Arnhem",
+                    destination = "Utrecht",
+                    startTime = parseTime("09:00"),
+                )
+            }
+        }
+    }
+
+    @Test
+    fun testRaptorSameOriginAndDestination() {
+        val rep = RouteQueryDataSource.fromTrips(
+            "Trip1" to GenericTripDetails.of(
+                stations = listOf("Amsterdam", "Utrecht"),
+                times = listOf(Pair(parseTime("10:00"), parseTime("10:30")))
+            ),
+        )
+
+        val journeys = with(rep) {
+            Raptor(
+                origin = "Utrecht",
+                destination = "Utrecht",
+                startTime = parseTime("11:00"),
             )
         }
 
         assertEquals(1, journeys.size)
         assertTrue(journeys[0].legs.isEmpty())
-        assertEquals(0, journeys[0].finalStation.index)
+        assertEquals("Utrecht", journeys[0].finalStation)
     }
 
     @Test
@@ -229,15 +282,10 @@ class RaptorTest {
 
         assertEquals(1, journeys.size)
         val journey = journeys[0]
+        assertEquals("Amsterdam", journey.legs[0].originStation)
         assertEquals("Eindhoven", journey.finalStation)
-        assertEquals(2, journey.legs.size)
+        assertEquals(1, journey.legs.size)
+        assertEquals("TripB", journey.legs[0].trip)
 
-        // It should have selected the Rotterdam route (reconstructed backward: Rotterdam -> Eindhoven is index 0)
-        assertEquals("Rotterdam", journey.legs[0].originStation)
-        assertEquals("TripD", journey.legs[0].trip)
-
-        // (reconstructed backward: Amsterdam -> Rotterdam is index 1)
-        assertEquals("Amsterdam", journey.legs[1].originStation)
-        assertEquals("TripC", journey.legs[1].trip)
     }
 }
