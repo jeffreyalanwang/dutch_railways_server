@@ -9,11 +9,6 @@ import kotlin.time.Instant
 
 @Controller
 class GraphQlController(
-//    private val passServiceRepository: PassServiceRepository,
-//    private val placeRepository: PlaceRepository,
-//    private val areaRepository: AreaRepository,
-//    private val stationRepository: StationRepository,
-//    private val stopRepository: StationRepository,
     private val journeyFinder: JourneyFinder,
 ) {
     @QueryMapping

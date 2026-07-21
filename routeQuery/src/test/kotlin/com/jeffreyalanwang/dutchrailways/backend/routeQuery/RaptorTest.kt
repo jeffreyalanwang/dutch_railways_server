@@ -161,18 +161,19 @@ class RaptorTest {
                 )
             }
 
-        assertEquals(1, journeys.size)
-        val journey = journeys[0]
-        assertEquals("Eindhoven", journey.finalStation)
+        val journey = journeys.single()
+
         assertEquals(2, journey.legStartPoints.size)
 
-        // Leg 1 (reconstructed backward: Utrecht -> Eindhoven is index 0)
-        assertEquals("Utrecht", journey.legStartPoints[0].originStation)
-        assertEquals("TripB", journey.legStartPoints[0].trip)
-
-        // Leg 2 (reconstructed backward: Amsterdam -> Utrecht is index 1)
-        assertEquals("Amsterdam", journey.legStartPoints[1].originStation)
-        assertEquals("TripA", journey.legStartPoints[1].trip)
+        with (journey.legStartPoints[0]) {
+            assertEquals("Amsterdam", originStation)
+            assertEquals("TripA", trip)
+        }
+        with (journey.legStartPoints[1]) {
+            assertEquals("Utrecht", originStation)
+            assertEquals("TripB", trip)
+        }
+        assertEquals("Eindhoven", journey.finalStation)
     }
 
     @Test
@@ -234,18 +235,20 @@ class RaptorTest {
                 )
             }
 
-        assertEquals(1, journeys.size)
-        val journey = journeys[0]
-        assertEquals("Eindhoven", journey.finalStation)
+        val journey = journeys.single()
+
         assertEquals(2, journey.legStartPoints.size)
 
-        // It should have selected the Rotterdam route (reconstructed backward: Rotterdam -> Eindhoven is index 0)
-        assertEquals("Rotterdam", journey.legStartPoints[0].originStation)
-        assertEquals("TripD", journey.legStartPoints[0].trip)
-
-        // (reconstructed backward: Amsterdam -> Rotterdam is index 1)
-        assertEquals("Amsterdam", journey.legStartPoints[1].originStation)
-        assertEquals("TripC", journey.legStartPoints[1].trip)
+        // It should have selected the Rotterdam route
+        with (journey.legStartPoints[0]) {
+            assertEquals("Amsterdam", originStation)
+            assertEquals("TripC", trip)
+        }
+        with (journey.legStartPoints[1]) {
+            assertEquals("Rotterdam", originStation)
+            assertEquals("TripD", trip)
+        }
+        assertEquals("Eindhoven", journey.finalStation)
     }
 
     @Test

@@ -18,7 +18,6 @@ import java.time.OffsetDateTime
 import kotlin.time.Instant
 import kotlin.time.toKotlinInstant
 
-
 @Configuration
 class GraphQlConfig{
     @Bean
