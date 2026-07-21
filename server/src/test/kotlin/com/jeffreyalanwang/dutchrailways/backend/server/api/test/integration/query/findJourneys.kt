@@ -72,7 +72,7 @@ class `Integration test for findJourneys query`(
     }
 
     @Test
-    fun `Journey visits at least two stations`() {
+    fun `Journey includes at least two points`() {
 
         @Language("GraphQL")
         val fragment = $$"""
@@ -129,9 +129,6 @@ class `Integration test for findJourneys query`(
                     place { 
                         id,
                     },
-                    via {
-                        id,
-                    }
                 }
             }
         """.trimIndent()

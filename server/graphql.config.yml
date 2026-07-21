@@ -1,10 +1,4 @@
-schema:
-  - "types.graphqls"
-  - "base.graphqls"
-  - "passService.graphqls"
-  - "place.graphqls"
-  - "stop.graphqls"
-  - "findJourneys.graphqls"
+schema: "**/resources/graphql/*.graphqls"
 extensions:
   endpoints:
     # Allows us to use IntelliJ scratch files to query the server
