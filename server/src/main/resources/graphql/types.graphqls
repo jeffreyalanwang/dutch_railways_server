@@ -1,22 +1,21 @@
 # Includes offset
 # TODO if we are using an OffsetDateTime (which is good because ZonedDateTime can make ambiguous times human-readable)
 # TODO then we need a runtime check to ensure that for now, the same offset is always saved within a single station.
-scalar DateTime
+scalar DateTime @specifiedBy(url:"https://scalars.graphql.org/andimarek/date-time.html")
 
 union GeographicGeometry = GeoCoords | GeoLinearRing | GeoMultiPolygon
 
-# GeoCoords includes
 type GeoCoords {
     latitude: Float!
     longitude: Float!
 }
 
 type GeoLinearRing {
-    points: [GeoCoords!]!
+    points: [GeoCoords]! # A portion of the coordinates can be dropped without issue; allow null
 }
 
 type GeoMultiPolygon {
-    linearRings: [GeoLinearRing!]!
+    linearRings: [GeoLinearRing]!
 }
 
 input InputGeoCoords {

@@ -1,35 +1,29 @@
 extend type Query {
-    placeById(id: ID!): Place
     areaById(id: ID!): Area
     stationById(id: ID!): Station
 }
 
-interface Place {
-    id: ID!
-    name: String!
-    locatedIn: Area
-    geom: GeographicGeometry
-}
+union Place = Area | Station
 
 type Area {
-    id: ID!
-    name: String!
+    id: ID
+    name: String
     locatedIn: Area
-    contains: [Place!]!
-    geom: GeoMultiPolygon!
+    contains: [Place]
+    geom: GeoMultiPolygon
 }
 
 type Station {
-    id: ID!
-    name: String!
-    address: String!
+    id: ID
+    name: String
+    address: String
     locatedIn: Area
-    geom: GeoCoords!
+    geom: GeoCoords
 }
 
 extend type Mutation {
-    updateArea(id: ID!, details: MutationArea): Area!
-    updateStation(id: ID!, details: MutationStation): Station!
+    updateArea(id: ID!, details: MutationArea!): Area
+    updateStation(id: ID!, details: MutationStation!): Station
 }
 
 input MutationArea {

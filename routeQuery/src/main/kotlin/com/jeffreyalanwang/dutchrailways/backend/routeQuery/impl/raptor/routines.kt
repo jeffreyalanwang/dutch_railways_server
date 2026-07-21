@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.routeQuery.impl.raptor
 
+import com.jeffreyalanwang.dutchrailways.backend.routeQuery.buildListReversed
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.cartesianProduct
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.finiteAndLt
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph.GraphAttribute
@@ -72,14 +73,14 @@ internal fun raptorRound(
         // updating labels and parents if arrival time is better.
 
         val restOfTrip = (hopOnIndex + 1)..trip.stations.lastIndex
-        for ((station, arrivalTime) in restOfTrip.map { trip.stations[it] to trip.arrivalTimeAt(it) }) {
+        for ((station, arriveTime) in restOfTrip.map { trip.stations[it] to trip.arriveTimeAt(it) }) {
 
             // Target pruning: this (and all further stops) are already behind our best time to the destination
-            if (bestTargetTime finiteAndLt arrivalTime) break
+            if (bestTargetTime finiteAndLt arriveTime) break
 
-            // If [arrivalTime] improves the previous label
-            if (arrivalTime finiteAndLt labels[station]) {
-                labels[station] = arrivalTime
+            // If [arriveTime] improves the previous label
+            if (arriveTime finiteAndLt labels[station]) {
+                labels[station] = arriveTime
                 marked += station
                 parentStations[station] = hopOnStation
             }
@@ -126,7 +127,7 @@ internal fun reconstructJourney(
     labels: List<GraphAttribute<StationId, Instant?>>,
     parentStations: List<GraphAttribute<StationId, StationId?>>,
 ): List<Journey> {
-    val destinationArrivalTime = labels.last()[destination] ?: return emptyList()
+    val destinationArriveTime = labels.last()[destination] ?: return emptyList()
 
     // The algorithm continues searching until it is certain that the
     // target arrival is not going to improve; remove data from those
@@ -138,21 +139,21 @@ internal fun reconstructJourney(
     // the origin and the destination is non-null.
 
     var currStation = destination
-    var currArrivalTime: Instant = destinationArrivalTime
-    val legs = buildList {
+    var currArriveTime: Instant = destinationArriveTime
+    val legs = buildListReversed {
         for ((prevRoundLabels, parentStations) in (labels zip parentStations).reversed()) {
             val parentStation = parentStations[currStation]!!
-            val parentArrivalTime = prevRoundLabels[parentStation]!!
+            val parentArriveTime = prevRoundLabels[parentStation]!!
 
             val possibleTrips = graph[currStation].trips
                 .filter { trip ->
-                    val arrivalTime = graph[trip].arrivalTimeAt(currStation)
-                    arrivalTime != null && arrivalTime == currArrivalTime
+                    val arriveTime = graph[trip].arriveTimeAt(currStation)
+                    arriveTime != null && arriveTime == currArriveTime
                 }
                 .intersect(graph[parentStation].trips)
                 .filter { trip ->
                     val departTime = graph[trip].departTimeAt(parentStation)
-                    departTime != null && departTime in parentArrivalTime..<currArrivalTime
+                    departTime != null && departTime in parentArriveTime..<currArriveTime
                 }
 
             add(
@@ -165,7 +166,7 @@ internal fun reconstructJourney(
             )
 
             currStation = parentStation
-            currArrivalTime = parentArrivalTime
+            currArriveTime = parentArriveTime
         }
     }
 

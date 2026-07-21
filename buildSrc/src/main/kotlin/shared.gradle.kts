@@ -17,12 +17,12 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
-            "-Xannotation-default-target=param-property"
         )
     }
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.8.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

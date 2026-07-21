@@ -9,4 +9,4 @@ spring:
     password: ${DB_PASSWORD:postgres}
   jpa:
     database: POSTGRESQL
-    database-platform: org.hibernate.dialect.PostgreSQL94Dialect #Or any other dialect if you're using updated.
+    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

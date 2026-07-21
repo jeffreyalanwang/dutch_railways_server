@@ -1,7 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.routeQuery
 
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.impl.raptor.RRaptor
-import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.RouteQueryDataSource
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -87,7 +86,7 @@ class RRaptorTest {
         }
 
         assertEquals(1, journeys.size)
-        assertTrue(journeys[0].legs.isEmpty())
+        assertTrue(journeys[0].legStartPoints.isEmpty())
         assertEquals("Utrecht", journeys[0].finalStation)
     }
 
@@ -119,8 +118,8 @@ class RRaptorTest {
 
         // They should be returned in chronological order of departure time
 
-        assertEquals("Trip1", journeys[0].legs[0].trip)
-        assertEquals("Trip2", journeys[1].legs[0].trip)
+        assertEquals("Trip1", journeys[0].legStartPoints[0].trip)
+        assertEquals("Trip2", journeys[1].legStartPoints[0].trip)
     }
 
     @Test
@@ -164,9 +163,9 @@ class RRaptorTest {
         // Resulting list should contain TripC, TripA, TripD.
         assertEquals(3, journeys.size)
 
-        assertEquals("TripC", journeys[0].legs[0].trip)
-        assertEquals("TripA", journeys[1].legs[0].trip)
-        assertEquals("TripD", journeys[2].legs[0].trip)
+        assertEquals("TripC", journeys[0].legStartPoints[0].trip)
+        assertEquals("TripA", journeys[1].legStartPoints[0].trip)
+        assertEquals("TripD", journeys[2].legStartPoints[0].trip)
     }
 
     @Test

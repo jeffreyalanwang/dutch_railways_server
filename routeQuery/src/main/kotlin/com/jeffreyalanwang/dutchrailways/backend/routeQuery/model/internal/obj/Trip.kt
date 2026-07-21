@@ -5,13 +5,13 @@ import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph
 import kotlin.time.Instant
 
 /**
- * @property legs           `legs[i]` stores the time of depature from
- *                          `stations[i]` and the time of arrival to
- *                          stations[i + 1].
+ * @property departTimes `departTimes[i]` stores the time of depature from `stations[i]`.
+ * @property arriveTimes `arriveTimes[i]` stores the time of arrival to `stations[i + 1]`.
  */
 internal data class Trip(
     val stations: List<StationId>,
-    val legs: List<Leg>,
+    private val departTimes: List<Instant>,
+    private val arriveTimes: List<Instant>,
 ) {
     /**
      * @return  Time that this trip departs [stationId],
@@ -23,30 +23,31 @@ internal data class Trip(
         stations
             .dropLast(1)
             .indexOfOrNull(stationId)
-            ?.let { legs[it].departTime }
+            ?.let { departTimes[it] }
 
-    fun arrivalTimeAt(stationId: StationId) =
+    fun arriveTimeAt(stationId: StationId) =
         stations
             .drop(1)
             .indexOfOrNull(stationId)
-            ?.let { legs[it].arrivalTime }
+            ?.let { arriveTimes[it] }
 
     fun departTimeAt(tripIndex: Int) =
-        legs[tripIndex].departTime
+        departTimes[tripIndex]
 
-    fun arrivalTimeAt(tripIndex: Int) =
-        legs[tripIndex - 1].arrivalTime
-
-    data class Leg(
-        val departTime: Instant,
-        val arrivalTime: Instant,
-    )
+    fun arriveTimeAt(tripIndex: Int) =
+        arriveTimes[tripIndex - 1]
 
     companion object {
         /** For testing only. */
-        fun fromLiterals(stations: List<Int>, legs: List<Pair<Instant, Instant>>) = Trip(
-            stations.map { StationId(it) },
-            legs.map { Leg(it.first, it.second) },
-        )
+        fun fromLiterals(stations: List<Int>, legs: List<Pair<Instant, Instant>>): Trip {
+            val (departTimes, arriveTimes) = departArriveTimesFrom(legs)
+            return Trip(
+                stations = stations.map { StationId(it) },
+                departTimes = departTimes,
+                arriveTimes = arriveTimes,
+            )
+        }
+
+        fun departArriveTimesFrom(pairs: List<Pair<Instant, Instant>>) = pairs.unzip()
     }
 }

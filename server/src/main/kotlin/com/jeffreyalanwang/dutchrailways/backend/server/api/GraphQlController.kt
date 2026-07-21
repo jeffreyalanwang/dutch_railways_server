@@ -1,16 +1,19 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.app.api
+package com.jeffreyalanwang.dutchrailways.backend.server.api
 
-import com.jeffreyalanwang.dutchrailways.backend.dataSource.Stop
-import com.jeffreyalanwang.dutchrailways.backend.server.app.processing.JourneyFinder
-import org.springframework.context.annotation.ComponentScan
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney
+import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.stereotype.Controller
 import kotlin.time.Instant
 
-@ComponentScan("com.jeffreyalanwang.dutchrailways.backend.routeQuery.impl")
 @Controller
-class ApiController(
+class GraphQlController(
+//    private val passServiceRepository: PassServiceRepository,
+//    private val placeRepository: PlaceRepository,
+//    private val areaRepository: AreaRepository,
+//    private val stationRepository: StationRepository,
+//    private val stopRepository: StationRepository,
     private val journeyFinder: JourneyFinder,
 ) {
     @QueryMapping
@@ -20,14 +23,13 @@ class ApiController(
         @Argument earliestDepartTime: Instant,
         @Argument latestArriveTime: Instant? = null,
         @Argument maxCount: Int? = null,
-    ): List<Stop> =
+    ): List<PointJourney> =
         journeyFinder(
             originStation = originStation,
             destinationStation = destinationStation,
             earliestDepartTime = earliestDepartTime,
             latestArriveTime = latestArriveTime,
         ).run {
-            if (maxCount == null) this
-            else take(maxCount)
+            take(maxCount ?: size)
         }
 }

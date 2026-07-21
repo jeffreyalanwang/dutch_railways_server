@@ -2,12 +2,18 @@ extend type Query {
     findJourneys(
         originStation: ID!,
         destinationStation: ID!,
-        earliestDepartTime: Instant!,
-        latestArriveTime: Instant = null,
+        earliestDepartTime: DateTime!,
+        latestArriveTime: DateTime = null,
         maxCount: Int = null,
-    ): [Journey!]!
+    ): [Journey]
 }
 
 type Journey {
-    stops: [Stop!]!
+    points: [JourneyPoint!]!
+}
+
+type JourneyPoint {
+    time: DateTime!,
+    place: Station!,
+    via: PassService,
 }

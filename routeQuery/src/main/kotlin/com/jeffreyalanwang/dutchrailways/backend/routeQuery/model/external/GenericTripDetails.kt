@@ -16,7 +16,7 @@ class GenericTripDetails<EStation>(
 ) {
     class Leg(
         val departTime: Instant,
-        val arrivalTime: Instant,
+        val arriveTime: Instant,
     )
 
     companion object {
@@ -30,3 +30,6 @@ class GenericTripDetails<EStation>(
         )
     }
 }
+
+fun List<GenericTripDetails.Leg>.isSortedAndUnique() =
+    isSortedBy { it.departTime } && distinctBy { it.departTime }.size == size

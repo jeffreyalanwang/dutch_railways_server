@@ -1,6 +1,5 @@
 package com.jeffreyalanwang.dutchrailways.backend.routeQuery
 
-import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.RouteQueryDataSource
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph.StationId
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.obj.Trip
@@ -68,17 +67,17 @@ class InternalRepresentationTest {
         assertNull(trip.departTimeAt(StationId(12))) // Terminal station doesn't depart
         assertNull(trip.departTimeAt(StationId(99))) // Non-visiting station
 
-        assertNull(trip.arrivalTimeAt(StationId(10))) // Origin station doesn't arrive
-        assertEquals(t1, trip.arrivalTimeAt(StationId(11)))
-        assertEquals(t2, trip.arrivalTimeAt(StationId(12)))
-        assertNull(trip.arrivalTimeAt(StationId(99))) // Non-visiting station
+        assertNull(trip.arriveTimeAt(StationId(10))) // Origin station doesn't arrive
+        assertEquals(t1, trip.arriveTimeAt(StationId(11)))
+        assertEquals(t2, trip.arriveTimeAt(StationId(12)))
+        assertNull(trip.arriveTimeAt(StationId(99))) // Non-visiting station
 
         // Test arrive/depart time at station index
 
         assertEquals(t0, trip.departTimeAt(0))
         assertEquals(t1, trip.departTimeAt(1))
 
-        assertEquals(t1, trip.arrivalTimeAt(1))
-        assertEquals(t2, trip.arrivalTimeAt(2))
+        assertEquals(t1, trip.arriveTimeAt(1))
+        assertEquals(t2, trip.arriveTimeAt(2))
     }
 }

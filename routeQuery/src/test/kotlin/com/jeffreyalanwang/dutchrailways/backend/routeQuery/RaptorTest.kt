@@ -1,7 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.routeQuery
 
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.impl.raptor.Raptor
-import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.RouteQueryDataSource
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -87,7 +86,7 @@ class RaptorTest {
         }
 
         assertEquals(1, journeys.size)
-        assertTrue(journeys[0].legs.isEmpty())
+        assertTrue(journeys[0].legStartPoints.isEmpty())
         assertEquals("Utrecht", journeys[0].finalStation)
     }
 
@@ -111,9 +110,9 @@ class RaptorTest {
         assertEquals(1, journeys.size)
         val journey = journeys[0]
         assertEquals("Utrecht", journey.finalStation)
-        assertEquals(1, journey.legs.size)
-        assertEquals("Amsterdam", journey.legs[0].originStation)
-        assertEquals("TripA", journey.legs[0].trip)
+        assertEquals(1, journey.legStartPoints.size)
+        assertEquals("Amsterdam", journey.legStartPoints[0].originStation)
+        assertEquals("TripA", journey.legStartPoints[0].trip)
     }
 
     @Test
@@ -165,15 +164,15 @@ class RaptorTest {
         assertEquals(1, journeys.size)
         val journey = journeys[0]
         assertEquals("Eindhoven", journey.finalStation)
-        assertEquals(2, journey.legs.size)
+        assertEquals(2, journey.legStartPoints.size)
 
         // Leg 1 (reconstructed backward: Utrecht -> Eindhoven is index 0)
-        assertEquals("Utrecht", journey.legs[0].originStation)
-        assertEquals("TripB", journey.legs[0].trip)
+        assertEquals("Utrecht", journey.legStartPoints[0].originStation)
+        assertEquals("TripB", journey.legStartPoints[0].trip)
 
         // Leg 2 (reconstructed backward: Amsterdam -> Utrecht is index 1)
-        assertEquals("Amsterdam", journey.legs[1].originStation)
-        assertEquals("TripA", journey.legs[1].trip)
+        assertEquals("Amsterdam", journey.legStartPoints[1].originStation)
+        assertEquals("TripA", journey.legStartPoints[1].trip)
     }
 
     @Test
@@ -238,15 +237,15 @@ class RaptorTest {
         assertEquals(1, journeys.size)
         val journey = journeys[0]
         assertEquals("Eindhoven", journey.finalStation)
-        assertEquals(2, journey.legs.size)
+        assertEquals(2, journey.legStartPoints.size)
 
         // It should have selected the Rotterdam route (reconstructed backward: Rotterdam -> Eindhoven is index 0)
-        assertEquals("Rotterdam", journey.legs[0].originStation)
-        assertEquals("TripD", journey.legs[0].trip)
+        assertEquals("Rotterdam", journey.legStartPoints[0].originStation)
+        assertEquals("TripD", journey.legStartPoints[0].trip)
 
         // (reconstructed backward: Amsterdam -> Rotterdam is index 1)
-        assertEquals("Amsterdam", journey.legs[1].originStation)
-        assertEquals("TripC", journey.legs[1].trip)
+        assertEquals("Amsterdam", journey.legStartPoints[1].originStation)
+        assertEquals("TripC", journey.legStartPoints[1].trip)
     }
 
     @Test
@@ -282,10 +281,10 @@ class RaptorTest {
 
         assertEquals(1, journeys.size)
         val journey = journeys[0]
-        assertEquals("Amsterdam", journey.legs[0].originStation)
+        assertEquals("Amsterdam", journey.legStartPoints[0].originStation)
         assertEquals("Eindhoven", journey.finalStation)
-        assertEquals(1, journey.legs.size)
-        assertEquals("TripB", journey.legs[0].trip)
+        assertEquals(1, journey.legStartPoints.size)
+        assertEquals("TripB", journey.legStartPoints[0].trip)
 
     }
 }

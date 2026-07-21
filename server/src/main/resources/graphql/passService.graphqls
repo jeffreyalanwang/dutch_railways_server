@@ -3,10 +3,10 @@ extend type Query {
 }
 
 type PassService {
-    id: ID!
-    name: String!
-    trainset: Trainset!
-    amenities: [TrainAmenity!]!
+    id: ID
+    name: String
+    trainset: Trainset
+    amenities: [TrainAmenity]
 }
 
 extend type Mutation {

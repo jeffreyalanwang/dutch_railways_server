@@ -1,5 +1,8 @@
 package com.jeffreyalanwang.dutchrailways.backend.routeQuery
 
+internal inline fun <E> buildListReversed(builderAction: MutableList<E>.() -> Unit) =
+    buildList(builderAction).asReversed()
+
 internal fun <T> List<Collection<T>>.cartesianProduct(): Collection<List<T>> = buildList {
     // If zero digits
     if (this@cartesianProduct.isEmpty()) return@buildList
@@ -49,3 +52,20 @@ internal infix fun <T: Comparable<T>> T?.finiteAndLt(other: T?) =
 
 internal fun <T> List<T>.indexOfOrNull(element: T) =
     indexOf(element).takeUnless { it < 0 }
+
+/**
+ * Returns the index and value of the key in the map.
+ *
+ * If the key is not in the map, it is first initialized using [block].
+ *
+ * @receiver    A linked hash map, because it preserves insertion order.
+ */
+internal fun <K, V> LinkedHashMap<K, V>.withIndexOrPut(key: K, block: (K) -> V): IndexedValue<V> =
+    get(key)?.let {
+        IndexedValue( keys.indexOf(key), it )
+    } ?:
+    block(key).let {
+        val index = size
+        put(key, it)
+        IndexedValue(index, it)
+    }
