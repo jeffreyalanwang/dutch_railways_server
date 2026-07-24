@@ -34,10 +34,12 @@ class GenericJourneyDetails<ETrip, EStation>(
                     ?.originStation
                     ?: finalStation
 
-                add(selector(trip, fromStation, StopType.START))
-                add(selector(trip, toStation, StopType.END))
+                add(selector(trip, fromStation, StopType.LEG_START))
+                add(selector(trip, toStation, StopType.LEG_END))
             }
         }
+
+    fun toFlatStops() = toFlatStops(::Triple)
 }
 
-enum class StopType { START, END }
+enum class StopType { LEG_START, LEG_END }

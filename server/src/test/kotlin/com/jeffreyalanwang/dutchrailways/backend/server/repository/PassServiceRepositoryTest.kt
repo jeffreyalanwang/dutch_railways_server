@@ -13,11 +13,11 @@ import kotlin.test.assertTrue
  */
 @SpringBootTest
 @ContextConfiguration(classes = [DutchRailwaysServerApplication::class])
-class StopRepositoryTest(
-    @Autowired val stopRepository: StopRepository,
+class PassServiceRepositoryTest(
+    @Autowired val passServiceRepository: PassServiceRepository,
 ) {
     @Test
-    fun `getStopByServiceAndStation() returns values in same order as input`() {
+    fun `getStops(serviceIdAndStationId) returns values in same order as input`() {
         val serviceToStation = listOf(
             651 to 1176,
             651 to 1164,
@@ -27,7 +27,7 @@ class StopRepositoryTest(
             574 to 1156,
         )
 
-        val stops = stopRepository.getStopsByServiceAndStation(serviceToStation)
+        val stops = passServiceRepository.getStop(serviceToStation)
 
         assertEquals(serviceToStation.size, stops.size)
 
@@ -38,8 +38,8 @@ class StopRepositoryTest(
     }
 
     @Test
-    fun `getAllPassServiceTimetables() output has valid output shape`() {
-        val timetables = stopRepository.getAllPassServiceTimetables()
+    fun `getAllTimetables() returns collection of valid shape`() {
+        val timetables = passServiceRepository.getAllTimetables()
 
         with (timetables) {
             assertEquals(size, distinctBy { it.id }.size, "Output value should have a unique set of keys")

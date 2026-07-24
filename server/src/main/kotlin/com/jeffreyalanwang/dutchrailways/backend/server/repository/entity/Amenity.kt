@@ -10,6 +10,17 @@ class Amenity (
     @Id var id: Int = 0,
 
     @Column(length = 256)
-    var description: String,
+    private var description: String,
 
-)
+) {
+    val enum get() = AmenityEnum.entries.find { it.name == description }
+}
+
+enum class AmenityEnum {
+    STROOM,
+    TOILET,
+    WIFI,
+    STILTE,
+    FIETS,
+    TOEGANKELIJK,
+}

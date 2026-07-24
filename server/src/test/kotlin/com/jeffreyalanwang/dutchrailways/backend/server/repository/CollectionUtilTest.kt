@@ -3,10 +3,10 @@ package com.jeffreyalanwang.dutchrailways.backend.server.repository
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 
-class UtilTest {
+class CollectionUtilTest {
 
     @Test
-    fun `findInOrderIn() selects the correct order`() {
+    fun `joinedOn() selects the correct order`() {
         val sequence = sequenceOf (
             Triple(1, 1, 1),
             Triple(2, 1, 2),
@@ -21,11 +21,11 @@ class UtilTest {
             Pair(2, 1),
         )
 
-        val result = sequence.findInOrderIn(order) { Pair(it.first, it.second) }
+        val result = sequence.joinedOn(order) { Pair(it.first, it.second) }
 
         assertContentEquals(
             listOf(5, 6, 2),
-            result.map { it.third },
+            result.map { it?.third },
         )
     }
 

@@ -9,20 +9,24 @@ import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.StationNotFoun
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericJourneyDetails
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails.Leg
+import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.StopType
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.PassServiceTimetable
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.StopRepository
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.stereotype.Component
-import kotlin.time.Instant
+import java.time.Instant
+import java.time.ZoneId
 import kotlin.time.toKotlinInstant
 
 @Component
 class JourneyFinder(
     private val stationRepository: StationRepository,
-    private val stopRepository: StopRepository,
+    private val passServiceRepository: PassServiceRepository,
 
     private val routeStrategy: RouteQueryStrategy,
     private val rangeRouteStrategy: RangeRouteQueryStrategy,
@@ -49,13 +53,13 @@ class JourneyFinder(
                 routeStrategy(
                     origin = originStation,
                     destination = destinationStation,
-                    startTime = earliestDepartTime,
+                    startTime = earliestDepartTime.toKotlinInstant(),
                 )
             } else {
                 rangeRouteStrategy(
                     origin = originStation,
                     destination = destinationStation,
-                    timeRange = earliestDepartTime..latestArriveTime,
+                    timeRange = (earliestDepartTime..latestArriveTime).toKotlinInstantRange(),
                 )
             }
         }
@@ -63,39 +67,21 @@ class JourneyFinder(
         return journeys.map { hydrateJourney(it) }
     }
 
-    private val graph: RouteQueryDataSource<Int, Int>
-        get() {
-            val trips =
-                stopRepository.getAllPassServiceTimetables().map { trip ->
-                    trip.id to GenericTripDetails(
-                        stations = trip.stops.map { it.stationId },
-                        times = trip.stops
-                            .zipWithNext { a, b ->
-                                Leg(
-                                    a.departTime!!.toInstant().toKotlinInstant(),
-                                    b.arriveTime!!.toInstant().toKotlinInstant(),
-                                )
-                            },
-                    )
-                }
-            val stations = stationRepository.getAllStationIds()
-
-            return RouteQueryDataSource.fromRelational(
-                trips = trips,
-                stations = stations,
-            )
-        }
+    private val graph get() = RouteQueryDataSource
+        .fromRelational(
+            trips = passServiceRepository.getAllTimetables().map { it.asRouteQueryDetails() },
+            stations = stationRepository.getAllStationIds(),
+        )
 
     /**
      * This overload is responsible for zero-leg journeys.
      */
     private fun hydrateJourney(originAndDestination: Int, startTime: Instant) =
         try {
-            with(stationRepository) {
-                PointJourney.ofSingleStop(
-                    startTime.atOffsetOf(originAndDestination) to originAndDestination
-                )
-            }
+            PointJourney.ofSingleStop(
+                time = with(stationRepository) { startTime.atOffsetIn(originAndDestination) },
+                place = originAndDestination,
+            )
         } catch (e: EmptyResultDataAccessException) {
             throw StationNotFoundException(originAndDestination, e)
         }
@@ -108,13 +94,21 @@ class JourneyFinder(
      * This implementation performs a bulk query.
      */
     private fun hydrateJourney(journey: GenericJourneyDetails<Int, Int>): PointJourney =
-        journey.toFlatStops { trip, station, _ -> trip to station }!!
-            .let { stopRepository.getStopsByServiceAndStation(keyList = it) }
-            .mapIndexed { index, stop ->
-                PointJourney.Point(
-                    stationId = stop.stationId,
-                    time = if (index % 2 == 0) stop.departTime!! else stop.arriveTime!!,
-                    passService = stop.serviceId
+        journey.toFlatStops { trip, station, stopType -> (trip to station) to stopType }!!
+            .let {
+                // Perform bulk repository lookup instead of individual mapping
+                val (tripToStation, stopType) = it.unzip()
+                val stops = passServiceRepository.getStop(serviceIdAndStationId = tripToStation)
+                val timeZones = stationRepository.getTimeZone(tripToStation.unzip().second)
+                it.indices.map { i -> Triple(stops[i], stopType[i], timeZones[i]) }
+            }
+            .map { (stop, stopType, timeZone) ->
+                stop.asJourneyPoint(
+                    isDeparture = when (stopType) {
+                        StopType.LEG_START -> true
+                        StopType.LEG_END -> false
+                    },
+                    timeZone = timeZone,
                 )
             }
             .let { PointJourney(it) }
@@ -122,9 +116,26 @@ class JourneyFinder(
 
 @Configuration
 class RouteStrategiesConfiguration {
-    @Bean
-    fun basicRouteStrategy(): RouteQueryStrategy = Raptor
-
-    @Bean
-    fun rangeRouteStrategy(): RangeRouteQueryStrategy = RRaptor
+    @Bean fun basicRouteStrategy(): RouteQueryStrategy = Raptor
+    @Bean fun rangeRouteStrategy(): RangeRouteQueryStrategy = RRaptor
 }
+
+// Conversion between Kotlin and Java Instants occurs below.
+
+private fun PassServiceTimetable.asRouteQueryDetails() =
+    id to GenericTripDetails(
+        stations = stops.map { it.stationId },
+        times = stops.zipWithNext { a, b ->
+                Leg(departTime = a.departTime!!.toKotlinInstant(), arriveTime = b.arriveTime!!.toKotlinInstant())
+            }
+    )
+
+private fun Stop.asJourneyPoint(isDeparture: Boolean, timeZone: ZoneId) = PointJourney.Point(
+    station = stationId,
+    time = (if (isDeparture) departTime!! else arriveTime!!)
+        .atZone(timeZone).toOffsetDateTime(),
+    passService = serviceId
+)
+
+private fun ClosedRange<Instant>.toKotlinInstantRange() =
+    start.toKotlinInstant()..endInclusive.toKotlinInstant()

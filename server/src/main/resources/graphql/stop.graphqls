@@ -3,11 +3,11 @@ extend type Query {
 }
 
 extend type PassService {
-    stops(after: DateTime = null, maxCount: Int = null): [Stop]
+    stops(after: DateTime!, maxCount: Int!): [Stop]
 }
 
 extend type Station {
-    stops(after: DateTime = null, maxCount: Int = null): [Stop]
+    stops(after: DateTime!, maxCount: Int!): [Stop]
 }
 
 type Stop {

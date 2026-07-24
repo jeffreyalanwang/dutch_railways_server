@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import
 import org.springframework.graphql.test.tester.GraphQlTester
 
 @GraphQlTest(GraphQlController::class)
-@Import(GraphQlConfig::class, GraphQlConversionService::class)
+@Import(GraphQlConfig::class)
 class MutationUnitTests {
 
     @Autowired

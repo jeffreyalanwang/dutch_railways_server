@@ -12,8 +12,7 @@ class Place (
 
     @Column(length = 128)
     var name: String,
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn("locatedin")
-    var locatedIn: Area? = null,
-)
+) {
+    @ManyToMany(mappedBy = "contains")
+    val locatedIn: MutableSet<Area>? = null
+}

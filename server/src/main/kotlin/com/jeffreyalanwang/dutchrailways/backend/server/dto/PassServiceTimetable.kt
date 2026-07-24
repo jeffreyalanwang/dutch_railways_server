@@ -1,7 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.dto
 
 import java.io.Serializable
-import java.time.OffsetDateTime
+import java.time.Instant
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop as StopEntity
 
 /**
@@ -13,8 +13,8 @@ data class PassServiceTimetable(
 ) : Serializable {
 
     interface Stop : Serializable {
-        val arriveTime: OffsetDateTime?
-        val departTime: OffsetDateTime?
+        val arriveTime: Instant?
+        val departTime: Instant?
         val stationId: Int
     }
 

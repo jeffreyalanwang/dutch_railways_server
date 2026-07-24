@@ -1,19 +1,20 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api
 
-import com.querydsl.core.types.EntityPath
-import com.querydsl.core.types.Path
 import graphql.schema.DataFetcher
 import graphql.schema.idl.RuntimeWiring
 import graphql.schema.idl.TypeRuntimeWiring
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.reactor.asFlux
+import org.dataloader.BatchLoaderEnvironment
 import org.springframework.core.convert.converter.Converter
 import org.springframework.core.convert.support.ConfigurableConversionService
-import org.springframework.data.querydsl.QuerydslPredicateExecutor
-import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer
 import org.springframework.data.querydsl.binding.QuerydslBindings
 import org.springframework.graphql.data.GraphQlArgumentBinder
 import org.springframework.graphql.data.method.annotation.support.AnnotatedControllerDetectionSupport
-import org.springframework.graphql.data.query.QuerydslDataFetcher
+import org.springframework.graphql.execution.BatchLoaderRegistry
 import org.springframework.graphql.execution.RuntimeWiringConfigurer
+import reactor.core.publisher.Flux
+import kotlin.experimental.ExperimentalTypeInference
 
 
 /**
@@ -30,6 +31,27 @@ internal fun <T: AnnotatedControllerDetectionSupport<*>> T.withBinderConfigurati
     block: GraphQlArgumentBinder.Options.() -> Unit,
 ) = apply { configureBinder { it.block() } }
 
+internal var GraphQlArgumentBinder.Options.conversionService
+    get() = conversionService()
+    set(value) { conversionService(value) }
+
+internal inline fun <reified S : Any, reified T : Any> ConfigurableConversionService.addConverter(
+    conversionService: Converter<S, T>,
+) = addConverter(S::class.java, T::class.java, conversionService)
+
+internal inline fun <reified K: Any, reified V: Any> BatchLoaderRegistry.forTypePair() = forTypePair(K::class.java, V::class.java)
+
+internal fun <K: Any, V: Any> BatchLoaderRegistry.RegistrationSpec<K, V>.registerBatchLoader(
+    loader: BatchLoaderEnvironment.(List<K>) -> Flow<V>,
+) = registerBatchLoader { ids, environment -> environment.loader(ids).asFlux() }
+
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+@JvmName("registerBatchLoaderSynchronous")
+internal fun <K: Any, V: Any> BatchLoaderRegistry.RegistrationSpec<K, V>.registerBatchLoader(
+    loader: BatchLoaderEnvironment.(List<K>) -> List<V>,
+) = registerBatchLoader { ids, environment -> environment.loader(ids).let { Flux.fromIterable(it) } }
+
 internal fun RuntimeWiringConfigurer(
     block: RuntimeWiring.Builder.() -> Unit,
 ) = RuntimeWiringConfigurer { it.block() }
@@ -45,31 +67,6 @@ internal infix fun String.fetches(
     dataFetcher: DataFetcher<*>,
 ) = wiringBuilder.dataFetcher(this, dataFetcher)
 
-context(wiringBuilder: TypeRuntimeWiring.Builder)
-internal fun <Q: EntityPath<T>, T: Any> querydsl(
-    dataFetcher: QuerydslPredicateExecutor<T>,
-    customizer: QuerydslBindings.(root: Q) -> Unit = {},
-) = QuerydslDataFetcher.builder(dataFetcher)
-    .customizer(
-        QuerydslBinderCustomizer<Q> { bindings, root ->
-            bindings.customizer(root)
-        }
-    )
-
-context(bindings: QuerydslBindings)
-internal infix fun <T: Path<S>, S: Any> String.binds(path: T) = bindings.bind(path).`as`(this)
-
-context(bindings: QuerydslBindings)
-internal infix fun <T: Path<out S>, S: Any> QuerydslBindings.AliasingPathBinder<T, S>.on(binding: Any?) =
-    binding?.let { throw NotImplementedError() } ?: withDefaultBinding()
-
 context(bindings: QuerydslBindings)
 internal val defaultBinding get() = null
 
-/**
- * Kotlin syntactic sugar for [addConverter],
- * enabling use of reified type parameters instead of Java class attributes.
- */
-internal inline fun <reified S : Any, reified T : Any> ConfigurableConversionService.addConverter(
-    conversionService: Converter<S, T>,
-) = addConverter(S::class.java, T::class.java, conversionService)

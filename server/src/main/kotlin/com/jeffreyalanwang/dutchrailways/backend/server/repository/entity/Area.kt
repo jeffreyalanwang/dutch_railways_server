@@ -1,8 +1,13 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.OneToMany
-import jakarta.persistence.Table
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.EPSG_28992_POSITION_CONVERTER
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.MultiPolygonConverterFromG2D
+import jakarta.persistence.*
+import org.geolatte.geom.G2D
+import org.geolatte.geom.MultiPolygon
+
+@Converter
+class MultiPolygonConverterEpsg28992: MultiPolygonConverterFromG2D(EPSG_28992_POSITION_CONVERTER)
 
 @Entity
 @Table(name = "area")
@@ -10,12 +15,18 @@ class Area(
     id: Int = -1,
     name: String = "",
 
-//    @Column(columnDefinition = "geometry not null")
-//    var geom: MultiPolygon<G2D>,
-
+    @Column(columnDefinition = "geometry(Point, 28992) not null")
+    @Convert(MultiPolygonConverterEpsg28992::class)
+    var geom: MultiPolygon<G2D>? = null,
 ) : Place(id, name) {
 
-    @OneToMany(mappedBy = "locatedIn")
-    var contains: MutableSet<Place> = mutableSetOf()
+    @ManyToMany
+    @JoinTable(
+        name = "placehierarchy",
+        joinColumns = [JoinColumn(name = "parent", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "child", referencedColumnName = "id")],
+    )
+    @Column(updatable = false)
+    val contains: MutableSet<Place> = mutableSetOf()
 
 }

@@ -12,7 +12,7 @@ import org.springframework.graphql.test.tester.entity
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
-class `Integration test for stopOfPassServiceAtStation query`(
+class QueryStopOfPassServiceAtStationIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
     @Language("GraphQL")
@@ -65,7 +65,9 @@ class `Integration test for stopOfPassServiceAtStation query`(
             .fragment(fragment)
             .execute()
 
-        response.path("stopOfPassServiceAtStation.arriveTime").hasValue()
+        response.path("stopOfPassServiceAtStation.arriveTime")
+            .also { print( it.entity<String>().get() ) }
+            .hasValue()
     }
 
     @Test

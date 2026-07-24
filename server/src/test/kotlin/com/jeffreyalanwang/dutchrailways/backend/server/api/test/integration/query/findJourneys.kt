@@ -1,8 +1,5 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.integration.query
 
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.atStartOfDayIn
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -13,14 +10,17 @@ import org.springframework.graphql.test.tester.HttpGraphQlTester
 import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
 import tools.jackson.databind.ObjectMapper
+import java.time.LocalDate
 import java.time.OffsetDateTime
-import kotlin.time.Instant
-import kotlin.time.toKotlinInstant
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.Instant
+
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
-class `Integration test for findJourneys query`(
+class QueryFindJourneysIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
     @Language("GraphQL")
@@ -39,8 +39,8 @@ class `Integration test for findJourneys query`(
 
     val origin = 1176
     val destination = 1247
-    val earliest = LocalDate.orNull(2026, 5, 1)!!.atStartOfDayIn(TimeZone.UTC)
-    val latest = LocalDate.orNull(2026, 6, 1)!!.atStartOfDayIn(TimeZone.UTC)
+    val earliest = LocalDate.of(2026, 5, 1).atStartOfDay().atOffset(ZoneOffset.UTC)
+    val latest = LocalDate.of(2026, 6, 1).atStartOfDay().atOffset(ZoneOffset.UTC)
 
     val argMap = mapOf(
         "origin" to origin,
@@ -112,10 +112,10 @@ class `Integration test for findJourneys query`(
             .execute()
 
         response.path("findJourneys[0].points[0].time").entity<OffsetDateTime>()
-            .matches { it.toInstant().toKotlinInstant() > earliest }
+            .matches { it > earliest }
 
         response.path("findJourneys[0].points[-1].time").entity<OffsetDateTime>()
-            .matches { it.toInstant().toKotlinInstant() < latest }
+            .matches { it < latest }
     }
 
     @Test
@@ -166,6 +166,9 @@ class `Integration test for findJourneys query`(
             .fragment(fragment)
             .execute()
 
+        response.path("findJourneys[0]").hasValue()
+        response.path("findJourneys[0].points[0]").hasValue()
+        response.path("findJourneys[0].points[0].via").hasValue()
         response.path("findJourneys[0].points[0].via.id").hasValue()
     }
 }

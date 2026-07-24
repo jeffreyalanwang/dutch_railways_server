@@ -19,7 +19,7 @@ extend type Mutation {
 input MutationPassService {
     name: String!
     trainset: Trainset!
-    amenities: TrainAmenity!
+    amenities: [TrainAmenity!]!
 }
 
 enum Trainset {
@@ -31,7 +31,6 @@ enum Trainset {
     ICNG
     GTW
     Flirt
-    other
 }
 
 enum TrainAmenity {
@@ -41,5 +40,4 @@ enum TrainAmenity {
     STILTE
     FIETS
     TOEGANKELIJK
-    unknown
 }
