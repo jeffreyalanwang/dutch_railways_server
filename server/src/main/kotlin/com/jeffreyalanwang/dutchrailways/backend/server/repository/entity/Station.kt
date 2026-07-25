@@ -7,7 +7,7 @@ import org.geolatte.geom.G2D
 import org.geolatte.geom.Point
 
 @Converter
-class LatLngConverterEpsg28992: PointConverterFromG2D(EPSG_28992_POSITION_CONVERTER)
+private class LatLngConverterEpsg28992: PointConverterFromG2D(EPSG_28992_POSITION_CONVERTER)
 
 @Entity
 @Table(name = "station")

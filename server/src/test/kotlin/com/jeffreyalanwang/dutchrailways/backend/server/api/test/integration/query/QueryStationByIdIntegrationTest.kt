@@ -1,15 +1,15 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.integration.query
 
 import org.intellij.lang.annotations.Language
-import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureHttpGraphQlTester
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.graphql.test.tester.GraphQlTester
 import org.springframework.graphql.test.tester.HttpGraphQlTester
 import org.springframework.graphql.test.tester.entity
+import org.springframework.graphql.test.tester.entityList
 import kotlin.test.Test
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
 class QueryStationByIdIntegrationTest(
@@ -117,9 +117,9 @@ class QueryStationByIdIntegrationTest(
     @Test
     fun `Station is nested within expected parent areas`() {
         @Language("GraphQL")
-        val fragment = $$"""
-            fragment Selection on Area {
-            locatedIn {
+        val fragment = """
+            fragment Selection on Station {
+                locatedIn {
                     name
                 }
             }
@@ -131,6 +131,9 @@ class QueryStationByIdIntegrationTest(
             .fragment(fragment)
             .execute()
 
-        response.path("areaById.locatedIn.name").entity<String>().matches { it.isNotEmpty() }
+        response.path("stationById.locatedIn[*].name")
+            .entityList<String>()
+            .matches<GraphQlTester.EntityList<String>> { it.isNotEmpty() }
+            .hasSizeGreaterThan(1)
     }
 }

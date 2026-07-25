@@ -10,9 +10,9 @@ type PassService {
 }
 
 extend type Mutation {
-    createPassService(details: MutationPassService!): PassService!
-    updatePassService(id: ID!, details: MutationPassService!): PassService!
-    deletePassService(id: ID!): ID!
+    createPassService(details: MutationPassService!): PassService
+    updatePassService(id: ID!, details: MutationPassService!): PassService
+    deletePassService(id: ID!): ID
 }
 
 # TODO modify database so that amenities are applied on the Trainset

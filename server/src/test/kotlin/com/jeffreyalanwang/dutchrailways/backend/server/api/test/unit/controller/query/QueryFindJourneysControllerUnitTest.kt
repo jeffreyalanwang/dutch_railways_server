@@ -1,7 +1,8 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlController
+import com.jeffreyalanwang.dutchrailways.backend.server.api.JourneyQueryController
+import com.jeffreyalanwang.dutchrailways.backend.server.api.PassServiceQueryController
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney
 import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
@@ -10,10 +11,8 @@ import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationReposi
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.ninjasquad.springmockk.MockkBean
 import com.ninjasquad.springmockk.MockkSpyBean
-import io.mockk.context.withContext
 import io.mockk.every
 import io.mockk.verify
-import org.dataloader.DataLoader
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -23,24 +22,22 @@ import org.springframework.context.annotation.Import
 import org.springframework.graphql.test.tester.GraphQlTester
 import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
-import java.time.Duration.ofMinutes
 import java.time.Instant
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
+import java.time.temporal.ChronoUnit.MINUTES
 
-
-@GraphQlTest(GraphQlController::class)
+@GraphQlTest(JourneyQueryController::class, PassServiceQueryController::class)
 @Import(GraphQlConfig::class)
 class QueryFindJourneysControllerUnitTest {
 
     @Autowired private lateinit var graphQlTester: GraphQlTester
-    @MockkSpyBean private lateinit var controller: GraphQlController
+    @MockkSpyBean private lateinit var journeyController: JourneyQueryController
+    @MockkSpyBean private lateinit var passServiceController: PassServiceQueryController
 
     @MockkBean private lateinit var journeyFinder: JourneyFinder
     @MockkBean private lateinit var passServiceRepository: PassServiceRepository
-    @MockkBean private lateinit var areaRepository: AreaRepository
-    @MockkBean private lateinit var stationRepository: StationRepository
 
     @Language("GraphQL")
     val rangeQuery = $$"""
@@ -64,7 +61,7 @@ class QueryFindJourneysControllerUnitTest {
         val instant = Instant.now()
 
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Journey {
                 points {
                     time
@@ -83,13 +80,13 @@ class QueryFindJourneysControllerUnitTest {
         val response = graphQlTester.document(rangeQuery)
             .variable("origin", origin)
             .variable("destination", destination)
-            .variable("earliest", (instant).toString())
-            .variable("earliest", (instant + ofMinutes(5)).toString())
+            .variable("earliest", instant.toString())
+            .variable("earliest", instant.plus(5, MINUTES).toString())
             .fragment(fragment)
             .execute()
 
         verify {
-            controller.findJourneys(any(), any(), any(), any())
+            journeyController.findJourneys(any(), any(), any(), any())
         }
 
         verify {
@@ -115,7 +112,7 @@ class QueryFindJourneysControllerUnitTest {
         val latest = LocalDate.of(2026, 6, 1).atStartOfDay().atOffset(ZoneOffset.UTC)
 
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Journey {
                 points {
                     via {
@@ -129,9 +126,9 @@ class QueryFindJourneysControllerUnitTest {
             journeyFinder.invoke(any(), any(), any(), any())
         } returns listOf(
             PointJourney
-                departingAt earliest + ofMinutes( 0) fromStation origin
+                departingAt earliest.plusMinutes( 0) fromStation origin
                 viaPassService 5
-                arrivingAt  earliest + ofMinutes(30) atStation destination
+                arrivingAt  earliest.plusMinutes(30) atStation destination
         )
 
         every {
@@ -150,7 +147,7 @@ class QueryFindJourneysControllerUnitTest {
             .execute()
 
         verify {
-            controller.findJourneys(
+            journeyController.findJourneys(
                 origin,
                 destination,
                 earliest.toInstant(),
@@ -159,10 +156,8 @@ class QueryFindJourneysControllerUnitTest {
         }
 
         verify {
-            controller.run {
-                withContext<DataLoader<Int, PassService>> {
-                    any<PointJourney.Point>().via()
-                }
+            passServiceController.run {
+                any<PointJourney.JourneyPoint>().via(any())
             }
         }
 

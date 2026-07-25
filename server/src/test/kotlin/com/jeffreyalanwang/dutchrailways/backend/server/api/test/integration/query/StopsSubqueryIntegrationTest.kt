@@ -3,7 +3,6 @@ package com.jeffreyalanwang.dutchrailways.backend.server.api.test.integration.qu
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureHttpGraphQlTester
 import org.springframework.boot.test.context.SpringBootTest
@@ -14,11 +13,9 @@ import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import kotlin.test.assertEquals
 
-
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
-class StopsSubqueryTest(
+class StopsSubqueryIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
     @Language("GraphQL")

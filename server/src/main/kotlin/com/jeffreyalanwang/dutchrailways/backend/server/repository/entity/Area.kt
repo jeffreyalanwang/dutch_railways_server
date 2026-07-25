@@ -7,7 +7,7 @@ import org.geolatte.geom.G2D
 import org.geolatte.geom.MultiPolygon
 
 @Converter
-class MultiPolygonConverterEpsg28992: MultiPolygonConverterFromG2D(EPSG_28992_POSITION_CONVERTER)
+private class MultiPolygonConverterEpsg28992: MultiPolygonConverterFromG2D(EPSG_28992_POSITION_CONVERTER)
 
 @Entity
 @Table(name = "area")

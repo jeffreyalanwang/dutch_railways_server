@@ -10,13 +10,13 @@ import org.geolatte.geom.crs.CoordinateReferenceSystems.WGS84
 import org.geolatte.geom.crs.CrsRegistry
 import org.geolatte.geom.crs.trans.CoordinateOperations.transform
 
-val EPSG_28992_POSITION_CONVERTER = PositionConverterToEPSGFromG2D(28992)
+internal val EPSG_28992_POSITION_CONVERTER = PositionConverterToEPSGFromG2D(28992)
 
-fun PositionConverterToEPSGFromG2D(epsgCode: Int) =
+internal fun PositionConverterToEPSGFromG2D(epsgCode: Int) =
     CrsRegistry.getProjectedCoordinateReferenceSystemForEPSG(epsgCode)
         .let { PositionConverterFromG2D(it) }
 
-class PositionConverterFromG2D(
+internal class PositionConverterFromG2D(
     val C2D_CRS: CoordinateReferenceSystem<C2D>
 ) {
     val G2D_CRS = WGS84
@@ -39,37 +39,35 @@ class PositionConverterFromG2D(
     }
 }
 
-inline fun <S: Position, reified T: Position> PositionSequence<S>.convertTo(block: (S) -> T) =
-    PositionSequenceBuilders.fixedSized(size(), T::class.java)
-        .let {
-            fold(it) { acc, it ->
-                acc.add(block(it))
-            }
+internal inline fun <S: Position, reified T: Position> PositionSequence<S>.convertTo(block: (S) -> T): PositionSequence<T> =
+    buildPositionSequence(size()) {
+        forEach {
+            add(block(it))
         }
-        .toPositionSequence()
+    }
 
-fun <S: Position, T: Position> Point<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
+internal fun <S: Position, T: Position> Point<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
     block(position)
         .let { Point(it, crs) }
 
-inline fun <S: Position, reified T: Position> LineString<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
+internal inline fun <S: Position, reified T: Position> LineString<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
     positions.convertTo(block)
         .let { LineString(it, crs) }
 
-inline fun <S: Position, reified T: Position> LinearRing<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
+internal inline fun <S: Position, reified T: Position> LinearRing<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
     (this as LineString<S>).convertTo(crs, block)
         .let { LinearRing(it) }
 
-inline fun <S: Position, reified T: Position> Polygon<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
+internal inline fun <S: Position, reified T: Position> Polygon<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
     map { linearRing -> linearRing.convertTo(crs, block) }
         .let { rings -> Polygon(*rings.toTypedArray()) }
 
-inline fun <S: Position, reified T: Position> MultiPolygon<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
+internal inline fun <S: Position, reified T: Position> MultiPolygon<S>.convertTo(crs: CoordinateReferenceSystem<T>, block: (S) -> T) =
     map { polygon -> polygon.convertTo(crs, block) }
         .let { polygons -> MultiPolygon(*polygons.toTypedArray()) }
 
 @Converter
-open class PointConverterFromG2D(
+internal open class PointConverterFromG2D(
     private val positionConverter: PositionConverterFromG2D,
 ): AttributeConverter<Point<G2D>, Point<C2D>> {
 
@@ -83,7 +81,7 @@ open class PointConverterFromG2D(
 }
 
 @Converter
-open class MultiPolygonConverterFromG2D(
+internal open class MultiPolygonConverterFromG2D(
     private val positionConverter: PositionConverterFromG2D,
 ): AttributeConverter<MultiPolygon<G2D>, MultiPolygon<C2D>> {
 
@@ -96,3 +94,29 @@ open class MultiPolygonConverterFromG2D(
     }
 
 }
+
+internal inline fun <reified P: Position> buildPositionSequence(
+    size: Int,
+    builder: PositionSequenceBuilder<P>.() -> Unit,
+): PositionSequence<P> =
+    PositionSequenceBuilders.fixedSized(size, P::class.java)
+    .apply(builder)
+    .toPositionSequence()
+
+internal inline fun <reified P: Position> buildPositionSequence(
+    builder: PositionSequenceBuilder<P>.() -> Unit,
+): PositionSequence<P> =
+    PositionSequenceBuilders.variableSized(P::class.java)
+    .apply(builder)
+    .toPositionSequence()
+
+internal inline fun <S, reified T: Position> PositionSequence(
+    source: Collection<S>,
+    transform: (S) -> T,
+) = with(source) {
+        buildPositionSequence(size) {
+            source.forEach {
+                add(transform(it))
+            }
+        }
+    }

@@ -1,13 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.integration.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
-import io.mockk.every
-import io.mockk.verify
-import org.geolatte.geom.G2D
-import org.geolatte.geom.Point
-import org.geolatte.geom.crs.CoordinateReferenceSystems
 import org.intellij.lang.annotations.Language
-import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureHttpGraphQlTester
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,7 +10,6 @@ import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
 import kotlin.test.Test
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
 class QueryAreaByIdIntegrationTest(
@@ -32,7 +24,7 @@ class QueryAreaByIdIntegrationTest(
         }
     """.trimIndent().let { '\n' + it + '\n' }
 
-    val areaId = 168
+    val areaId = 197
 
     val argMap = mapOf(
         "id" to areaId
@@ -41,7 +33,7 @@ class QueryAreaByIdIntegrationTest(
     @Test
     fun `Returns an area`() {
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Area {
                 id
             }
@@ -59,7 +51,7 @@ class QueryAreaByIdIntegrationTest(
     @Test
     fun `Area has expected id`() {
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Area {
                 id
             }
@@ -112,7 +104,7 @@ class QueryAreaByIdIntegrationTest(
     @Test
     fun `Area is nested within expected parent areas`() {
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Area {
             locatedIn {
                     name
@@ -137,7 +129,7 @@ class QueryAreaByIdIntegrationTest(
     @Test
     fun `Area contains expected places`() {
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Area {
                 contains {
                     __typename 

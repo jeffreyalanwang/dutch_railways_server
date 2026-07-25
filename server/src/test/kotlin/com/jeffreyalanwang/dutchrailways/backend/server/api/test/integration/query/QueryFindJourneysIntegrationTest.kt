@@ -2,22 +2,17 @@ package com.jeffreyalanwang.dutchrailways.backend.server.api.test.integration.qu
 
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureHttpGraphQlTester
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.graphql.test.tester.HttpGraphQlTester
 import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
-import tools.jackson.databind.ObjectMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import java.time.ZoneId
 import java.time.ZoneOffset
-import java.time.Instant
 
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
 class QueryFindJourneysIntegrationTest(
@@ -53,7 +48,7 @@ class QueryFindJourneysIntegrationTest(
     fun `Returns at least one solution`() {
 
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Journey {
                 points {
                     time
@@ -75,7 +70,7 @@ class QueryFindJourneysIntegrationTest(
     fun `Journey includes at least two points`() {
 
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Journey {
                 points {
                     time
@@ -97,7 +92,7 @@ class QueryFindJourneysIntegrationTest(
     fun `Journey respects time boundaries`() {
 
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Journey {
                 points {
                     time
@@ -122,7 +117,7 @@ class QueryFindJourneysIntegrationTest(
     fun `Journey made it to intended endpoints`() {
 
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Journey {
                 points {
                     time,
@@ -150,7 +145,7 @@ class QueryFindJourneysIntegrationTest(
     fun `Journey returns 'via' field`() {
 
         @Language("GraphQL")
-        val fragment = $$"""
+        val fragment = """
             fragment Selection on Journey {
                 points {
                     via {

@@ -1,24 +1,20 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlController
-import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
+import com.jeffreyalanwang.dutchrailways.backend.server.api.PassServiceQueryController
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum.Companion.isLike
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.AmenityEnum
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.TrainsetType
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.TrainsetTypeEnum
 import com.ninjasquad.springmockk.MockkBean
 import com.ninjasquad.springmockk.MockkSpyBean
-import io.mockk.InternalPlatformDsl.toArray
 import io.mockk.every
 import io.mockk.verify
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,18 +24,13 @@ import org.springframework.graphql.test.tester.GraphQlTester
 import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@GraphQlTest(GraphQlController::class)
+@GraphQlTest(PassServiceQueryController::class)
 @Import(GraphQlConfig::class)
 class QueryPassServiceByIdUnitTest {
 
     @Autowired private lateinit var graphQlTester: GraphQlTester
-    @MockkSpyBean private lateinit var controller: GraphQlController
-
-    @MockkBean private lateinit var journeyFinder: JourneyFinder
+    @MockkSpyBean private lateinit var controller: PassServiceQueryController
     @MockkBean private lateinit var passServiceRepository: PassServiceRepository
-    @MockkBean private lateinit var areaRepository: AreaRepository
-    @MockkBean private lateinit var stationRepository: StationRepository
 
     @Language("GraphQL")
     val query = $$"""
@@ -132,6 +123,6 @@ class QueryPassServiceByIdUnitTest {
         response.path("passServiceById.amenities")
             .hasValue()
             .entityList<String>()
-            .containsExactly(*amenities.map { it.name }.toTypedArray())
+            .matches<GraphQlTester.EntityList<String>> { amenities isLike it }
     }
 }

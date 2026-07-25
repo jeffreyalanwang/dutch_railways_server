@@ -1,44 +1,33 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlController
-import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
+import com.jeffreyalanwang.dutchrailways.backend.server.api.AreaQueryController
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Area
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
 import com.ninjasquad.springmockk.MockkBean
 import com.ninjasquad.springmockk.MockkSpyBean
 import io.mockk.every
 import io.mockk.verify
 import org.geolatte.geom.G2D
 import org.geolatte.geom.MultiPolygon
-import org.geolatte.geom.Point
 import org.geolatte.geom.codec.Wkt
-import org.geolatte.geom.crs.CoordinateReferenceSystems
 import org.geolatte.geom.crs.CoordinateReferenceSystems.WGS84
 import org.intellij.lang.annotations.Language
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.GraphQlTest
 import org.springframework.context.annotation.Import
 import org.springframework.graphql.test.tester.GraphQlTester
-import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
 import kotlin.collections.map
 import kotlin.test.Test
 
-@GraphQlTest(GraphQlController::class)
+@GraphQlTest(AreaQueryController::class)
 @Import(GraphQlConfig::class)
 class QueryAreaByIdUnitTest {
 
     @Autowired private lateinit var graphQlTester: GraphQlTester
-    @MockkSpyBean private lateinit var controller: GraphQlController
-
-    @MockkBean private lateinit var journeyFinder: JourneyFinder
-    @MockkBean private lateinit var passServiceRepository: PassServiceRepository
+    @MockkSpyBean private lateinit var controller: AreaQueryController
     @MockkBean private lateinit var areaRepository: AreaRepository
-    @MockkBean private lateinit var stationRepository: StationRepository
 
     @Language("GraphQL")
     val query = $$"""
@@ -109,7 +98,7 @@ class QueryAreaByIdUnitTest {
         response.path("areaById.geom.polygons[*]").hasValue()
         response.path("areaById.geom.polygons[*].rings").hasValue()
         response.path("areaById.geom.polygons[*].rings[*].points").hasValue()
-        
+
         response.path("areaById.geom.polygons[*].rings[*].points[*].latitude")
             .entityList<Double>().containsExactly(
                 *geom.flatMap { polygon ->

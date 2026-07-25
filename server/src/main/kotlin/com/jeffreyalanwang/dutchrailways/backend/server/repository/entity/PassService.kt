@@ -16,11 +16,9 @@ class PassService(
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "consist", nullable = false)
-    var consist: TrainsetType? =
-        null
+    var consist: TrainsetType? = null
 
-    @OneToMany(mappedBy = "service")
-    val stops: MutableSet<Stop> =
-        mutableSetOf()
+    @OneToMany(mappedBy = "service", cascade = [CascadeType.ALL])
+    val stops: MutableSet<Stop> = mutableSetOf()
 
 }

@@ -5,11 +5,11 @@ import java.time.OffsetDateTime
 /**
  * A journey represented as a list of time/place points.
  *
- * Corresponds to GraphQL schema.
+ * Corresponds to GraphQL schema return value.
  */
-data class PointJourney(val points: List<Point>) {
+data class PointJourney(val points: List<JourneyPoint>) {
 
-    data class Point(
+    data class JourneyPoint(
         val time: OffsetDateTime,
         val station: Int,
         val passService: Int?,
@@ -21,7 +21,7 @@ data class PointJourney(val points: List<Point>) {
             place: Int,
         ) = PointJourney(
                 points = listOf(
-                    Point(
+                    JourneyPoint(
                         time = time,
                         station = place,
                         passService = null,
@@ -30,7 +30,7 @@ data class PointJourney(val points: List<Point>) {
             )
 
         infix fun departingAt(time: OffsetDateTime) = object : Builder.ReadyForDepartureStation {
-            override val completedPortion get() = emptyList<Point>()
+            override val completedPortion get() = emptyList<JourneyPoint>()
             override val departureTime get() = time
         }
 
@@ -43,7 +43,7 @@ data class PointJourney(val points: List<Point>) {
     }
 
     interface Builder {
-        val completedPortion: List<Point>
+        val completedPortion: List<JourneyPoint>
 
         interface ReadyForDepartureStation: Builder {
             val departureTime: OffsetDateTime
@@ -85,12 +85,12 @@ data class PointJourney(val points: List<Point>) {
             val arrivalTime: OffsetDateTime
             infix fun atStation(id: Int) = PointJourney(
                     completedPortion +
-                    Point(
+                    JourneyPoint(
                         departureTime,
                         station = departureStation,
                         passService = passService
                     ) +
-                    Point(
+                    JourneyPoint(
                         arrivalTime,
                         station = id,
                         passService = passService

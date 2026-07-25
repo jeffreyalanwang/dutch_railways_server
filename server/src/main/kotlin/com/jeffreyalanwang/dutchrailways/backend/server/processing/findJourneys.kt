@@ -130,7 +130,7 @@ private fun PassServiceTimetable.asRouteQueryDetails() =
             }
     )
 
-private fun Stop.asJourneyPoint(isDeparture: Boolean, timeZone: ZoneId) = PointJourney.Point(
+private fun Stop.asJourneyPoint(isDeparture: Boolean, timeZone: ZoneId) = PointJourney.JourneyPoint(
     station = stationId,
     time = (if (isDeparture) departTime!! else arriveTime!!)
         .atZone(timeZone).toOffsetDateTime(),

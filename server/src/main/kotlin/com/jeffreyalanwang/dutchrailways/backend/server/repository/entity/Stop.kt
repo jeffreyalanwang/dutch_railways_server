@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository.entity
 
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop.Comparators.byArriveTime
 import jakarta.persistence.*
 import java.io.Serializable
 import java.time.Instant
@@ -31,7 +32,7 @@ class Stop(
     @Column("departtime") var departTime: Instant? = null,
 
     @Column("station") var stationId: Int = -1,
-) {
+): Comparable<Stop> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service", insertable = false, updatable = false)
     var service: PassService? = null
@@ -64,4 +65,17 @@ class Stop(
             private const val serialVersionUID = 0L
         }
     }
+
+    operator fun component1() = arriveTime
+    operator fun component2() = departTime
+
+    object Comparators {
+        val byArriveTime = compareBy(nullsFirst()) { it: Stop -> it.arriveTime }
+        val byDepartTime = compareBy(nullsLast()) { it: Stop -> it.departTime }
+    }
+
+    override fun compareTo(other: Stop) =
+        compareBy<Stop> { it.serviceId }
+            .then(byArriveTime)
+            .compare(this, other)
 }

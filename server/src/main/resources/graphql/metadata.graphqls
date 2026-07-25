@@ -1,0 +1,4 @@
+extend type Query {
+    defaultAmenitiesOf(trainset: Trainset!): [TrainAmenity]
+    timeZoneOf(stationId: ID!): String
+}

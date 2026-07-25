@@ -1,10 +1,11 @@
+@file:Suppress("FunctionName")
+
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.PassServiceTimetable
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Area
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.*
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -18,7 +19,7 @@ import kotlin.streams.asSequence
 val TIME_ZONE = ZoneId.of("Europe/Amsterdam")
 
 @GraphQlRepository
-interface PassServiceRepository     : JpaRepository<PassService, Int> {
+interface PassServiceRepository: JpaRepository<PassService, Int> {
 
     @Query("""select s from Stop s where s.serviceId = ?1""")
     fun getStops(passServiceId: Int): List<Stop>
@@ -45,7 +46,6 @@ interface PassServiceRepository     : JpaRepository<PassService, Int> {
             .joinedOn(keys = serviceIdAndStationId) { it.serviceId to it.stationId }
             .filterNotNull()
 
-    @Suppress("FunctionName")
     @Query("select s from Stop s order by s.serviceId, s.arriveTime")
     fun _getAllStopsOrderByServiceThenTime(): Stream<Stop>
 
@@ -55,13 +55,23 @@ interface PassServiceRepository     : JpaRepository<PassService, Int> {
             .deflattenBy { it.serviceId }
             .map { (k, v) -> PassServiceTimetable.fromStopEntities(v, id = k) }
             .toList()
+
+    @Query("select t from TrainsetType t where t.name = ?1")
+    fun _getTrainsetEntity(name: String): TrainsetType
+
+    fun getTrainsetEntity(enum: TrainsetTypeEnum) = _getTrainsetEntity(enum.name)
+
+    @Query("select a from Amenity a where a.description in ?1")
+    fun _getAmenityEntity(amenity: Collection<String>): Collection<Amenity>
+
+    fun getAmenityEntity(amenity: Collection<AmenityEnum>) = _getAmenityEntity(amenity.map { it.name })
 }
 
 @GraphQlRepository
-interface AreaRepository            : JpaRepository<Area, Int>
+interface AreaRepository: JpaRepository<Area, Int>
 
 @GraphQlRepository
-interface StationRepository         : JpaRepository<Station, Int> {
+interface StationRepository: JpaRepository<Station, Int> {
 
     @Query("select id from Station")
     fun getAllStationIds(): List<Int>

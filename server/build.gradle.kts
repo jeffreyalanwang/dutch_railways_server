@@ -21,7 +21,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("tools.jackson.module:jackson-module-kotlin")
     testImplementation("com.ninja-squad:springmockk:5.0.1")
-    testImplementation("io.mockk:mockk-context-parameters:1.14.11")
     testImplementation("org.springframework.boot:spring-boot-webtestclient")
     testImplementation("org.springframework.boot:spring-boot-data-jpa-test")
     testImplementation("org.springframework.boot:spring-boot-graphql-test")

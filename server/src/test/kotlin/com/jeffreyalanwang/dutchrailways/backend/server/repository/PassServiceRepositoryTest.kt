@@ -1,6 +1,11 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
 import com.jeffreyalanwang.dutchrailways.backend.server.DutchRailwaysServerApplication
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum.Companion.isLike
+import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -47,5 +52,19 @@ class PassServiceRepositoryTest(
                 assertTrue("A PassService should have more than one stop in its timetable") { it.stops.size >= 2 }
             }
         }
+    }
+
+    @Test
+    fun `getAmenityEntity()`() {
+        val enums = AmenityEnum.entries
+        val entities = passServiceRepository.getAmenityEntity(enums)
+        assertTrue(enums isLike entities)
+    }
+
+    @ParameterizedTest
+    @EnumSource(TrainsetTypeEnum::class)
+    fun `getTrainsetEntity()`(enum: TrainsetTypeEnum) {
+        val entity = passServiceRepository.getTrainsetEntity(enum)
+        assertEquals(enum.name, entity.name)
     }
 }
