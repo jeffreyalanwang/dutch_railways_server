@@ -10,9 +10,8 @@ group = "com.jeffreyalanwang.dutchrailways.backend"
 description = "Spring Boot server application container"
 
 kotlin {
-    jvmToolchain(21)
     compilerOptions {
-        freeCompilerArgs.addAll(
+        freeCompilerArgs.add(
             "-Xjsr305=strict",
         )
     }
