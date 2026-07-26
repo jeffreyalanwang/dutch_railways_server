@@ -1,6 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
 import org.springframework.dao.DuplicateKeyException
+import java.util.*
 
 /**
  * For a flat sequence which already contains items grouped by key,
@@ -48,3 +49,56 @@ internal fun <K, V: Any> Iterable<V>.joinedOn(keys: List<K>, selector: (V) -> K)
         keys.map { key -> getOrDefault(key, null) }
     }
 
+internal inline fun <reified K: Enum<K>, V> EnumMap() = EnumMap<K, V>(K::class.java)
+
+internal fun <K, V> MutableMap<K, V>.getOrPutBulk(keys: Iterable<K>, defaultValueLoader: (List<K>) -> List<V>): Map<K, V> {
+    val missed = mutableListOf<K>()
+    val out = mutableMapOf<K, V>()
+
+    for (key in keys) {
+        if (key in this) {
+            out[key] = this[key]!!
+        } else {
+            missed += key
+        }
+    }
+
+    val rest = defaultValueLoader(missed)
+    putAll(missed zip rest)
+    out.putAll(missed zip rest)
+    return out
+}
+
+internal class SetCompareBuilderScope<C> {
+    private lateinit var keys: MutableSet<C>
+    private var keysInitialized = false
+    private var inequalityFound = false
+
+    inline infix fun <T> Iterable<T>.on(selector: (T) -> C) = when {
+        inequalityFound -> {}
+
+        !keysInitialized -> {
+            keys = (this as? Collection)?.run { HashSet(size) } ?: HashSet()
+            mapTo(keys, selector)
+            keysInitialized = true
+        }
+
+        this is Collection && size != keys.size -> {
+            inequalityFound = true
+        }
+
+        else -> {
+            inequalityFound = any { selector(it) !in keys }
+        }
+    }
+
+    context(receiver: Iterable<T>)
+    inline infix fun <T> thisOn(selector: (T) -> C) = receiver on selector
+
+    val itself = { it: C -> it }
+
+    companion object {
+        inline fun <C> allSetEqual(builder: SetCompareBuilderScope<C>.() -> Unit) =
+            SetCompareBuilderScope<C>().apply(builder).inequalityFound.not()
+    }
+}

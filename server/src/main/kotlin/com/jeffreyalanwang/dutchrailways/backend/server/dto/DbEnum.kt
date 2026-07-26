@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.dto
 
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.SetCompareBuilderScope.Companion.allSetEqual
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity
 
 enum class TrainsetTypeEnum {
@@ -22,19 +23,21 @@ enum class AmenityEnum {
     TOEGANKELIJK,
     ;
     companion object {
-        fun Collection<Amenity>.toEnums() = map { valueOf(it.description) }
+        private val Amenity.name get() = description
 
-        private fun <T> Collection<AmenityEnum>.isLike(other: Collection<T>, nameSelector: (T) -> String): Boolean {
-            if (this.size != other.size) return false
-            val set = this.mapTo(HashSet(size)) { it.name }
-            return other.all { nameSelector(it) in set }
-        }
+        fun Collection<Amenity>.toEnums() = map { valueOf(it.name) }
 
         @JvmName("CollectionEnumIsLikeNames")
-        infix fun Collection<AmenityEnum>.isLike(names: Collection<String>) =  isLike(names) { it }
+        infix fun Collection<AmenityEnum>.isLike(names: Collection<String>) = allSetEqual {
+            thisOn { it.name }
+            names on itself
+        }
 
         @JvmName("CollectionEnumIsLikeEntities")
-        infix fun Collection<AmenityEnum>.isLike(entities: Collection<Amenity>) = isLike(entities) { it.description }
+        infix fun Collection<AmenityEnum>.isLike(entities: Collection<Amenity>) = allSetEqual {
+            thisOn { it.name }
+            entities on { it.name }
+        }
 
         @JvmName("CollectionEntitiesIsLikeEnums")
         infix fun Collection<Amenity>.isLike(enums: Collection<AmenityEnum>) = enums isLike this

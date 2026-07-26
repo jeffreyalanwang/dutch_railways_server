@@ -80,15 +80,16 @@ class PlaceMutationUnitTest {
             ))
             .execute()
 
-        verify { areaRepository.findById(id) }
-
-        verify { areaRepository.save(
-            withArg {
-                check(it.id == id)
-                check(it.name == newName)
-                check(it.geom == oldGeom)
-            }
-        ) }
+        verify {
+            areaRepository.findById(id)
+            areaRepository.save(
+                withArg {
+                    check(it.id == id)
+                    check(it.name == newName)
+                    check(it.geom == oldGeom)
+                }
+            )
+        }
 
         response
             .path("updateArea").hasValue()
@@ -150,16 +151,17 @@ class PlaceMutationUnitTest {
             ))
             .execute()
 
-        verify { stationRepository.findById(id) }
-
-        verify { stationRepository.save(
-            withArg {
-                assertEquals(id, it.id)
-                assertEquals(newName, it.name)
-                assertEquals(newAddress, it.address)
-                assertEquals(newGeom, it.geom)
-            }
-        ) }
+        verify {
+            stationRepository.findById(id)
+            stationRepository.save(
+                withArg {
+                    assertEquals(id, it.id)
+                    assertEquals(newName, it.name)
+                    assertEquals(newAddress, it.address)
+                    assertEquals(newGeom, it.geom)
+                }
+            )
+        }
 
         response
             .path("updateStation").hasValue()

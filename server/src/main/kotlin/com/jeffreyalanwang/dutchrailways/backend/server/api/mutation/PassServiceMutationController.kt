@@ -55,7 +55,7 @@ private fun PassService.applyFrom(obj: MutationPassService) = apply {
     consist!!.amenities
         .apply { clear() }
         .addAll(
-            repository.getAmenityEntity(obj.amenities)
+            repository.getAmenityEntity(obj.amenityEnums)
         )
 
     stops
@@ -65,8 +65,8 @@ private fun PassService.applyFrom(obj: MutationPassService) = apply {
                 Stop(
                     serviceId = id,
                     stationId = inputStop.station,
-                    arriveTime = inputStop.arriveTime,
-                    departTime = inputStop.departTime,
+                    arriveTime = inputStop.arriveTime?.toInstant(),
+                    departTime = inputStop.departTime?.toInstant(),
                 )
             }
         )

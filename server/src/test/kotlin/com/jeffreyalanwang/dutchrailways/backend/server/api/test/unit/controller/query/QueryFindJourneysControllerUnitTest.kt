@@ -87,9 +87,6 @@ class QueryFindJourneysControllerUnitTest {
 
         verify {
             journeyController.findJourneys(any(), any(), any(), any())
-        }
-
-        verify {
             journeyFinder.invoke(any(), any(), any(), any())
         }
 
@@ -153,9 +150,7 @@ class QueryFindJourneysControllerUnitTest {
                 earliest.toInstant(),
                 latest.toInstant(),
             )
-        }
 
-        verify {
             passServiceController.run {
                 any<PointJourney.JourneyPoint>().via(any())
             }

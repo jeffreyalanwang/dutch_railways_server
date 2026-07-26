@@ -20,6 +20,7 @@ dependencies {
     implementation("com.graphql-java:graphql-java-extended-scalars:24.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("tools.jackson.module:jackson-module-kotlin")
+    testImplementation("io.mockk:mockk:1.14.6")
     testImplementation("com.ninja-squad:springmockk:5.0.1")
     testImplementation("org.springframework.boot:spring-boot-webtestclient")
     testImplementation("org.springframework.boot:spring-boot-data-jpa-test")

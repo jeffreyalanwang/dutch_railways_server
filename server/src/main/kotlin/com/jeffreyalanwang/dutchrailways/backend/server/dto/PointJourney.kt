@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.dto
 
+import org.springframework.data.web.ProjectedPayload
 import java.time.OffsetDateTime
 
 /**
@@ -7,8 +8,10 @@ import java.time.OffsetDateTime
  *
  * Corresponds to GraphQL schema return value.
  */
+@ProjectedPayload
 data class PointJourney(val points: List<JourneyPoint>) {
 
+    @ProjectedPayload
     data class JourneyPoint(
         val time: OffsetDateTime,
         val station: Int,

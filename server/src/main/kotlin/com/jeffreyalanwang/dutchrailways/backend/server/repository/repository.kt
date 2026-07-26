@@ -59,13 +59,24 @@ interface PassServiceRepository: JpaRepository<PassService, Int> {
     @Query("select t from TrainsetType t where t.name = ?1")
     fun _getTrainsetEntity(name: String): TrainsetType
 
-    fun getTrainsetEntity(enum: TrainsetTypeEnum) = _getTrainsetEntity(enum.name)
+    fun getTrainsetEntity(enum: TrainsetTypeEnum): TrainsetType =
+        trainsetEntityCache.getOrPut(enum) { _getTrainsetEntity(enum.name) }
 
     @Query("select a from Amenity a where a.description in ?1")
     fun _getAmenityEntity(amenity: Collection<String>): Collection<Amenity>
 
-    fun getAmenityEntity(amenity: Collection<AmenityEnum>) = _getAmenityEntity(amenity.map { it.name })
+    fun getAmenityEntity(amenity: Collection<AmenityEnum>): Collection<Amenity> =
+        amenityEntityCache
+            .getOrPutBulk(amenity) { toLoad ->
+                val strings = toLoad.map { it.name }
+                _getAmenityEntity(strings).joinedOn(strings) { it.description }
+            }
+            .values
 }
+
+// Caching as a basic way to avoid excessive N + 1 queries for a small collection of values
+private val trainsetEntityCache = EnumMap<TrainsetTypeEnum, TrainsetType>()
+private val amenityEntityCache = EnumMap<AmenityEnum, Amenity>()
 
 @GraphQlRepository
 interface AreaRepository: JpaRepository<Area, Int>

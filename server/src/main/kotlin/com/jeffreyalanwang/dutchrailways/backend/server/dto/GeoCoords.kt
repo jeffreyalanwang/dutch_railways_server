@@ -7,11 +7,13 @@ import com.jeffreyalanwang.dutchrailways.backend.server.repository.PositionSeque
 import org.geolatte.geom.*
 import org.geolatte.geom.crs.CoordinateReferenceSystem
 import org.geolatte.geom.crs.CoordinateReferenceSystems.WGS84
+import org.springframework.data.web.ProjectedPayload
 
 /**
  * Interfaces in this file correspond to GraphQL input/output.
  */
 
+@ProjectedPayload
 interface GeoCoords {
     val latitude: Double
     val longitude: Double
@@ -29,6 +31,7 @@ class GeoLatteGeoCoords(private val obj: G2D) : GeoCoords {
     }
 }
 
+@ProjectedPayload
 interface GeoLinearRing {
     val points: List<GeoCoords>
 }
@@ -46,6 +49,7 @@ class GeoLatteGeoLinearRing(private val obj: LinearRing<G2D>): GeoLinearRing {
     }
 }
 
+@ProjectedPayload
 interface GeoPolygon {
     val rings: List<GeoLinearRing>
 }
@@ -62,6 +66,7 @@ class GeoLatteGeoPolygon(private val obj: Polygon<G2D>): GeoPolygon {
     }
 }
 
+@ProjectedPayload
 interface GeoMultiPolygon {
     val polygons: List<GeoPolygon>
 }
