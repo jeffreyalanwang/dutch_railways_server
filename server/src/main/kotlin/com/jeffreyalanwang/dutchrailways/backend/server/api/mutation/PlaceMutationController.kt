@@ -1,9 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.mutation
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords.Companion.toGeoLatte
-import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords.Companion.toPoint
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.MutationArea
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.MutationStation
+import com.jeffreyalanwang.dutchrailways.api.MutationArea
+import com.jeffreyalanwang.dutchrailways.api.MutationStation
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Area
@@ -41,7 +39,7 @@ class PlaceMutationController(
         ?.run {
             name = details.name
             address = details.address
-            geom = details.geom.toGeoLatte().toPoint()
+            geom = details.geom
 
             stationRepository.save(this)
         }

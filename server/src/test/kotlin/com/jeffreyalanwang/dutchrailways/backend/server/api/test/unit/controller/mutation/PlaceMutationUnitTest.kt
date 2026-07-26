@@ -1,9 +1,9 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.mutation
 
+import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
 import com.jeffreyalanwang.dutchrailways.backend.server.api.mutation.PlaceMutationController
 import com.jeffreyalanwang.dutchrailways.backend.server.api.query.StationQueryController
-import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Area
@@ -142,7 +142,7 @@ class PlaceMutationUnitTest {
             .variable("details", mapOf(
                 "name" to newName,
                 "address" to newAddress,
-                "geom" to newGeom.let { GeoLatteGeoCoords(it) }.run {
+                "geom" to newGeom.let { GeoCoords(it) }.run {
                     mapOf(
                         "latitude" to latitude,
                         "longitude" to longitude,

@@ -1,6 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.mutation
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.MutationPassService
+import com.jeffreyalanwang.dutchrailways.api.MutationPassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop
@@ -55,7 +55,7 @@ private fun PassService.applyFrom(obj: MutationPassService) = apply {
     consist!!.amenities
         .apply { clear() }
         .addAll(
-            repository.getAmenityEntity(obj.amenityEnums)
+            repository.getAmenityEntity(obj.amenities)
         )
 
     stops

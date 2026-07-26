@@ -1,7 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.query
 
 import com.jeffreyalanwang.dutchrailways.api.PointJourney.JourneyPoint
-import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords
+import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
 import com.jeffreyalanwang.dutchrailways.backend.server.api.forTypePair
 import com.jeffreyalanwang.dutchrailways.backend.server.api.registerBatchLoader
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
@@ -42,7 +42,7 @@ class StationQueryController(
         stationRepository.getStops(id, after, maxCount)
 
     @SchemaMapping
-    fun Station.geom() = geom?.let { GeoLatteGeoCoords(it) }
+    fun Station.geom() = geom?.let { GeoCoords(it) }
 
     @SchemaMapping
     fun Stop.station(dataLoader: DataLoader<Int, Station>) = dataLoader.load(stationId)

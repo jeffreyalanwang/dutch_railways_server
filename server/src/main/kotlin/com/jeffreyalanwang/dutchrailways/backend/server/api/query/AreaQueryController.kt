@@ -1,6 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.query
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoMultiPolygon
+import com.jeffreyalanwang.dutchrailways.api.util.GeoMultiPolygon
 import com.jeffreyalanwang.dutchrailways.backend.server.api.forTypePair
 import com.jeffreyalanwang.dutchrailways.backend.server.api.registerBatchLoader
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
@@ -31,5 +31,5 @@ class AreaQueryController(
     fun areaById(@Argument id: Int, dataLoader: DataLoader<Int, Area>) = dataLoader.load(id)
 
     @SchemaMapping
-    fun Area.geom() = geom?.let { GeoLatteGeoMultiPolygon(it) }
+    fun Area.geom() = geom?.let { GeoMultiPolygon(it) }
 }
