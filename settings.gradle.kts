@@ -6,6 +6,7 @@ rootProject.name = "backend"
 
 include("server")
 include("routeQuery")
+include("schema")
 
 dependencyResolutionManagement {
     repositories {
@@ -37,6 +38,7 @@ dependencyResolutionManagement {
         library("hibernate-spatial", "org.hibernate.orm", "hibernate-spatial").versionRef("spring")
         library("spring-boot-starter-data-jpa", "org.springframework.boot", "spring-boot-starter-data-jpa").versionRef("spring-boot")
         library("postgresql", "org.postgresql", "postgresql").version("42.7.13")
+        library("geolatte-geom", "org.geolatte:geolatte-geom:1.12")
 
         library("spring-boot-starter-graphql", "org.springframework.boot", "spring-boot-starter-graphql").versionRef("spring-boot")
         library("spring-boot-starter-webmvc", "org.springframework.boot", "spring-boot-starter-webmvc").versionRef("spring-boot")

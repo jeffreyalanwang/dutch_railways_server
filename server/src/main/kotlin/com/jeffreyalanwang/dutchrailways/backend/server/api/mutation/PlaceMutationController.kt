@@ -1,7 +1,7 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.api
+package com.jeffreyalanwang.dutchrailways.backend.server.api.mutation
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.GeoLatteGeoCoords.Companion.toGeoLatte
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.GeoLatteGeoCoords.Companion.toPoint
+import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords.Companion.toGeoLatte
+import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords.Companion.toPoint
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.MutationArea
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.MutationStation
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository

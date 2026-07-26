@@ -1,12 +1,10 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.PassServiceQueryController
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum.Companion.isLike
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.api.query.PassServiceQueryController
+import com.jeffreyalanwang.dutchrailways.api.Trainset
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.SetCompareBuilderScope.Companion.allSetEqual
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.TrainsetType
 import com.ninjasquad.springmockk.MockkBean
@@ -23,6 +21,8 @@ import org.springframework.context.annotation.Import
 import org.springframework.graphql.test.tester.GraphQlTester
 import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
+import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity as AmenityEntity
 
 @GraphQlTest(PassServiceQueryController::class)
 @Import(GraphQlConfig::class)
@@ -43,7 +43,7 @@ class QueryPassServiceByIdUnitTest {
 
     @ParameterizedTest
     @EnumSource
-    fun `Trainset enum`(trainsetType: TrainsetTypeEnum) {
+    fun `Trainset enum`(trainsetType: Trainset) {
 
         val id = 470
 
@@ -104,7 +104,7 @@ class QueryPassServiceByIdUnitTest {
                     consist = TrainsetType(
                         name = "",
                         amenities = amenities.map {
-                            Amenity(
+                            AmenityEntity(
                                 id = -1,
                                 description = it.name,
                             )
@@ -123,6 +123,11 @@ class QueryPassServiceByIdUnitTest {
         response.path("passServiceById.amenities")
             .hasValue()
             .entityList<String>()
-            .matches<GraphQlTester.EntityList<String>> { amenities isLike it }
+            .matches<GraphQlTester.EntityList<String>> {
+                allSetEqual {
+                    amenities on { it.name }
+                    it on itself
+                }
+            }
     }
 }

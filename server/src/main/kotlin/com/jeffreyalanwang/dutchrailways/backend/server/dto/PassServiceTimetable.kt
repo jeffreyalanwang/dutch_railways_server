@@ -5,7 +5,7 @@ import java.time.Instant
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop as StopEntity
 
 /**
- * Data for consumption by [com.jeffreyalanwang.dutchrailways.backend.server.api.AreaQueryController.journeyFinder].
+ * Data for consumption by [com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder].
  */
 data class PassServiceTimetable(
     val id: Int = 0,

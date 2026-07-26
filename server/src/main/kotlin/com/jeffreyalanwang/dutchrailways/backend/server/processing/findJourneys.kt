@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.processing
 
+import com.jeffreyalanwang.dutchrailways.api.PointJourney
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.RangeRouteQueryStrategy
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.RouteQueryDataSource
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.RouteQueryStrategy
@@ -11,7 +12,6 @@ import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.Gener
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails.Leg
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.StopType
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.PassServiceTimetable
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop

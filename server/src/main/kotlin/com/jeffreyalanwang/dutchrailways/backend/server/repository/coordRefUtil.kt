@@ -2,6 +2,7 @@
 
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
+import com.jeffreyalanwang.dutchrailways.api.util.buildPositionSequence
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 import org.geolatte.geom.*
@@ -95,28 +96,3 @@ internal open class MultiPolygonConverterFromG2D(
 
 }
 
-internal inline fun <reified P: Position> buildPositionSequence(
-    size: Int,
-    builder: PositionSequenceBuilder<P>.() -> Unit,
-): PositionSequence<P> =
-    PositionSequenceBuilders.fixedSized(size, P::class.java)
-    .apply(builder)
-    .toPositionSequence()
-
-internal inline fun <reified P: Position> buildPositionSequence(
-    builder: PositionSequenceBuilder<P>.() -> Unit,
-): PositionSequence<P> =
-    PositionSequenceBuilders.variableSized(P::class.java)
-    .apply(builder)
-    .toPositionSequence()
-
-internal inline fun <S, reified T: Position> PositionSequence(
-    source: Collection<S>,
-    transform: (S) -> T,
-) = with(source) {
-        buildPositionSequence(size) {
-            source.forEach {
-                add(transform(it))
-            }
-        }
-    }

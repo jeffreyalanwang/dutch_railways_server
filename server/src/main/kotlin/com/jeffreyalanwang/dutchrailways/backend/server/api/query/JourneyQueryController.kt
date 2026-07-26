@@ -1,6 +1,6 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.api
+package com.jeffreyalanwang.dutchrailways.backend.server.api.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney
+import com.jeffreyalanwang.dutchrailways.api.PointJourney
 import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.QueryMapping

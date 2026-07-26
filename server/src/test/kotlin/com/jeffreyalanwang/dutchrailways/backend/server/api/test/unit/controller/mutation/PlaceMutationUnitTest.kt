@@ -1,9 +1,9 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.mutation
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.PlaceMutationController
-import com.jeffreyalanwang.dutchrailways.backend.server.api.StationQueryController
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.GeoLatteGeoCoords
+import com.jeffreyalanwang.dutchrailways.backend.server.api.mutation.PlaceMutationController
+import com.jeffreyalanwang.dutchrailways.backend.server.api.query.StationQueryController
+import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Area

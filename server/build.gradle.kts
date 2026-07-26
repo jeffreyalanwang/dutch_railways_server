@@ -19,8 +19,9 @@ kotlin {
 }
 
 dependencies {
-    // TODO Factor out the [api] and [dataSource] modules
+    // TODO Factor out the [dataSource] module
     implementation(project(":routeQuery"))
+    implementation(project(":schema"))
 
     implementation(libs.spring.boot.starter.graphql)
     implementation(libs.spring.boot.starter.webmvc)

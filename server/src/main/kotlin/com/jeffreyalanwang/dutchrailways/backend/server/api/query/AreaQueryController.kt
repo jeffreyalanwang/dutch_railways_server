@@ -1,6 +1,8 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.api
+package com.jeffreyalanwang.dutchrailways.backend.server.api.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.GeoLatteGeoMultiPolygon
+import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoMultiPolygon
+import com.jeffreyalanwang.dutchrailways.backend.server.api.forTypePair
+import com.jeffreyalanwang.dutchrailways.backend.server.api.registerBatchLoader
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Area
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.joinedOn

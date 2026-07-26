@@ -1,7 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.integration.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
+import com.jeffreyalanwang.dutchrailways.api.Trainset
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,6 +10,7 @@ import org.springframework.graphql.test.tester.HttpGraphQlTester
 import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
 import java.time.ZoneId
+import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
 
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
@@ -52,7 +52,7 @@ class MetadataQueryIntegrationTest(
 
         val response = graphQlTester
             .document(query)
-            .variable("trainset", TrainsetTypeEnum.DDZ)
+            .variable("trainset", Trainset.DDZ)
             .execute()
 
         response.path("defaultAmenitiesOf").entityList<AmenityEnum>()

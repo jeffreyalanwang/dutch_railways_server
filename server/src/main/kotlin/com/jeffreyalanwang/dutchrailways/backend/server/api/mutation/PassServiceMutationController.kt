@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.api
+package com.jeffreyalanwang.dutchrailways.backend.server.api.mutation
 
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.MutationPassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository

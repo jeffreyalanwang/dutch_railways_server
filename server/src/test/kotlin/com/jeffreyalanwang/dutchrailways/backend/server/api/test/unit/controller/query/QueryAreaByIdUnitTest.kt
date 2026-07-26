@@ -1,7 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.AreaQueryController
+import com.jeffreyalanwang.dutchrailways.backend.server.api.query.AreaQueryController
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Area
 import com.ninjasquad.springmockk.MockkBean

@@ -1,9 +1,9 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.api
+package com.jeffreyalanwang.dutchrailways.backend.server.api.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum.Companion.toEnums
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney.JourneyPoint
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
+import com.jeffreyalanwang.dutchrailways.api.PointJourney.JourneyPoint
+import com.jeffreyalanwang.dutchrailways.backend.server.api.forTypePair
+import com.jeffreyalanwang.dutchrailways.backend.server.api.registerBatchLoader
+import com.jeffreyalanwang.dutchrailways.api.Trainset
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop
@@ -15,6 +15,8 @@ import org.springframework.graphql.data.method.annotation.SchemaMapping
 import org.springframework.graphql.execution.BatchLoaderRegistry
 import org.springframework.stereotype.Controller
 import java.time.Instant
+import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity as AmenityEntity
 
 @Controller
 class PassServiceQueryController(
@@ -38,13 +40,13 @@ class PassServiceQueryController(
         passServiceRepository.getStop(serviceId = passService, stationId = station)
 
     @QueryMapping
-    fun defaultAmenitiesOf(@Argument trainset: TrainsetTypeEnum): List<AmenityEnum> =
+    fun defaultAmenitiesOf(@Argument trainset: Trainset): List<AmenityEnum> =
         passServiceRepository
             .getTrainsetEntity(trainset)
             .amenities.toEnums()
 
     @SchemaMapping
-    fun PassService.trainset(): TrainsetTypeEnum? = consist?.run { enumValueOf(name) }
+    fun PassService.trainset(): Trainset? = consist?.run { enumValueOf(name) }
 
     @SchemaMapping
     fun PassService.amenities(): Collection<AmenityEnum>? = consist?.amenities?.toEnums()
@@ -59,3 +61,5 @@ class PassServiceQueryController(
     @SchemaMapping
     fun JourneyPoint.via(dataLoader: DataLoader<Int, PassService>) = passService?.let { dataLoader.load(it) }
 }
+
+private fun Iterable<AmenityEntity>.toEnums() = map { enumValueOf<AmenityEnum>(it.description) }

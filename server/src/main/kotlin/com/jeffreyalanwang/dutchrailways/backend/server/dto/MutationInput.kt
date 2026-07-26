@@ -1,14 +1,18 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.dto
 
+import com.jeffreyalanwang.dutchrailways.api.MutationArea
+import com.jeffreyalanwang.dutchrailways.api.MutationStation
+import com.jeffreyalanwang.dutchrailways.api.MutationStop
+import com.jeffreyalanwang.dutchrailways.api.Trainset
 import org.springframework.data.web.ProjectedPayload
-import java.time.OffsetDateTime
+import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
 
 @ProjectedPayload
 interface MutationPassService {
     val name: String
-    val trainset: TrainsetTypeEnum
-    val amenities: Collection<String>
+    val trainset: Trainset
     val stops: List<MutationStop>
+    val amenities: Collection<String>
 
     // Oddly, Spring can implicitly project inputs when they are enums (e.g. [trainset]),
     // as well as when they are lists of objects or interfaces ([stops]), but it seems that
@@ -17,20 +21,11 @@ interface MutationPassService {
 }
 
 @ProjectedPayload
-interface MutationStop {
-    val station: Int
-    val arriveTime: OffsetDateTime?
-    val departTime: OffsetDateTime?
-}
+interface MutationStop: MutationStop
 
 @ProjectedPayload
-interface MutationArea {
-    val name: String
-}
+interface MutationArea: MutationArea
 
 @ProjectedPayload
-interface MutationStation {
-    val name: String
-    val address: String
-    val geom: GeoCoords
-}
+interface MutationStation: MutationStation
+

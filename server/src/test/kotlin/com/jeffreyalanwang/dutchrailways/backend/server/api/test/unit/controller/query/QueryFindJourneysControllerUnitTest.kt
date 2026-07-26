@@ -1,13 +1,11 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.JourneyQueryController
-import com.jeffreyalanwang.dutchrailways.backend.server.api.PassServiceQueryController
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney
+import com.jeffreyalanwang.dutchrailways.backend.server.api.query.JourneyQueryController
+import com.jeffreyalanwang.dutchrailways.backend.server.api.query.PassServiceQueryController
+import com.jeffreyalanwang.dutchrailways.api.PointJourney
 import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.ninjasquad.springmockk.MockkBean
 import com.ninjasquad.springmockk.MockkSpyBean

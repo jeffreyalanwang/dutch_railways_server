@@ -1,13 +1,11 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.api.test.unit.controller.mutation
 
 import com.jeffreyalanwang.dutchrailways.backend.server.api.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.api.PassServiceMutationController
-import com.jeffreyalanwang.dutchrailways.backend.server.api.PassServiceQueryController
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.api.mutation.PassServiceMutationController
+import com.jeffreyalanwang.dutchrailways.backend.server.api.query.PassServiceQueryController
+import com.jeffreyalanwang.dutchrailways.api.Trainset
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.SetCompareBuilderScope.Companion.allSetEqual
-import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop.Comparators.byArriveTime
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.TrainsetType
@@ -28,6 +26,8 @@ import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
 import java.time.OffsetDateTime
 import java.util.*
+import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity as AmenityEntity
 
 @GraphQlTest(PassServiceMutationController::class, PassServiceQueryController::class)
 @Import(GraphQlConfig::class)
@@ -71,14 +71,14 @@ class PassServiceMutationUnitTest {
         every {
             passServiceRepository.getTrainsetEntity(any())
         } answers {
-            TrainsetType(name = firstArg<TrainsetTypeEnum>().name, amenities = mutableSetOf())
+            TrainsetType(name = firstArg<Trainset>().name, amenities = mutableSetOf())
         }
 
         every {
             passServiceRepository.getAmenityEntity(any())
         } answers {
             firstArg<Collection<AmenityEnum>>().map {
-                Amenity(id = 0, description = it.name)
+                AmenityEntity(id = 0, description = it.name)
             }
         }
     }

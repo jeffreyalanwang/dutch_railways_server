@@ -1,7 +1,9 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.api
+package com.jeffreyalanwang.dutchrailways.backend.server.api.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.GeoLatteGeoCoords
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.PointJourney.JourneyPoint
+import com.jeffreyalanwang.dutchrailways.api.PointJourney.JourneyPoint
+import com.jeffreyalanwang.dutchrailways.api.util.GeoLatteGeoCoords
+import com.jeffreyalanwang.dutchrailways.backend.server.api.forTypePair
+import com.jeffreyalanwang.dutchrailways.backend.server.api.registerBatchLoader
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop

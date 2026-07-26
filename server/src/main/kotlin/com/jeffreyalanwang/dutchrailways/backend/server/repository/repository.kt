@@ -2,9 +2,8 @@
 
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.AmenityEnum
+import com.jeffreyalanwang.dutchrailways.api.Trainset
 import com.jeffreyalanwang.dutchrailways.backend.server.dto.PassServiceTimetable
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.TrainsetTypeEnum
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.*
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
@@ -15,6 +14,8 @@ import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.util.stream.Stream
 import kotlin.streams.asSequence
+import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Amenity as AmenityEntity
 
 val TIME_ZONE = ZoneId.of("Europe/Amsterdam")
 
@@ -59,13 +60,13 @@ interface PassServiceRepository: JpaRepository<PassService, Int> {
     @Query("select t from TrainsetType t where t.name = ?1")
     fun _getTrainsetEntity(name: String): TrainsetType
 
-    fun getTrainsetEntity(enum: TrainsetTypeEnum): TrainsetType =
+    fun getTrainsetEntity(enum: Trainset): TrainsetType =
         trainsetEntityCache.getOrPut(enum) { _getTrainsetEntity(enum.name) }
 
     @Query("select a from Amenity a where a.description in ?1")
-    fun _getAmenityEntity(amenity: Collection<String>): Collection<Amenity>
+    fun _getAmenityEntity(amenity: Collection<String>): Collection<AmenityEntity>
 
-    fun getAmenityEntity(amenity: Collection<AmenityEnum>): Collection<Amenity> =
+    fun getAmenityEntity(amenity: Collection<AmenityEnum>): Collection<AmenityEntity> =
         amenityEntityCache
             .getOrPutBulk(amenity) { toLoad ->
                 val strings = toLoad.map { it.name }
@@ -75,8 +76,8 @@ interface PassServiceRepository: JpaRepository<PassService, Int> {
 }
 
 // Caching as a basic way to avoid excessive N + 1 queries for a small collection of values
-private val trainsetEntityCache = EnumMap<TrainsetTypeEnum, TrainsetType>()
-private val amenityEntityCache = EnumMap<AmenityEnum, Amenity>()
+private val trainsetEntityCache = EnumMap<Trainset, TrainsetType>()
+private val amenityEntityCache = EnumMap<AmenityEnum, AmenityEntity>()
 
 @GraphQlRepository
 interface AreaRepository: JpaRepository<Area, Int>
