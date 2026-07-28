@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.controller.test.integration.query
+package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
@@ -7,34 +7,35 @@ import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureH
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.graphql.test.tester.HttpGraphQlTester
 import org.springframework.graphql.test.tester.entity
-import org.springframework.graphql.test.tester.entityList
 
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
-class QueryPassServiceByIdIntegrationTest(
+class QueryStopOfPassServiceAtStationIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
     @Language("GraphQL")
     val query = $$"""
-        query PassServiceById($id: ID!) {
-            passServiceById(id: $id) {
+        query StopOfPassServiceAtStation($passService: ID!, $station: ID!) {
+            stopOfPassServiceAtStation(passService: $passService, station: $station) {
                 ...Selection
             }
         }
     """.trimIndent().let { '\n' + it + '\n' }
 
     val passServiceId = 470
+    val stationId = 1229
 
     val argMap = mapOf(
-        "id" to passServiceId
+        "passService" to passServiceId,
+        "station" to stationId,
     )
 
     @Test
-    fun `Returns a pass service`() {
+    fun `Returns a stop`() {
         @Language("GraphQL")
-        val fragment = """ 
-            fragment Selection on PassService {
-                id
+        val fragment = """
+            fragment Selection on Stop {
+                arriveTime
             }
         """.trimIndent()
 
@@ -44,16 +45,37 @@ class QueryPassServiceByIdIntegrationTest(
             .fragment(fragment)
             .execute()
 
-        response.path("passServiceById")
+        response.path("stopOfPassServiceAtStation").hasValue()
+    }
+
+    @Test
+    fun `Stop has arrive time`() {
+        @Language("GraphQL")
+        val fragment = """
+            fragment Selection on Stop {
+                arriveTime
+            }
+        """.trimIndent()
+
+        val response = graphQlTester
+            .document(query)
+            .variables(argMap)
+            .fragment(fragment)
+            .execute()
+
+        response.path("stopOfPassServiceAtStation.arriveTime")
+            .also { print( it.entity<String>().get() ) }
             .hasValue()
     }
 
     @Test
-    fun `Pass service has expected id`() {
+    fun `Stop references the correct pass service`() {
         @Language("GraphQL")
         val fragment = """
-            fragment Selection on PassService {
-                id
+            fragment Selection on Stop {
+                passService {
+                    id
+                }
             }
         """.trimIndent()
 
@@ -63,16 +85,17 @@ class QueryPassServiceByIdIntegrationTest(
             .fragment(fragment)
             .execute()
 
-        response.path("passServiceById.id").entity<Int>()
-            .isEqualTo(passServiceId)
+        response.path("stopOfPassServiceAtStation.passService.id").entity<Int>().isEqualTo(passServiceId)
     }
 
     @Test
-    fun `Pass service has name containing digits`() {
+    fun `Stop references the correct station`() {
         @Language("GraphQL")
         val fragment = """
-            fragment Selection on PassService {
-                name
+            fragment Selection on Stop {
+                station {
+                    id
+                }
             }
         """.trimIndent()
 
@@ -82,50 +105,6 @@ class QueryPassServiceByIdIntegrationTest(
             .fragment(fragment)
             .execute()
 
-        response.path("passServiceById.name").entity<String>()
-            .matches { it.count { it.isDigit() } >= 3 }
-    }
-
-    @Test
-    fun `Trainset enum`() {
-        @Language("GraphQL")
-        val fragment = """
-            fragment Selection on PassService {
-                trainset
-            }
-        """.trimIndent()
-
-        val response = graphQlTester
-            .document(query)
-            .variables(argMap)
-            .fragment(fragment)
-            .execute()
-
-        response.path("passServiceById.trainset")
-            .hasValue()
-            .entity<String>()
-            .also { print(it) }
-    }
-
-    @Test
-    fun `Pass service amenities is enum`() {
-        @Language("GraphQL")
-        val fragment = """
-            fragment Selection on PassService {
-                amenities
-            }
-        """.trimIndent()
-
-        val response = graphQlTester
-            .document(query)
-            .variables(argMap)
-            .fragment(fragment)
-            .execute()
-
-        response.path("passServiceById.amenities")
-            .hasValue()
-            .entityList<String>()
-            .hasSizeGreaterThan(1)
-            .also { print(it) }
+        response.path("stopOfPassServiceAtStation.station.id").entity<Int>().isEqualTo(stationId)
     }
 }

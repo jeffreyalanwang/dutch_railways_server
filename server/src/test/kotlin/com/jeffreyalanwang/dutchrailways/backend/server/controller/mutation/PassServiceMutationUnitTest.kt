@@ -1,9 +1,8 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.controller.test.unit.controller.mutation
+package com.jeffreyalanwang.dutchrailways.backend.server.controller.mutation
 
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.mutation.PassServiceMutationController
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.PassServiceQueryController
 import com.jeffreyalanwang.dutchrailways.api.Trainset
+import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
+import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.PassServiceQueryController
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.SetCompareBuilderScope.Companion.allSetEqual
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService

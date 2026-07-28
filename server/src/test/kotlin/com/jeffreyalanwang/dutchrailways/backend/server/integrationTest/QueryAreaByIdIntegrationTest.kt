@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.controller.test.integration.query
+package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
 import org.intellij.lang.annotations.Language
 import org.springframework.beans.factory.annotation.Autowired

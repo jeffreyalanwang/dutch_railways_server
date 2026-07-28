@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.controller.test.integration.query
+package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
 import com.jeffreyalanwang.dutchrailways.api.Trainset
 import org.intellij.lang.annotations.Language

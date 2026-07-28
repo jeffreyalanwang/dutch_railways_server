@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.controller.test.unit.controller.mutation
+package com.jeffreyalanwang.dutchrailways.backend.server.controller.mutation
 
 import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig

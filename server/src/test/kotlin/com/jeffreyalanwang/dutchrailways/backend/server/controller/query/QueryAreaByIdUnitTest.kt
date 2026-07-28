@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.controller.test.unit.controller.query
+package com.jeffreyalanwang.dutchrailways.backend.server.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.AreaQueryController
