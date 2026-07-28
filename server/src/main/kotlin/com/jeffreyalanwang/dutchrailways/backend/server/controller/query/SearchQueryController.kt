@@ -134,7 +134,7 @@ private suspend fun <T, R> Flow<T>.takeAndHasNext(count: Int, transform: (T) -> 
     val taken = ArrayList<R>(count)
     var hasNext = false
     take(count + 1).collectIndexed { i, item ->
-        if (i == 0) {
+        if (i < count) {
             taken += transform(item)
         } else {
             hasNext = true

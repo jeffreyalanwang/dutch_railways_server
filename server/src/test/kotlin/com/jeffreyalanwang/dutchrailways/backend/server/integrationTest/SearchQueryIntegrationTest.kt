@@ -78,7 +78,7 @@ class SearchQueryIntegrationTest(
 
     @Test
     fun `Search all using anyLike`() {
-        graphQlTester
+        val response = graphQlTester
             .document(query)
             .variable("first", 100)
             .variable("request", mapOf(
@@ -86,14 +86,15 @@ class SearchQueryIntegrationTest(
             ))
             .fragment(fragments.all)
             .execute()
-            .path("searchQuery.results.*.name")
+
+        response.path("searchQuery.results[*].*.name")
             .entityList<String>()
             .hasSize(1)
     }
 
     @Test
     fun `Search using nameLike`() {
-        graphQlTester
+        val response = graphQlTester
             .document(query)
             .variable("first", 1000)
             .variable("request", mapOf(
@@ -101,20 +102,23 @@ class SearchQueryIntegrationTest(
             ))
             .fragment(fragments.station)
             .execute()
-            .path("searchQuery.results[*].station.id").entityList<Int>().hasSizeGreaterThan(0)
+
+        response.path("searchQuery.results[*].station.id").entityList<Int>().hasSizeGreaterThan(0)
     }
 
     @Test
     fun `Search all using nameLike and near`() {
-        graphQlTester
+        val response = graphQlTester
             .document(query)
             .variable("first", 1000)
             .variable("request", mapOf(
                 "nameLike" to nameLike,
                 "near" to near,
             ))
+            .fragment(fragments.station)
             .execute()
-            .path("searchQuery.results[0].station.name")
+
+        response.path("searchQuery.results[0].station.name")
             .entity<String>().equals("Eindhoven Centraal")
     }
 

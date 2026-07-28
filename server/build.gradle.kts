@@ -22,6 +22,7 @@ dependencies {
     implementation(project(":routeQuery"))
     implementation(project(":schema"))
 
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.4")
     implementation(libs.spring.boot.starter.graphql)
     implementation(libs.spring.boot.starter.webmvc)
     implementation(libs.graphql.java.extended.scalars)
@@ -47,6 +48,13 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 
+    jvmArgs("-Dspring.profiles.active=test")
+
+    // Formally load mockk agent, to appease JVM >=21
+    classpath
+        .find { "byte-buddy-agent" in it.name }
+        ?.let { jvmArgs("-javaagent:${it.absolutePath}") }
+
     // Required for springmockk
-    jvmArgs = listOf("--add-opens=java.base/java.lang.reflect=ALL-UNNAMED")
+    jvmArgs("--add-opens=java.base/java.lang.reflect=ALL-UNNAMED")
 }
