@@ -1,8 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.controller.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.PassServiceQueryController
 import com.jeffreyalanwang.dutchrailways.api.Trainset
+import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.SetCompareBuilderScope.Companion.allSetEqual
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
@@ -32,6 +31,7 @@ class QueryPassServiceByIdUnitTest {
     @MockkSpyBean private lateinit var controller: PassServiceQueryController
     @MockkBean private lateinit var passServiceRepository: PassServiceRepository
 
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query PassServiceById($id: ID!) {

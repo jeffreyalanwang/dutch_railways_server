@@ -15,6 +15,7 @@ import kotlin.test.Test
 class QueryAreaByIdIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query AreaById($id: ID!) {

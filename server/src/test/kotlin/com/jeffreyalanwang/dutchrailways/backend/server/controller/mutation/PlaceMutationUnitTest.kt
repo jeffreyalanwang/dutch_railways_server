@@ -2,7 +2,6 @@ package com.jeffreyalanwang.dutchrailways.backend.server.controller.mutation
 
 import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.mutation.PlaceMutationController
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.StationQueryController
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository

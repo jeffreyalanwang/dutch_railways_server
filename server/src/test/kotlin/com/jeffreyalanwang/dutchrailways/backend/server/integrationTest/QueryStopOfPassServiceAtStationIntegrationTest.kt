@@ -13,6 +13,7 @@ import org.springframework.graphql.test.tester.entity
 class QueryStopOfPassServiceAtStationIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query StopOfPassServiceAtStation($passService: ID!, $station: ID!) {

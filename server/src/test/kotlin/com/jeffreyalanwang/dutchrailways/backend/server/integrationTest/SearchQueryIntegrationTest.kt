@@ -26,6 +26,7 @@ class SearchQueryIntegrationTest(
         GeoRect(it, it)
     }
 
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query($first: Int!, $request: SearchRequest!) {

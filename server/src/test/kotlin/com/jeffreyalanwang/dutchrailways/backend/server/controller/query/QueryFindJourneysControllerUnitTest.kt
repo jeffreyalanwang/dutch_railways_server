@@ -1,9 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.controller.query
 
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.JourneyQueryController
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.PassServiceQueryController
 import com.jeffreyalanwang.dutchrailways.api.PointJourney
+import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
 import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
@@ -37,6 +35,7 @@ class QueryFindJourneysControllerUnitTest {
     @MockkBean private lateinit var journeyFinder: JourneyFinder
     @MockkBean private lateinit var passServiceRepository: PassServiceRepository
 
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val rangeQuery = $$"""
         query FindJourneys($origin: ID!, $destination: ID!, $earliest: DateTime!, $latest: DateTime) {

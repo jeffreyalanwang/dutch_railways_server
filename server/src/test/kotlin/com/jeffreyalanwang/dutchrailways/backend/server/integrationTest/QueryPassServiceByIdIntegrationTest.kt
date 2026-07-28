@@ -14,6 +14,7 @@ import org.springframework.graphql.test.tester.entityList
 class QueryPassServiceByIdIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query PassServiceById($id: ID!) {

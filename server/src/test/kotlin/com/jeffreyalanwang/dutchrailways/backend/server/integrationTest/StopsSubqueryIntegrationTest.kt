@@ -18,6 +18,7 @@ import kotlin.test.assertEquals
 class StopsSubqueryIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query PassServiceById($id: ID!, $stopsAfter: DateTime!, $stopsCount: Int!) {

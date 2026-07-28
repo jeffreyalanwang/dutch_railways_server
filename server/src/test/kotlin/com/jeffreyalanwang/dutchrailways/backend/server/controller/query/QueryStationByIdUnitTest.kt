@@ -1,7 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.controller.query
 
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.controller.query.StationQueryController
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
 import com.ninjasquad.springmockk.MockkBean
@@ -17,7 +16,6 @@ import org.springframework.boot.graphql.test.autoconfigure.GraphQlTest
 import org.springframework.context.annotation.Import
 import org.springframework.graphql.test.tester.GraphQlTester
 import org.springframework.graphql.test.tester.entity
-import kotlin.collections.map
 import kotlin.test.Test
 
 @GraphQlTest(StationQueryController::class)
@@ -28,6 +26,7 @@ class QueryStationByIdUnitTest {
     @MockkSpyBean private lateinit var controller: StationQueryController
     @MockkBean private lateinit var stationRepository: StationRepository
 
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query StationById($id: ID!) {

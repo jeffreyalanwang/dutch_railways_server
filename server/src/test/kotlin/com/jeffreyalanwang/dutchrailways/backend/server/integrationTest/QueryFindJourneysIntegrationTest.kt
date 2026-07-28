@@ -18,6 +18,7 @@ import java.time.ZoneOffset
 class QueryFindJourneysIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
+    @Suppress("GraphQLUnresolvedReference")
     @Language("GraphQL")
     val query = $$"""
         query FindJourneys($origin: ID!, $destination: ID!, $earliest: DateTime!, $latest: DateTime) {
