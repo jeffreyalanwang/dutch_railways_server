@@ -1,9 +1,11 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository.entity
 
 import jakarta.persistence.*
+import org.hibernate.search.mapper.pojo.automaticindexing.ReindexOnUpdate
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexingDependency
 
 @Indexed
 @Entity
@@ -19,6 +21,7 @@ class PassService(
 
 ) {
 
+    @IndexingDependency(reindexOnUpdate = ReindexOnUpdate.SHALLOW) // This assumes that we will not be modifying TrainsetType or Amenity tables
     @IndexedEmbedded(includeDepth = 2)
     @ManyToOne(optional = false)
     @JoinColumn(name = "consist", nullable = false)

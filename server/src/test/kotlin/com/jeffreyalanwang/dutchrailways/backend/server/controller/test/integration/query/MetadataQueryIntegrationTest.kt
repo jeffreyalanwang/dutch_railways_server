@@ -3,6 +3,7 @@ package com.jeffreyalanwang.dutchrailways.backend.server.controller.test.integra
 import com.jeffreyalanwang.dutchrailways.api.Trainset
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureHttpGraphQlTester
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.graphql.test.tester.HttpGraphQlTester
@@ -14,7 +15,7 @@ import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
 class MetadataQueryIntegrationTest(
-    val graphQlTester: HttpGraphQlTester,
+    @Autowired val graphQlTester: HttpGraphQlTester,
 ) {
 
     @Test

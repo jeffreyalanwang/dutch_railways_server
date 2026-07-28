@@ -3,7 +3,7 @@ package com.jeffreyalanwang.dutchrailways.backend.server.processing.search
 import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
 import com.jeffreyalanwang.dutchrailways.backend.server.processing.search.InitReindexBehavior.ReindexAll
 import jakarta.persistence.EntityManager
-import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import org.hibernate.search.engine.search.query.SearchFetchable
@@ -11,8 +11,8 @@ import org.hibernate.search.mapper.orm.Search
 import org.hibernate.search.mapper.orm.massindexing.MassIndexer
 import org.hibernate.search.mapper.orm.session.SearchSession
 import org.springframework.stereotype.Service
+import org.springframework.transaction.support.TransactionTemplate
 import java.lang.Runtime.getRuntime
-import kotlin.let
 import kotlin.reflect.KClass
 
 private val THREAD_COUNT = getRuntime().availableProcessors() * 2
@@ -20,16 +20,16 @@ private val THREAD_COUNT = getRuntime().availableProcessors() * 2
 @Service
 class SearchService(
     reindexOnInit: InitReindexBehavior = ReindexAll,
+    transactionTemplate: TransactionTemplate,
     private val entityManager: EntityManager,
 ) {
     private fun newSession(): SearchSession = Search.session(entityManager)
 
     private fun newIndexer(): MassIndexer = newSession()
-        .scope(SearchFieldPaths.keys.java)
         .massIndexer()
         .threadsToLoadObjects(THREAD_COUNT)
 
-    val initJob = run {
+    final val initJob: Job = transactionTemplate.execute {
         reindexOnInit.async { newIndexer() }
     }
 
