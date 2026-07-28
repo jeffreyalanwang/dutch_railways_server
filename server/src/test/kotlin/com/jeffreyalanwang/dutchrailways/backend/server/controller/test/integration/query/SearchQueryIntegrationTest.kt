@@ -79,6 +79,7 @@ class SearchQueryIntegrationTest(
     fun `Search all using anyLike`() {
         graphQlTester
             .document(query)
+            .variable("first", 100)
             .variable("request", mapOf(
                 "anyLike" to anyLike,
             ))

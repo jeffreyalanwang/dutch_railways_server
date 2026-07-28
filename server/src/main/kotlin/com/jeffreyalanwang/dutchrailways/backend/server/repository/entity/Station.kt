@@ -5,6 +5,7 @@ import com.jeffreyalanwang.dutchrailways.backend.server.repository.PointConverte
 import jakarta.persistence.*
 import org.geolatte.geom.G2D
 import org.geolatte.geom.Point
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed
 
 @Converter
@@ -18,6 +19,7 @@ class Station(
     id: Int = -1,
     name: String = "",
 
+    @field:FullTextField
     @Column(length = 256)
     var address: String = "",
 
