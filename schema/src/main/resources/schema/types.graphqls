@@ -24,3 +24,8 @@ input InputGeoCoords {
     latitude: Float!
     longitude: Float!
 }
+
+input InputGeoRect {
+    northwest: InputGeoCoords
+    southeast: InputGeoCoords
+}

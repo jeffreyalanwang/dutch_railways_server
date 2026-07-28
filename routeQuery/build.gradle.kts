@@ -9,6 +9,7 @@ dependencies {
     testImplementation(libs.kotlinx.datetime)
     testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.junit.platform.launcher)
+    testImplementation(kotlin("test"))
 }
 
 tasks.test {

@@ -38,3 +38,8 @@ data class GeoMultiPolygon(
 ) {
     constructor(obj: MultiPolygon<G2D>) : this(obj.map { GeoPolygon(it) })
 }
+
+data class GeoRect(
+    val northwest: GeoCoords,
+    val southeast: GeoCoords,
+)

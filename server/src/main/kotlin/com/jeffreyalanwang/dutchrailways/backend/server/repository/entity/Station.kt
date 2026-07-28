@@ -5,10 +5,12 @@ import com.jeffreyalanwang.dutchrailways.backend.server.repository.PointConverte
 import jakarta.persistence.*
 import org.geolatte.geom.G2D
 import org.geolatte.geom.Point
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed
 
 @Converter
 private class LatLngConverterEpsg28992: PointConverterFromG2D(EPSG_28992_POSITION_CONVERTER)
 
+@Indexed
 @Entity
 @Table(name = "station")
 class Station(

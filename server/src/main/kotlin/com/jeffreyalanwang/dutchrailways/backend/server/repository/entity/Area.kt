@@ -5,10 +5,12 @@ import com.jeffreyalanwang.dutchrailways.backend.server.repository.MultiPolygonC
 import jakarta.persistence.*
 import org.geolatte.geom.G2D
 import org.geolatte.geom.MultiPolygon
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed
 
 @Converter
 private class MultiPolygonConverterEpsg28992: MultiPolygonConverterFromG2D(EPSG_28992_POSITION_CONVERTER)
 
+@Indexed
 @Entity
 @Table(name = "area")
 class Area(

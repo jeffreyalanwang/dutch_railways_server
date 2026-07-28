@@ -36,6 +36,8 @@ dependencies {
     runtimeOnly(libs.postgresql)
     testImplementation(libs.spring.boot.data.jpa.test)
 
+    implementation(libs.bundles.hibernate.search)
+
     testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.junit.platform.launcher)
     testImplementation(libs.junit.jupiter.params)
