@@ -11,14 +11,12 @@ spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 
 [libraries]
-kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
-kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
-kotlin-build-tools = { group = "org.jetbrains.kotlin", name = "kotlin-build-tools-impl", version.ref = "kotlin" }
 
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version = "0.8.0" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
 kotlinx-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor" }
 
+kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
 
@@ -33,6 +31,7 @@ hibernate-search-backend-lucene = { group = "org.hibernate.search", name = "hibe
 spring-boot-starter-graphql = { group = "org.springframework.boot", name = "spring-boot-starter-graphql", version.ref = "spring-boot" }
 spring-boot-starter-webmvc = { group = "org.springframework.boot", name = "spring-boot-starter-webmvc", version.ref = "spring-boot" }
 graphql-java-extended-scalars = { group = "com.graphql-java", name = "graphql-java-extended-scalars", version = "24.0" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.18.4" }
 
 spring-boot-webtestclient = { group = "org.springframework.boot", name = "spring-boot-webtestclient", version.ref = "spring-boot" }
 spring-boot-data-jpa-test = { group = "org.springframework.boot", name = "spring-boot-data-jpa-test", version.ref = "spring-boot" }

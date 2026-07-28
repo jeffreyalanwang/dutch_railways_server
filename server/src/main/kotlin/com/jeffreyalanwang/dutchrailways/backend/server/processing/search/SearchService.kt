@@ -43,16 +43,17 @@ class SearchService(
         initJob.join()
 
         newSession()
-            .search(SearchFieldPaths.keys.java)
+            .search(types.java)
             .where {
+                val paths = SearchFieldPaths[types]
                 mapOf(
-                    anyLike to SearchFieldPaths.allStrings,
-                    nameLike to SearchFieldPaths.name,
+                    anyLike to paths.allStrings,
+                    nameLike to paths.name,
                 ).filterKeys { k ->
                     k != null
                 }.toList().fold(it.bool()) { clauses, (queryString, fieldPaths) ->
-                    clauses.must { f ->
-                        f.match().fields(*fieldPaths).matching(queryString)
+                    clauses.should { f ->
+                        f.match().fields(*fieldPaths.arr()).matching(queryString).fuzzy(2, 0)
                     }
                 }
             }

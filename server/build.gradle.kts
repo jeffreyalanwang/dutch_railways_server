@@ -22,7 +22,7 @@ dependencies {
     implementation(project(":routeQuery"))
     implementation(project(":schema"))
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.4")
+    implementation(libs.jackson.module.kotlin)
     implementation(libs.spring.boot.starter.graphql)
     implementation(libs.spring.boot.starter.webmvc)
     implementation(libs.graphql.java.extended.scalars)

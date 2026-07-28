@@ -1,9 +1,13 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.processing.search
 
+import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
+import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
 import jakarta.transaction.Transactional
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -33,5 +37,70 @@ class SearchServiceTest(
 
         assertTrue(results.size > 1)
         assertContains(results.first().name, "Intercity")
+    }
+
+    @Transactional
+    @Test
+    fun `Query for Station with nameLike`(): Unit = runBlocking {
+        // Wait for initial indexing to complete
+        searchService.initJob.join()
+
+        val results = searchService.search(
+            anyLike = null,
+            nameLike = "Eindhoven Centaral",
+            near = null,
+            types = listOf(Station::class),
+            batchSize = 10,
+        ).toList().run {
+            map { assertIs<Station>(it); it }
+        }
+
+        assertTrue(results.isNotEmpty())
+        assertEquals("Eindhoven Centraal", results.first().name)
+    }
+
+    @Transactional
+    @Test
+    fun `Query for Station with typo in nameLike`(): Unit = runBlocking {
+        // Wait for initial indexing to complete
+        searchService.initJob.join()
+
+        val results = searchService.search(
+            anyLike = null,
+            nameLike = "Centarl",
+            near = null,
+            types = listOf(Station::class),
+            batchSize = 10,
+        ).toList().run {
+            map { assertIs<Station>(it); it }
+        }
+
+        assertTrue(results.size > 1)
+        results.forEach {
+            assertContains(it.name, "Centraal")
+        }
+    }
+
+    @Transactional
+    @Test
+    fun `Query for Station with nearby GeoRect`(): Unit = runBlocking {
+        // Wait for initial indexing to complete
+        searchService.initJob.join()
+
+        val results = searchService.search(
+            anyLike = null,
+            nameLike = "Centraal",
+            near = GeoRect(
+                northwest = GeoCoords(latitude = 51.448993, longitude = 5.466949),
+                southeast = GeoCoords(latitude = 51.444937, longitude = 5.474077),
+            ),
+            types = listOf(Station::class),
+            batchSize = 10,
+        ).toList().run {
+            map { assertIs<Station>(it); it }
+        }
+
+        assertTrue(results.size > 1)
+        assertEquals("Eindhoven Centraal", results.first().name)
     }
 }
