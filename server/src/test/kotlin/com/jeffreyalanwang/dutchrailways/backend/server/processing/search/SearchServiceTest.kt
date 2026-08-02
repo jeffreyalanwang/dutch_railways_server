@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.Test
@@ -19,12 +20,15 @@ import kotlin.test.assertIs
 class SearchServiceTest(
     @Autowired private val searchService: SearchService,
 ) {
+    @BeforeEach
+    fun setUp() = runBlocking {
+        // Wait for initial indexing to complete
+        searchService.initJob.join()
+    }
+
     @Transactional
     @Test
     fun `Query for PassService with anyLike`(): Unit = runBlocking {
-        // Wait for initial indexing to complete
-        searchService.initJob.join()
-
         val results = searchService.search(
             anyLike = "Intercity",
             nameLike = null,
@@ -42,9 +46,6 @@ class SearchServiceTest(
     @Transactional
     @Test
     fun `Query for Station with nameLike`(): Unit = runBlocking {
-        // Wait for initial indexing to complete
-        searchService.initJob.join()
-
         val results = searchService.search(
             anyLike = null,
             nameLike = "Eindhoven Centaral",
@@ -62,9 +63,6 @@ class SearchServiceTest(
     @Transactional
     @Test
     fun `Query for Station with typo in nameLike`(): Unit = runBlocking {
-        // Wait for initial indexing to complete
-        searchService.initJob.join()
-
         val results = searchService.search(
             anyLike = null,
             nameLike = "Centarl",
@@ -84,9 +82,6 @@ class SearchServiceTest(
     @Transactional
     @Test
     fun `Query for Station with nearby GeoRect`(): Unit = runBlocking {
-        // Wait for initial indexing to complete
-        searchService.initJob.join()
-
         val results = searchService.search(
             anyLike = null,
             nameLike = "Centraal",
