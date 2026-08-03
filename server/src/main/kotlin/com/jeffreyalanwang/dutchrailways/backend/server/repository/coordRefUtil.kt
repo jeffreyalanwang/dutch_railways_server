@@ -20,8 +20,10 @@ internal val EPSG_28992_POSITION_CONVERTER = PositionConverterFromG2D.toEpsg(289
 
 /**
  * Convert GeoLatte [Position]s using intermediate proj4j [Proj4jCoordinateReferenceSystem]s.
+ *
+ * Not thread-safe.
  */
-private class PositionConverter<P1: Position, P2: Position>(
+internal class PositionConverter<P1: Position, P2: Position>(
     proj4jCrs1: Proj4jCoordinateReferenceSystem,
     proj4jCrs2: Proj4jCoordinateReferenceSystem,
     private val constructP1: PositionConstructor<P1>,
@@ -30,8 +32,9 @@ private class PositionConverter<P1: Position, P2: Position>(
     private val transform1to2 = factory.createTransform(proj4jCrs1, proj4jCrs2)
     private val transform2to1 = factory.createTransform(proj4jCrs2, proj4jCrs1)
 
-    fun P1.toP2() = transform(transform1to2, constructP2)
-    fun P2.toP1() = transform(transform2to1, constructP1)
+    private val tempDest = ProjCoordinate()
+    fun P1.toP2() = transform(transform1to2, tempDest, constructP2)
+    fun P2.toP1() = transform(transform2to1, tempDest, constructP1)
 
     companion object {
         typealias PositionConstructor<P> = (x: Double, y: Double, z: Double) -> P
@@ -45,9 +48,10 @@ private class PositionConverter<P1: Position, P2: Position>(
 
         private fun <P1: Position, P2: Position> P1.transform(
             transform: Proj4jCoordinateTransform,
+            tempDest: ProjCoordinate,
             constructP2: PositionConstructor<P2>,
         ) = toProjCoordinate()
-            .let { transform.transform(it, it) } // reuse the object we just created
+            .let { transform.transform(it, tempDest) }
             .run { constructP2(x, y, z) }
     }
 }
@@ -55,7 +59,7 @@ private class PositionConverter<P1: Position, P2: Position>(
 /**
  * Manages both GeoLatte and proj4j coordinate reference systems.
  */
-private object DualCrsFactory {
+internal object DualCrsFactory {
     private val proj4j = Proj4jCRSFactory()
 
     fun getGeoLatteFromEPSG(epsgCode: Int): GeoLatteProjectedCoordinateReferenceSystem =
