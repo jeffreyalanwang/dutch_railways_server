@@ -2,6 +2,7 @@
 kotlin = "2.4.10"
 spring-boot = "4.1.0"
 hibernate-search = "8.4.0.Final"
+proj4j = "1.4.3"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -24,6 +25,8 @@ hibernate-spatial = { group = "org.hibernate.orm", name = "hibernate-spatial", v
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
 postgresql = { module = "org.postgresql:postgresql", version = "42.7.13" }
 geolatte-geom = { module = "org.geolatte:geolatte-geom", version = "1.12" }
+proj4j = { module = "org.locationtech.proj4j:proj4j", version.ref = "proj4j" }
+proj4j-epsg = { module = "org.locationtech.proj4j:proj4j-epsg", version.ref = "proj4j" }
 
 hibernate-search-mapper-orm = { group = "org.hibernate.search", name = "hibernate-search-mapper-orm", version.ref = "hibernate-search" }
 hibernate-search-backend-lucene = { group = "org.hibernate.search", name = "hibernate-search-backend-lucene", version.ref = "hibernate-search" }
@@ -41,3 +44,5 @@ springmockk = { group = "com.ninja-squad", name = "springmockk", version = "5.0.
 
 [bundles]
 hibernate-search = ["hibernate-search-mapper-orm", "hibernate-search-backend-lucene"]
+proj4j = ["proj4j", "proj4j-epsg"]
+test-junit5 = ["kotlin-test-junit5", "junit-platform-launcher", "junit-jupiter-params"]

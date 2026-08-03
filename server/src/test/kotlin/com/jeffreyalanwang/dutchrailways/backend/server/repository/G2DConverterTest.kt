@@ -3,6 +3,7 @@ package com.jeffreyalanwang.dutchrailways.backend.server.repository
 import com.jeffreyalanwang.dutchrailways.api.util.PositionSequence
 import org.geolatte.geom.*
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Nested
 import kotlin.test.Test
 
@@ -13,6 +14,7 @@ class G2DConverterTest {
 
     private object TestData {
         val c2d = listOf(
+            C2D(10.0, 15.0),
             C2D(-5795218.39379561, 2784077.663599484),
             C2D(-72062.57907743842, 100934.63046100503),
             C2D(42684530.823743485, 19199832.631670307),
@@ -20,6 +22,7 @@ class G2DConverterTest {
             C2D(7268274.277077766, 1066807.299353912),
         )
         val g2d = listOf(
+            G2D(3.3136858, 47.974903),
             G2D(-74.0445, 40.6892),
             G2D(2.2945, 48.8584),
             G2D(151.2153, -33.8568),
@@ -43,6 +46,17 @@ class G2DConverterTest {
         fun toC2D() {
             val result = positionConverter.run { g2d.toC2D() }
             assertEquals(c2d, result)
+        }
+
+        @Test
+        fun `Check that conversion is not backwards`() {
+            val c2d = this.g2d.run { C2D(lon, lat) }
+            val g2d = this.c2d.run { G2D(x, y) }
+
+            positionConverter.run {
+                assertNotEquals(g2d, c2d.toG2D())
+                assertNotEquals(c2d, g2d.toC2D())
+            }
         }
     }
 

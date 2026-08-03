@@ -7,8 +7,7 @@ description = "Implementation of transit route planning algorithms"
 
 dependencies {
     testImplementation(libs.kotlinx.datetime)
-    testImplementation(libs.kotlin.test.junit5)
-    testImplementation(libs.junit.platform.launcher)
+    testImplementation(libs.bundles.test.junit5)
     testImplementation(kotlin("test"))
 }
 

@@ -34,14 +34,14 @@ dependencies {
 
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.hibernate.spatial)
+    implementation(libs.geolatte.geom)
+    implementation(libs.bundles.proj4j)
     runtimeOnly(libs.postgresql)
     testImplementation(libs.spring.boot.data.jpa.test)
 
     implementation(libs.bundles.hibernate.search)
 
-    testImplementation(libs.kotlin.test.junit5)
-    testImplementation(libs.junit.platform.launcher)
-    testImplementation(libs.junit.jupiter.params)
+    testImplementation(libs.bundles.test.junit5)
     testImplementation(libs.springmockk)
 }
 
