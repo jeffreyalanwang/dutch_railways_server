@@ -6,28 +6,52 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Nested
 import org.locationtech.proj4j.ProjCoordinate
+import kotlin.math.absoluteValue
+import kotlin.math.log10
+import kotlin.math.max
+import kotlin.math.pow
 import kotlin.test.Test
 import org.locationtech.proj4j.CoordinateTransformFactory as Proj4jCoordinateTransformFactory
 
-private const val CONVERSION_ERROR = 0.5 // Though this is large for WGS84, it is small for EPSG28992
+private infix fun Double.isNear(other: Double): Boolean {
+    val compareMostSignificant = 3 // compare the 3 most significant decimal places from either of the two
+
+    val maxDigitCountAboveZero = max(
+        log10(this.absoluteValue).toInt(),
+        log10(other.absoluteValue).toInt(),
+    ) + 1
+    val adjustment = -maxDigitCountAboveZero + compareMostSignificant // if positive: number of digits to move from right of the decimal to the left
+
+    val diff = this - other
+    return (diff * 10.0.pow(adjustment)).toInt() == 0
+}
+
+private fun assertNear(expected: Double, actual: Double) {
+    if (!(expected isNear actual)) assertEquals(expected, actual) // easy way to make the error message
+}
+
+private fun assertNotNear(expected: Double, actual: Double) {
+    if (expected isNear actual)
+        assertNotEquals(expected, expected) // easy way to make the error message
+}
 
 private fun assertNear(expected: ProjCoordinate, actual: ProjCoordinate) {
-    assertEquals(expected.x, actual.x, CONVERSION_ERROR)
-    assertEquals(expected.y, actual.y, CONVERSION_ERROR)
-//    assertEquals(expected.z, actual.z, CONVERSION_ERROR) // we do not use this and it is appearing to produce arbitrary values
+    assertNear(expected.x, actual.x)
+    assertNear(expected.y, actual.y)
+//    assertNear(expected.z, actual.z) // we do not use this and it is appearing to produce arbitrary values
 }
 
 private fun assertNear(expected: Position, actual: Position) {
     assertEquals(expected.coordinateDimension, actual.coordinateDimension)
     for (i in 0 ..< expected.coordinateDimension) {
-        assertEquals(expected.getCoordinate(i), actual.getCoordinate(i), CONVERSION_ERROR)
+        assertNear(expected.getCoordinate(i), actual.getCoordinate(i))
     }
 }
 
 private fun assertNotNear(expected: Position, actual: Position) {
     assertEquals(expected.coordinateDimension, actual.coordinateDimension)
     for (i in 0 ..< expected.coordinateDimension) {
-        assertNotEquals(expected.getCoordinate(i), actual.getCoordinate(i), CONVERSION_ERROR)
+        assertNotNear(expected.getCoordinate(i), actual.getCoordinate(i))
     }
 }
 
