@@ -20,13 +20,15 @@ inline fun <reified P: Position> buildPositionSequence(
     .apply(builder)
     .toPositionSequence()
 
+inline fun <reified P: Position> PositionSequence(
+    source: Collection<P>,
+) = buildPositionSequence(source.size) { addAll(source) }
+
 inline fun <S, reified T: Position> PositionSequence(
     source: Collection<S>,
     transform: (S) -> T,
-) = with(source) {
-        buildPositionSequence(size) {
-            source.forEach {
-                add(transform(it))
-            }
+) = buildPositionSequence(source.size) {
+        source.forEach {
+            add(transform(it))
         }
     }

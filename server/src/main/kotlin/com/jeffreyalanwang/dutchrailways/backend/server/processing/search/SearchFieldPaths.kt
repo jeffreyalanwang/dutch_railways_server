@@ -8,12 +8,12 @@ import kotlin.reflect.KClass
 class SearchFieldPaths(
     val allStrings: Set<String>,
     val name: Set<String>,
-    val geom: Set<String>? = null,
+    val geom: Set<String> = emptySet(),
 ) {
     private operator fun plus(other: SearchFieldPaths) = SearchFieldPaths(
         allStrings = this.allStrings + other.allStrings,
         name = this.name + other.name,
-        geom = (this.geom ?: emptySet()) + (other.geom ?: emptySet()),
+        geom = this.geom + other.geom,
     )
 
     /** Map of repository entities to their string-queryable fields. */

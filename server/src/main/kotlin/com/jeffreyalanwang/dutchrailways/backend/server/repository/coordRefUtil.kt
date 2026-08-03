@@ -13,6 +13,7 @@ import org.geolatte.geom.crs.trans.CoordinateOperations.transform
 
 internal val EPSG_28992_POSITION_CONVERTER = PositionConverterToEPSGFromG2D(28992)
 
+@Suppress("FunctionName")
 internal fun PositionConverterToEPSGFromG2D(epsgCode: Int) =
     CrsRegistry.getProjectedCoordinateReferenceSystemForEPSG(epsgCode)
         .let { PositionConverterFromG2D(it) }

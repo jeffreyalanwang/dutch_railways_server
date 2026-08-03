@@ -86,8 +86,8 @@ class SearchServiceTest(
             anyLike = null,
             nameLike = "Centraal",
             near = GeoRect(
-                northwest = GeoCoords(latitude = 51.448993, longitude = 5.466949),
-                southeast = GeoCoords(latitude = 51.444937, longitude = 5.474077),
+                northwest = GeoCoords(latitude = 51.442, longitude = 5.480),
+                southeast = GeoCoords(latitude = 51.444, longitude = 5.482),
             ),
             types = listOf(Station::class),
             batchSize = 10,
