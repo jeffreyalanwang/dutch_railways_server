@@ -11,6 +11,8 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.Test
@@ -29,7 +31,7 @@ class SearchServiceTest(
 
     @Transactional
     @Test
-    fun `Query for PassService with anyLike`(): Unit = runBlocking {
+    fun `Query for PassService with anyLike`() = runBlocking {
         val results = searchService.search(
             anyLike = "Intercity",
             nameLike = null,
@@ -46,7 +48,7 @@ class SearchServiceTest(
 
     @Transactional
     @Test
-    fun `Query for Station with nameLike`(): Unit = runBlocking {
+    fun `Query for Station with nameLike`() = runBlocking {
         val results = searchService.search(
             anyLike = null,
             nameLike = "Eindhoven Centaral",
@@ -63,7 +65,7 @@ class SearchServiceTest(
 
     @Transactional
     @Test
-    fun `Query for Station with typo in nameLike`(): Unit = runBlocking {
+    fun `Query for Station with typo in nameLike`() = runBlocking {
         val results = searchService.search(
             anyLike = null,
             nameLike = "Centarl",
@@ -81,14 +83,19 @@ class SearchServiceTest(
     }
 
     @Transactional
-    @Test
-    fun `Query for Station with nearby GeoRect`(): Unit = runBlocking {
+    @ParameterizedTest
+    @CsvSource(
+        "Eindhoven Centraal , 51.44333267202848 , 5.481389125142196",
+        "Rotterdam Centraal , 51.92499923833712 , 4.468888827643444",
+        "Apeldoorn          , 52.20916748798910 , 5.970277864627025",
+    )
+    fun `Query with nearby GeoRect`(name: String, latitude: Double, longitude: Double) = runBlocking {
         val results = searchService.search(
             anyLike = null,
-            nameLike = "Centraal",
+            nameLike = null,
             near = GeoRect(
-                northwest = GeoCoords(latitude = 51.442, longitude = 5.480),
-                southeast = GeoCoords(latitude = 51.444, longitude = 5.482),
+                northwest = GeoCoords(latitude = latitude - 0.005, longitude = longitude - 0.005),
+                southeast = GeoCoords(latitude = latitude + 0.005, longitude = longitude + 0.005),
             ),
             types = listOf(Station::class),
             batchSize = 10,
@@ -96,6 +103,6 @@ class SearchServiceTest(
             .toList()
 
         assertTrue(results.size > 1)
-        assertEquals("Eindhoven Centraal", results.first().name)
+        assertEquals(name, results.first().name)
     }
 }
