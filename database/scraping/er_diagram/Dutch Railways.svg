@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?plantuml 1.2026.2?><svg
+   contentStyleType="text/css"
+   data-diagram-type="CHEN_EER"
+   height="618px"
+   preserveAspectRatio="none"
+   style="width:1481px;height:618px;background:#FFFFFF;"
+   version="1.1"
+   viewBox="0 0 1481 618"
+   width="1481px"
+   zoomAndPan="magnify"
+   id="svg37"
+   sodipodi:docname="Dutch Railways.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview37"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="3.2925107"
+     inkscape:cx="1292.4787"
+     inkscape:cy="265.1472"
+     inkscape:window-width="1920"
+     inkscape:window-height="1058"
+     inkscape:window-x="1913"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g37" />
+  <defs
+     id="defs1" />
+  <g
+     id="g37">
+    <g
+       id="g1"
+       transform="translate(477.63109,-408.90719)">
+      <rect
+         fill="#f1f1f1"
+         height="37.609402"
+         style="stroke:#181818;stroke-width:0.5"
+         width="97.806602"
+         x="116.5"
+         y="575"
+         id="rect1" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="77.806602"
+         x="126.5"
+         y="599.5332"
+         id="text1">PassService</text>
+    </g>
+    <g
+       id="g2"
+       transform="translate(477.63109,-408.90719)">
+      <ellipse
+         cx="194.4583"
+         cy="498.46671"
+         fill="#f1f1f1"
+         rx="15.4583"
+         ry="12.9667"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse1" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         text-decoration="underline"
+         textLength="11.6758"
+         x="188.62041"
+         y="506.0332"
+         id="text2"
+         style="text-decoration:underline;text-decoration-line:underline">Id</text>
+    </g>
+    <g
+       id="g3"
+       transform="translate(477.63109,-408.90719)">
+      <ellipse
+         cx="35.4067"
+         cy="498.45169"
+         fill="#f1f1f1"
+         rx="29.4067"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse2" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="37.3447"
+         x="16.734301"
+         y="503.5332"
+         id="text3">Name</text>
+    </g>
+    <g
+       id="g4"
+       transform="translate(552.84626,192.17838)">
+      <rect
+         fill="#f1f1f1"
+         height="37.609402"
+         style="stroke:#181818;stroke-width:0.5"
+         width="48.799801"
+         x="222"
+         y="127"
+         id="rect3" />
+      <rect
+         fill="#f1f1f1"
+         height="31.6094"
+         style="stroke:#181818;stroke-width:0.5"
+         width="42.799801"
+         x="225"
+         y="130"
+         id="rect4" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="28.799801"
+         x="232"
+         y="151.5332"
+         id="text4">Stop</text>
+    </g>
+    <g
+       id="g5"
+       transform="translate(552.84626,411.05418)">
+      <ellipse
+         cx="176.3492"
+         cy="35.951698"
+         fill="#f1f1f1"
+         rx="50.849201"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse4" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         text-decoration="underline"
+         textLength="67.6689"
+         x="142.51469"
+         y="41.033199"
+         id="text5"
+         style="text-decoration:underline;text-decoration-line:underline">ArriveTime</text>
+    </g>
+    <g
+       id="g6"
+       transform="translate(552.84626,411.05418)">
+      <ellipse
+         cx="317.7113"
+         cy="35.951698"
+         fill="#f1f1f1"
+         rx="54.7113"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse5" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="73.130898"
+         x="281.1459"
+         y="41.033199"
+         id="text6">DepartTime</text>
+    </g>
+    <g
+       id="g7"
+       transform="translate(-794.95401,-233.96471)">
+      <rect
+         fill="#f1f1f1"
+         height="37.609402"
+         style="stroke:#181818;stroke-width:0.5"
+         width="101.6963"
+         x="1009.5"
+         y="575"
+         id="rect6" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="81.696297"
+         x="1019.5"
+         y="599.5332"
+         id="text7">TrainsetType</text>
+    </g>
+    <g
+       id="g8"
+       transform="translate(-936.51391,-137.851)">
+      <ellipse
+         cx="1060.4067"
+         cy="498.45169"
+         fill="#f1f1f1"
+         rx="29.4067"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse7" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         text-decoration="underline"
+         textLength="37.3447"
+         x="1041.7343"
+         y="503.5332"
+         id="text8"
+         style="text-decoration:underline;text-decoration-line:underline">Name</text>
+    </g>
+    <g
+       id="g9"
+       transform="translate(-1125.888,-84.534672)">
+      <rect
+         fill="#f1f1f1"
+         height="37.609402"
+         style="stroke:#181818;stroke-width:0.5"
+         width="70.572304"
+         x="1345"
+         y="575"
+         id="rect8" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="50.5723"
+         x="1355"
+         y="599.5332"
+         id="text9">Amenity</text>
+    </g>
+    <g
+       id="g10"
+       transform="translate(-1315.409,-27.435392)">
+      <ellipse
+         cx="1460.4583"
+         cy="498.46671"
+         fill="#f1f1f1"
+         rx="15.4583"
+         ry="12.9667"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse9" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         text-decoration="underline"
+         textLength="11.6758"
+         x="1454.6204"
+         y="506.0332"
+         id="text10"
+         style="text-decoration:underline;text-decoration-line:underline">Id</text>
+    </g>
+    <g
+       id="g11"
+       transform="translate(-1131.7476,50.552638)">
+      <ellipse
+         cx="1257.5168"
+         cy="498.45169"
+         fill="#f1f1f1"
+         rx="52.5168"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse10" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="70.027298"
+         x="1222.5031"
+         y="503.5332"
+         id="text11">Description</text>
+    </g>
+    <g
+       id="g12"
+       transform="translate(361.00277,91.622688)">
+      <rect
+         fill="#f1f1f1"
+         height="37.609402"
+         style="stroke:#181818;stroke-width:0.5"
+         width="55.0205"
+         x="768"
+         y="226"
+         id="rect11" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="35.0205"
+         x="778"
+         y="250.5332"
+         id="text12">Place</text>
+    </g>
+    <g
+       id="g13"
+       transform="translate(361.00277,290.06295)">
+      <ellipse
+         cx="715.45831"
+         cy="145.96671"
+         fill="#f1f1f1"
+         rx="15.4583"
+         ry="12.9667"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse12" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         text-decoration="underline"
+         textLength="11.6758"
+         x="709.62042"
+         y="153.5332"
+         id="text13"
+         style="text-decoration:underline;text-decoration-line:underline"
+         dy="-2">Id</text>
+    </g>
+    <g
+       id="g14"
+       transform="translate(363.15039,289.2039)">
+      <ellipse
+         cx="795.40668"
+         cy="145.95171"
+         fill="#f1f1f1"
+         rx="29.4067"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse13" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="37.3447"
+         x="776.73431"
+         y="151.0332"
+         id="text14">Name</text>
+    </g>
+    <g
+       id="g15"
+       transform="translate(477.63109,-408.90719)">
+      <rect
+         fill="#f1f1f1"
+         height="37.609402"
+         style="stroke:#181818;stroke-width:0.5"
+         width="49.5723"
+         x="803.5"
+         y="575"
+         id="rect14" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="29.5723"
+         x="813.5"
+         y="599.5332"
+         id="text15">Area</text>
+    </g>
+    <g
+       id="g16"
+       transform="translate(477.63109,-408.90719)">
+      <ellipse
+         cx="745.45782"
+         cy="498.45169"
+         fill="#f1f1f1"
+         rx="29.9578"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse15" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="38.124001"
+         x="726.39569"
+         y="503.5332"
+         id="text16">Geom</text>
+    </g>
+    <g
+       id="g17"
+       transform="translate(477.63109,-408.90719)">
+      <rect
+         fill="#f1f1f1"
+         height="37.609402"
+         style="stroke:#181818;stroke-width:0.5"
+         width="63.585899"
+         x="484.5"
+         y="575"
+         id="rect16" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="43.585899"
+         x="494.5"
+         y="599.5332"
+         id="text17">Station</text>
+    </g>
+    <g
+       id="g18"
+       transform="translate(477.63109,-408.90719)">
+      <ellipse
+         cx="569.31592"
+         cy="498.45169"
+         fill="#ffffff"
+         rx="39.315899"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse17" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="51.358398"
+         x="543.63672"
+         y="503.5332"
+         id="text18">Address</text>
+    </g>
+    <g
+       id="g19"
+       transform="translate(477.63109,-408.90719)">
+      <ellipse
+         cx="464.45779"
+         cy="498.45169"
+         fill="#f1f1f1"
+         rx="29.9578"
+         ry="15.4517"
+         style="stroke:#181818;stroke-width:0.5"
+         id="ellipse18" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="38.124001"
+         x="445.39569"
+         y="503.5332"
+         id="text19">Geom</text>
+    </g>
+    <g
+       id="g21"
+       transform="translate(575.77109,-79.744142)">
+      <polygon
+         fill="#f1f1f1"
+         points="136.631,408.131 81,380.3155 136.631,352.5 192.262,380.3155 "
+         style="stroke:#181818;stroke-width:0.5"
+         id="polygon20" />
+      <polygon
+         fill="#f1f1f1"
+         points="136.631,403.131 91,380.3155 136.631,357.5 182.262,380.3155 "
+         style="stroke:#181818;stroke-width:0.5"
+         id="polygon21" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="53.682598"
+         x="109.7897"
+         y="386.04401"
+         id="text21">Services</text>
+    </g>
+    <g
+       id="g22"
+       transform="translate(482.4906,-82.104912)">
+      <polygon
+         fill="#f1f1f1"
+         points="437.807,380.7017 402.4035,398.4035 367,380.7017 402.4035,363 "
+         style="stroke:#181818;stroke-width:0.5"
+         id="polygon22" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="13.2275"
+         x="395.7897"
+         y="386.4303"
+         id="text22">At</text>
+    </g>
+    <g
+       id="g23"
+       transform="translate(111.67633,-106.52204)">
+      <polygon
+         fill="#f1f1f1"
+         points="331.762,380.5655 279.631,406.631 227.5,380.5655 279.631,354.5 "
+         style="stroke:#181818;stroke-width:0.5"
+         id="polygon23" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="46.682598"
+         x="256.2897"
+         y="386.29401"
+         id="text23">Consist</text>
+    </g>
+    <g
+       id="g24"
+       transform="translate(-868.45411,8.4035276)">
+      <polygon
+         fill="#f1f1f1"
+         points="1270.255,339 1353.5101,380.6275 1270.255,422.255 1187,380.6275 "
+         style="stroke:#181818;stroke-width:0.5"
+         id="polygon24"
+         transform="translate(-1.2148784,64.388553)" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="108.9307"
+         x="1215.7897"
+         y="386.35599"
+         id="text24"
+         transform="translate(-1.2148784,64.388553)">TrainsetAmenities</text>
+    </g>
+    <g
+       id="g25"
+       transform="translate(365.95476,264.58701)">
+      <polygon
+         fill="#e0ffff"
+         points="996.0755,35.7689 936.5378,65.5378 877,35.7689 936.5378,6 "
+         style="stroke:#181818;stroke-width:0.5"
+         id="polygon25" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14px"
+         lengthAdjust="spacing"
+         textLength="61.496101"
+         x="905.78967"
+         y="41.497398"
+         id="text25">LocatedIn</text>
+    </g>
+    <!--link PassService/Id to PassService-->
+    <g
+       class="link"
+       data-entity-1="ent0003"
+       data-entity-2="ent0002"
+       data-link-type="association"
+       data-source-line="11"
+       id="lnk4"
+       transform="translate(477.63109,-408.90719)">
+      <path
+         d="m 190.83,511.34 c -4.97,16.02 -13.88,44.75 -19.7,63.5"
+         fill="none"
+         id="PassService/Id-PassService"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link PassService/Name to PassService-->
+    <g
+       class="link"
+       data-entity-1="ent0005"
+       data-entity-2="ent0002"
+       data-link-type="association"
+       data-source-line="12"
+       id="lnk6"
+       transform="translate(477.63109,-408.90719)">
+      <path
+         d="m 52.23,511.53 c 22.35,16.08 62.16,44.71 88.14,63.39"
+         fill="none"
+         id="PassService/Name-PassService"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Stop/ArriveTime to Stop-->
+    <g
+       class="link"
+       data-entity-1="ent0008"
+       data-entity-2="ent0007"
+       data-link-type="association"
+       data-source-line="15"
+       id="lnk9"
+       transform="matrix(1,0,0,-1,552.84626,483.47795)">
+      <path
+         d="m 185.94,51.57 c 12.61,19.46 34.97,53.94 48.7,75.13"
+         fill="none"
+         id="Stop/ArriveTime-Stop"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Stop/DepartTime to Stop-->
+    <g
+       class="link"
+       data-entity-1="ent0010"
+       data-entity-2="ent0007"
+       data-link-type="association"
+       data-source-line="16"
+       id="lnk11"
+       transform="matrix(1,0,0,-1,552.84626,483.47795)">
+      <path
+         d="m 307.92,51.57 c -12.79,19.46 -35.46,53.94 -49.39,75.13"
+         fill="none"
+         id="Stop/DepartTime-Stop"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link TrainsetType/Name to TrainsetType-->
+    <g
+       class="link"
+       data-entity-1="ent0013"
+       data-entity-2="ent0012"
+       data-link-type="association"
+       data-source-line="19"
+       id="lnk14"
+       transform="rotate(90,714.15191,14.255994)">
+      <path
+         d="m 1060.5,514.11 c 0,16.43 0,43.14 0,60.86"
+         fill="none"
+         id="TrainsetType/Name-TrainsetType"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0013"
+       data-entity-2="ent0012"
+       data-link-type="association"
+       data-source-line="19"
+       id="lnk14-0"
+       transform="rotate(110,645.75339,211.12004)">
+      <path
+         d="m 1060.5,514.11 c 0,16.43 0,43.14 0,60.86"
+         fill="none"
+         id="TrainsetType/Name-TrainsetType-6"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0013"
+       data-entity-2="ent0012"
+       data-link-type="association"
+       data-source-line="19"
+       id="lnk14-0-8"
+       transform="rotate(70,637.72155,-85.463731)">
+      <path
+         d="m 1060.5,514.11 c 0,16.43 0,43.14 0,60.86"
+         fill="none"
+         id="TrainsetType/Name-TrainsetType-6-9"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Amenity/Id to Amenity-->
+    <!--link Amenity/Description to Amenity-->
+    <!--link Place/Id to Place-->
+    <g
+       class="link"
+       data-entity-1="ent0021"
+       data-entity-2="ent0020"
+       data-link-type="association"
+       data-source-line="26"
+       id="lnk22"
+       transform="matrix(1,0,0,-1,361.00277,581.59421)">
+      <path
+         d="m 723.76,157.02 c 13.41,16.26 40.12,48.64 56.89,68.98"
+         fill="none"
+         id="Place/Id-Place"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Place/Name to Place-->
+    <g
+       class="link"
+       data-entity-1="ent0023"
+       data-entity-2="ent0020"
+       data-link-type="association"
+       data-source-line="27"
+       id="lnk24"
+       transform="matrix(1,0,0,-1,361.00277,581.59421)">
+      <path
+         d="m 795.5,161.73 c 0,17.17 0,45.56 0,64.09"
+         fill="none"
+         id="Place/Name-Place"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0023"
+       data-entity-2="ent0020"
+       data-link-type="association"
+       data-source-line="27"
+       id="lnk24-5"
+       transform="matrix(1,0,0,-1.0268076,507.14066,436.04828)">
+      <path
+         d="m 795.5,161.73 c 0,17.17 0,45.56 0,64.09"
+         fill="none"
+         id="Place/Name-Place-1"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0023"
+       data-entity-2="ent0020"
+       data-link-type="association"
+       data-source-line="27"
+       id="lnk24-5-4-3"
+       transform="matrix(0.89550396,0.88167956,0.86825774,-0.85485396,-544.37691,-222.11684)">
+      <path
+         d="m 795.5,161.73 c 0,17.17 0,45.56 0,64.09"
+         fill="none"
+         id="Place/Name-Place-1-3-3"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0023"
+       data-entity-2="ent0020"
+       data-link-type="association"
+       data-source-line="27"
+       id="lnk24-5-4-3-4"
+       transform="matrix(0.89550396,-0.88167956,0.86825774,0.85485396,-550.04441,941.44361)">
+      <path
+         d="m 795.5,161.73 c 0,17.17 0,45.56 0,64.09"
+         fill="none"
+         id="Place/Name-Place-1-3-3-8"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0023"
+       data-entity-2="ent0020"
+       data-link-type="association"
+       data-source-line="27"
+       id="lnk24-5-1"
+       transform="matrix(0.33015318,0.94009521,0.93140527,-0.35133935,770.44954,-367.71474)">
+      <path
+         d="m 795.5,161.73 c 0,17.17 0,45.56 0,64.09"
+         fill="none"
+         id="Place/Name-Place-1-5"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Area/Geom to Area-->
+    <g
+       class="link"
+       data-entity-1="ent0026"
+       data-entity-2="ent0025"
+       data-link-type="association"
+       data-source-line="30"
+       id="lnk27"
+       transform="translate(477.63109,-408.90719)">
+      <path
+         d="m 757.39,512.9 c 14.44,16.26 38.84,43.75 54.96,61.91"
+         fill="none"
+         id="Area/Geom-Area"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Station/Address to Station-->
+    <g
+       class="link"
+       data-entity-1="ent0029"
+       data-entity-2="ent0028"
+       data-link-type="association"
+       data-source-line="33"
+       id="lnk30"
+       transform="translate(477.63109,-408.90719)">
+      <path
+         d="m 561.45,513.7 c -9.27,16.35 -24.51,43.24 -34.64,61.11"
+         fill="none"
+         id="Station/Address-Station"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Station/Geom to Station-->
+    <g
+       class="link"
+       data-entity-1="ent0031"
+       data-entity-2="ent0028"
+       data-link-type="association"
+       data-source-line="34"
+       id="lnk32"
+       transform="translate(477.63109,-408.90719)">
+      <path
+         d="m 472.4,513.7 c 9.09,16.35 24.04,43.24 33.98,61.11"
+         fill="none"
+         id="Station/Geom-Station"
+         style="stroke:#181818;stroke-width:1" />
+    </g>
+    <!--link Place to Place/dArea, Station/center-->
+    <g
+       class="link"
+       data-entity-1="ent0020"
+       data-entity-2="ent0033"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk34"
+       transform="matrix(1,0,0,0.30401145,361.00277,205.78072)">
+      <path
+         d="m 795.5,264 c 0,27.76 0,80.24 0,103.68"
+         fill="none"
+         id="Place-Place/dArea, Station/center"
+         style="stroke:#181818;stroke-width:2" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0020"
+       data-entity-2="ent0033"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk34-7"
+       transform="matrix(-0.70710678,-0.70710678,0.27062705,-0.27062705,1314.1302,961.77841)"
+       style="stroke-width:2.13207;stroke-dasharray:none">
+      <path
+         d="m 795.5,264 c 0,27.76 0,80.24 0,103.68"
+         fill="none"
+         id="Place-Place/dArea, Station/center-9"
+         style="stroke:#181818;stroke-width:2.13207;stroke-dasharray:none" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0020"
+       data-entity-2="ent0033"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk34-7-9"
+       transform="matrix(0.70710678,-0.70710678,0.27062705,0.27062705,113.00987,801.99121)"
+       style="stroke-width:2.13207;stroke-dasharray:none">
+      <path
+         d="m 795.5,264 c 0,27.76 0,80.24 0,103.68"
+         fill="none"
+         id="Place-Place/dArea, Station/center-9-8"
+         style="stroke:#181818;stroke-width:2.13207;stroke-dasharray:none" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0020"
+       data-entity-2="ent0033"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk34-6"
+       transform="matrix(-1.1963939,-1.1963939,-0.36371744,0.36371744,1374.9391,1314.0915)">
+      <path
+         d="m 795.5,264 c 0,27.76 0,80.24 0,103.68"
+         fill="none"
+         id="Place-Place/dArea, Station/center-1"
+         style="stroke:#181818;stroke-width:2" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0020"
+       data-entity-2="ent0033"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk34-6-1"
+       transform="matrix(-1.6409427,-0.73534283,1.4792282,-0.66287499,1353.9751,1032.0366)">
+      <path
+         d="m 795.5,264 c 0,27.76 0,80.24 0,103.68"
+         fill="none"
+         id="Place-Place/dArea, Station/center-1-3"
+         style="stroke:#181818;stroke-width:2" />
+    </g>
+    <!--link Place/dArea, Station/center to Area-->
+    <g
+       class="link"
+       data-entity-1="ent0033"
+       data-entity-2="ent0025"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk35"
+       transform="translate(477.63109,-408.90719)">
+      <path
+         d="m 705.40179,645.25532 c 97.80774,-58.18431 0.24378,-0.0141 97.91295,-58.73603"
+         fill="none"
+         id="Place/dArea, Station/center-Area"
+         style="stroke:#181818;stroke-width:1"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <g
+       class="link"
+       data-entity-1="ent0033"
+       data-entity-2="ent0025"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk35-8"
+       transform="matrix(-1.028338,0,0,0.97419451,1852.0031,-394.22333)">
+      <path
+         d="m 705.40179,645.25532 c 43.96674,-25.77657 43.98425,-25.10001 97.91295,-58.73603"
+         fill="none"
+         id="Place/dArea, Station/center-Area-2"
+         style="stroke:#181818;stroke-width:1"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <!--link Place/dArea, Station/center to Station-->
+    <g
+       class="link"
+       data-entity-1="ent0033"
+       data-entity-2="ent0028"
+       data-link-type="association"
+       data-source-line="37"
+       id="lnk36"
+       transform="translate(477.63109,-408.90719)" />
+    <!--link Stop to Services-->
+    <!--link Services to PassService-->
+    <g
+       class="link"
+       data-entity-1="ent0037"
+       data-entity-2="ent0002"
+       data-link-type="association"
+       data-source-line="42"
+       id="lnk39"
+       transform="translate(517.72208,-203.59275)"
+       style="stroke-width:2.8;stroke-dasharray:none">
+      <path
+         d="m 139.55071,407.43703 c 3.30836,13.63293 8.74497,35.49763 13.96976,54.35829 2.95534,10.64929 6.66716,22.85925 9.19886,31.01962"
+         fill="none"
+         id="Services-PassService"
+         style="stroke:#181818;stroke-width:2.8;stroke-dasharray:none" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="6.1177001"
+         x="154.5"
+         y="503.41891"
+         id="text29"
+         style="stroke-width:2.8;stroke-dasharray:none"
+         transform="translate(2.6845273,-43.059817)">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="6.1177001"
+         x="154.5"
+         y="503.41891"
+         id="text29-0"
+         style="stroke-width:2.8;stroke-dasharray:none"
+         transform="translate(79.095237,38.831383)">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="6.1177001"
+         x="154.5"
+         y="503.41891"
+         id="text29-6"
+         style="stroke-width:2.8;stroke-dasharray:none"
+         transform="translate(167.00453,27.608208)">1</text>
+    </g>
+    <!--link Stop to At-->
+    <!--link At to Station-->
+    <g
+       class="link"
+       data-entity-1="ent0040"
+       data-entity-2="ent0028"
+       data-link-type="association"
+       data-source-line="46"
+       id="lnk42"
+       transform="translate(477.63109,-408.90719)">
+      <path
+         d="m 406.47986,689.93204 c -4.82,-25.77 -18.4488,-66.58331 8.08559,-78.00599 23.69927,-9.65334 32.02416,-16.65155 69.98666,-18.86137"
+         fill="none"
+         id="At-Station"
+         style="stroke:#181818;stroke-width:1"
+         sodipodi:nodetypes="ccc" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="6.1177001"
+         x="409.5"
+         y="503.41891"
+         id="text31"
+         transform="translate(12.148784,92.938194)">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="6.1177001"
+         x="409.5"
+         y="503.41891"
+         id="text31-4"
+         transform="translate(404.84466,149.99947)">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="6.1177001"
+         x="409.5"
+         y="503.41891"
+         id="text31-0"
+         transform="translate(-563.65789,218.29082)">1</text>
+    </g>
+    <!--link Consist to TrainsetType-->
+    <!--link Consist to PassService-->
+    <g
+       class="link"
+       data-entity-1="ent0043"
+       data-entity-2="ent0002"
+       data-link-type="association"
+       data-source-line="51"
+       id="lnk45"
+       transform="translate(484.50348,-403.7529)">
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="27.5"
+         x="243.5"
+         y="503.41891"
+         id="text33"
+         transform="translate(-225.92981,156.34687)">(0, N)</text>
+    </g>
+    <!--link TransetAmenities to TrainsetType-->
+    <g
+       class="link"
+       data-entity-1="ent0046"
+       data-entity-2="ent0012"
+       data-link-type="association"
+       data-source-line="55"
+       id="lnk47"
+       transform="translate(-810.30661,-185.36957)">
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="7.9438"
+         x="1169.5"
+         y="503.41891"
+         id="text34"
+         transform="translate(-44.950499,97.190269)">N</text>
+    </g>
+    <!--link TransetAmenities to Amenity-->
+    <g
+       class="link"
+       data-entity-1="ent0046"
+       data-entity-2="ent0015"
+       data-link-type="association"
+       data-source-line="56"
+       id="lnk48"
+       transform="translate(-1050.4927,-130.70005)">
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="27.5"
+         x="1343.5"
+         y="503.41891"
+         id="text35"
+         transform="translate(-29.76452,102.04978)">(0, N)</text>
+    </g>
+    <!--link LocatedIn to Area-->
+    <!--link LocatedIn to Place-->
+    <g
+       class="link"
+       data-entity-1="ent0049"
+       data-entity-2="ent0020"
+       data-link-type="association"
+       data-source-line="62"
+       id="lnk51"
+       transform="translate(321.24232,155.33535)">
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="27.5"
+         x="876.5"
+         y="150.9189"
+         id="text37">(0, N)</text>
+    </g>
+<?plantuml-src xLD1Qy8m5BxdL-Is2TQfXvriiLCGGKIci7DidZOOav94fGp_-v8shLh768pTp2Nfo_k-x-LzVKDjY3992WAF3tR7xuJn4yar6cYJSuWGjgiZ3foJDGVyMNoxzKQItKJ9Ww0ZoQN27oapKDoUImm5nOv0Vu3Cs3Orevm83nkyU4q4mZ2JumNHUWdgo99AUKhnOB23F2eBcvCze7ELlZGoizSd8Bieye1OkIfMR0ytm35azjqkV86l5652WrdbMINd-6jSdHZlGRZzsvB6e1F5CiEak20MdFpk2R42ulCc8FVNRoEEideLfGgqjaILCvxDWr0f64OXjWOuqdR5O2yLyEAeKvPXtr_7nQWJs-HCR8l-dL7HqR0NrbceJdVHQtzkMMDpYuyDig6W5rHbDAeOsPtf4bITNVQr9_L5-DnjutcheNzBQ84ELrh5RBsE-IuOp1iITncrbZUz8JEJ2J50fyAsp__mldLFrXRWU2rDYhNjhCPoWw-nw88Dd4Yl5HJsD-Dp6o_iH6W8WhfPjQV7t3xczZ6t_p2tVvdANgVVxRzs-by0?>    <path
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path37"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="316.98898"
+       sodipodi:cy="746.51337"
+       sodipodi:r1="34.361965"
+       sodipodi:r2="72.590897"
+       sodipodi:arg1="1.5707962"
+       sodipodi:arg2="2.491276"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 316.98899,780.87533 -29.75834,-51.54294 59.51667,-1e-5 z"
+       inkscape:transform-center-x="27.035281"
+       inkscape:transform-center-y="3.1236787"
+       transform="translate(839.2906,-494.81206)" />
+    <text
+       xml:space="preserve"
+       style="font-size:21.3333px;letter-spacing:-0.493805px;writing-mode:lr-tb;direction:ltr;white-space:pre;inline-size:37.4779;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       x="459.7977"
+       y="528.34937"
+       id="text34-9"
+       transform="matrix(0.96018168,-0.00366274,0.05813238,1.0675451,668.59158,-306.6343)"><tspan
+         x="459.7977"
+         y="528.34937"
+         id="tspan5"><tspan
+           style="fill:#000000;stroke:none"
+           id="tspan4">ISA</tspan></tspan></text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="6.1177001"
+       x="409.5"
+       y="503.41891"
+       id="text31-2"
+       transform="translate(899.1573,-258.07535)"
+       style="letter-spacing:-50px">Encompasses</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="6.1177001"
+       x="409.5"
+       y="503.41891"
+       id="text31-2-5"
+       transform="translate(788.71369,-176.7094)"
+       style="letter-spacing:-20.09px">Child</text>
+    <text
+       xml:space="preserve"
+       style="font-size:21.3333px;letter-spacing:-50px;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke:#000000;stroke-width:1.319"
+       x="1369.968"
+       y="254.27843"
+       id="text20"><tspan
+         sodipodi:role="line"
+         id="tspan3"></tspan></text>
+  </g>
+</svg>

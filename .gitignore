@@ -1,4 +1,9 @@
 local.properties
+/database/extra/data_src/osm2pgsql-bin/*
+!/database/extra/data_src/osm2pgsql-bin/osm2pgsql.exe
+!/database/extra/data_src/osm2pgsql-bin/README.md
+!/database/extra/data_src/osm2pgsql-bin/scripts/osm2pgsql-replication
+/server/lucene/
 
 # Below is auto-generated.
 
@@ -42,4 +47,5 @@ out/
 
 ### Kotlin ###
 .kotlin
-/server/lucene/
+
+

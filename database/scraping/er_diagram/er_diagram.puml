@@ -1,0 +1,66 @@
+@startchen Dutch Railways
+<style>
+    .nullable {
+        BackGroundColor White
+    }
+    .derived {
+        BackGroundColor LightCyan
+    }
+</style>
+
+entity PassService {
+    Id <<key>>
+    Name
+}
+entity Stop <<weak>> {
+    ArriveTime <<key>>
+    DepartTime
+}
+entity TrainsetType {
+    Name <<key>>
+}
+entity Amenity {
+    Id <<key>>
+    Description
+}
+entity Place {
+    Id <<key>>
+    Name
+}
+entity Area {
+    Geom
+}
+entity Station {
+    Address <<nullable>>
+    Geom
+}
+
+'change to ISA triangle
+Place =>= d {Area, Station}
+
+relationship Services <<identifying>> {
+}
+Stop =1= Services
+Services =1= PassService 
+relationship At {
+}
+Stop =1= At
+At -1- Station
+
+relationship Consist {
+}
+Consist -1- TrainsetType
+Consist =(0, N)= PassService 
+
+relationship TrainsetAmenities {
+}
+TrainsetAmenities -N- TrainsetType
+TrainsetAmenities =(0, N)= Amenity
+
+relationship LocatedIn <<derived>> {
+}
+'label both sides of relationship
+LocatedIn -(0, 1)- Area
+LocatedIn -(0, N)- Place
+
+@endchen

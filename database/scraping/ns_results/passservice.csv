@@ -1,0 +1,233 @@
+,num,name,trainset
+0,7665,Sprinter 7665 to Zutphen,SNG
+1,6668,Sprinter 6668 to Nijmegen,Flirt
+2,6568,Sprinter 6568 to 's-Hertogenbosch,Flirt
+3,6666,Sprinter 6666 to Nijmegen,Flirt
+4,6463,Sprinter 6463 to Weert,Flirt
+5,5663,Sprinter 5663 to Zwolle,SNG
+6,5161,Sprinter 5161 to Rotterdam Stadion,SNG
+7,9067,Sprinter 9067 to Leeuwarden,SNG
+8,4965,Sprinter 4965 to Utrecht Centraal,SNG
+9,7367,Sprinter 7367 to Rhenen,SLT
+10,5159,Sprinter 5159 to Rotterdam Stadion,SNG
+11,5059,Sprinter 5059 to Rotterdam Stadion,SNG
+12,6170,Sprinter 6170 to Zwolle,SNG
+13,4366,Sprinter 4366 to Amsterdam RAI,SLT
+14,5764,Sprinter 5764 to Amsterdam RAI,SLT
+15,5062,Sprinter 5062 to Den Haag Centraal,SNG
+16,9065,Sprinter 9065 to Zwolle,SNG
+17,7362,Sprinter 7362 to Breukelen,SNG
+18,7369,Sprinter 7369 to Rhenen,SNG
+19,5160,Sprinter 5160 to Den Haag Centraal,SNG
+20,5061,Sprinter 5061 to Rotterdam Stadion,SNG
+21,4071,Sprinter 4071 to Rotterdam Centraal,SLT
+22,5864,Sprinter 5864 to Amsterdam Centraal,SNG
+23,704362,Sprinter 704362 to Den Haag Centraal,SLT
+24,6073,Sprinter 6073 to 's-Hertogenbosch,SLT
+25,704369,Sprinter 704369 to Amsterdam Centraal,SLT
+26,4858,Sprinter 4858 to Amsterdam Centraal,SLT
+27,704360,Sprinter 704360 to Den Haag Centraal,SLT
+28,5564,Sprinter 5564 to Utrecht Centraal,SLT
+29,4260,Sprinter 4260 to Haarlem,SLT
+30,4860,Sprinter 4860 to Amsterdam Centraal,SLT
+31,5458,Sprinter 5458 to Amsterdam Centraal,SLT
+32,4060,Sprinter 4060 to Uitgeest,SLT
+33,5463,Sprinter 5463 to Zandvoort aan Zee,SLT
+34,6566,Sprinter 6566 to 's-Hertogenbosch,Flirt
+35,6669,Sprinter 6669 to Dordrecht,Flirt
+36,6660,Sprinter 6660 to Arnhem Centraal,Flirt
+37,6465,Sprinter 6465 to Weert,Flirt
+38,6472,Sprinter 6472 to Tilburg Universiteit,Flirt
+39,6662,Sprinter 6662 to Nijmegen,Flirt
+40,6665,Sprinter 6665 to Dordrecht,Flirt
+41,6563,Sprinter 6563 to Deurne,Flirt
+42,4862,Sprinter 4862 to Amsterdam Centraal,SLT
+43,4967,Sprinter 4967 to Utrecht Centraal,SLT
+44,4964,Sprinter 4964 to Almere Centrum,SLT
+45,6071,Sprinter 6071 to 's-Hertogenbosch,SLT
+46,5769,Sprinter 5769 to Utrecht Centraal,SLT
+47,4863,Sprinter 4863 to Alkmaar,SLT
+48,5865,Sprinter 5865 to Amersfoort Vathorst,SNG
+49,4064,Sprinter 4064 to Uitgeest,SLT
+50,4067,Sprinter 4067 to Rotterdam Centraal,SLT
+51,8969,Sprinter 8969 to Utrecht Centraal,SLT
+52,5866,Sprinter 5866 to Amsterdam Centraal,SNG
+53,7364,Sprinter 7364 to Breukelen,SLT
+54,6771,Sprinter 6771 to Tiel,SLT
+55,4066,Sprinter 4066 to Uitgeest,SLT
+56,4261,Sprinter 4261 to Leiden Centraal,SLT
+57,5667,Sprinter 5667 to Zwolle,SNG
+58,5668,Sprinter 5668 to Utrecht Centraal,SNG
+59,8964,Sprinter 8964 to Woerden,SLT
+60,4664,Sprinter 4664 to Amsterdam Centraal,SNG
+61,5064,Sprinter 5064 to Den Haag Centraal,SNG
+62,6161,Sprinter 6161 to Groningen,SNG
+63,5666,Sprinter 5666 to Utrecht Centraal,SNG
+64,5664,Sprinter 5664 to Utrecht Centraal,SNG
+65,4662,Sprinter 4662 to Amsterdam Centraal,SNG
+66,4162,Sprinter 4162 to Hoorn Kersenboogerd,SNG
+67,5162,Sprinter 5162 to Den Haag Centraal,SNG
+68,4669,Sprinter 4669 to Almere Oostvaarders,SNG
+69,4160,Sprinter 4160 to Hoorn Kersenboogerd,SNG
+70,4164,Sprinter 4164 to Hoorn Kersenboogerd,SNG
+71,5665,Sprinter 5665 to Zwolle,SNG
+72,4365,Sprinter 4365 to Lelystad Centrum,SLT
+73,5867,Sprinter 5867 to Amersfoort Vathorst,SNG
+74,6168,Sprinter 6168 to Zwolle,SNG
+75,7070,Sprinter 7070 to Apeldoorn,SNG
+76,1166,Intercity 1166 to Den Haag Centraal,ICNG
+77,9571,Eurocity Direct 9571 to Amsterdam Centraal,SLT
+78,9563,Eurocity Direct 9563 to Amsterdam Centraal,ICNG
+79,1567,Intercity 1567 to Amersfoort Centraal,ICM
+80,770,Intercity 770 to Amsterdam Centraal,ICM
+81,868,Intercity 868 to Amsterdam Centraal,ICM
+82,867,Intercity 867 to Leeuwarden,ICM
+83,669,Intercity 669 to Leeuwarden,VIRM
+84,761,Intercity 761 to Groningen,VIRM
+85,1566,Intercity 1566 to Amsterdam Centraal,ICM
+86,863,Intercity 863 to Leeuwarden,ICM
+87,1769,Intercity 1769 to Enschede,ICM
+88,9070,Sprinter 9070 to Lelystad Centrum,SNG
+89,665,Intercity 665 to Leeuwarden,VIRM
+90,1770,Intercity 1770 to Rotterdam Centraal,DDZ
+91,1766,Intercity 1766 to Rotterdam Centraal,DDZ
+92,1762,Intercity 1762 to Rotterdam Centraal,ICM
+93,1763,Intercity 1763 to Enschede,DDZ
+94,3661,Intercity 3661 to Vlissingen,DDZ
+95,3654,Intercity 3654 to Zwolle,DDZ
+96,666,Intercity 666 to Rotterdam Centraal,VIRM
+97,3659,Intercity 3659 to Vlissingen,VIRM
+98,2869,Intercity 2869 to Enschede,DDZ
+99,3665,Intercity 3665 to Vlissingen,DDZ
+100,3663,Intercity 3663 to Vlissingen,DDZ
+101,2966,Intercity 2966 to Enkhuizen,VIRM
+102,3565,Intercity 3565 to Venlo,VIRM
+103,3972,Intercity 3972 to Eindhoven Centraal,VIRM
+104,568,Intercity 568 to Rotterdam Centraal,VIRM
+105,2158,Intercity 2158 to Amsterdam Centraal,VIRM
+106,3569,Intercity 3569 to Venlo,VIRM
+107,3058,Intercity 3058 to Den Helder,VIRM
+108,703562,Intercity 703562 to Rotterdam Centraal,VIRM
+109,567,Intercity 567 to Groningen,VIRM
+110,2163,Intercity 2163 to Den Haag Centraal,VIRM
+111,3165,Intercity 3165 to Nijmegen,VIRM
+112,2973,Intercity 2973 to Maastricht,VIRM
+113,2767,Intercity 2767 to Maastricht,VIRM
+114,2260,Intercity 2260 to Amsterdam Centraal,VIRM
+115,2769,Intercity 2769 to Maastricht,VIRM
+116,3164,Intercity 3164 to Amsterdam RAI,VIRM
+117,2758,Intercity 2758 to Alkmaar,VIRM
+118,2263,Intercity 2263 to Rotterdam Centraal,VIRM
+119,2762,Intercity 2762 to Alkmaar,VIRM
+120,3069,Intercity 3069 to Nijmegen,VIRM
+121,3065,Intercity 3065 to Nijmegen,VIRM
+122,3963,Intercity 3963 to Heerlen,VIRM
+123,3168,Intercity 3168 to Amsterdam RAI,VIRM
+124,3566,Intercity 3566 to Den Haag Centraal,VIRM
+125,2760,Intercity 2760 to Alkmaar,VIRM
+126,703558,Intercity 703558 to Rotterdam Centraal,VIRM
+127,3570,Intercity 3570 to Den Haag Centraal,VIRM
+128,3563,Intercity 3563 to Venlo,VIRM
+129,2971,Intercity 2971 to Amsterdam Centraal,VIRM
+130,2968,Intercity 2968 to Enkhuizen,VIRM
+131,3561,Intercity 3561 to Venlo,VIRM
+132,3071,Intercity 3071 to Nijmegen,VIRM
+133,703573,Intercity 703573 to Schiphol Airport,VIRM
+134,2161,Intercity 2161 to Den Haag Centraal,VIRM
+135,8662,Sprinter 8662 to Alphen a/d Rijn,Flirt
+136,8659,Sprinter 8659 to Gouda,Flirt
+137,6663,Sprinter 6663 to Dordrecht,Flirt
+138,6565,Sprinter 6565 to Deurne,Flirt
+139,6667,Sprinter 6667 to Dordrecht,Flirt
+140,6470,Sprinter 6470 to Tilburg Universiteit,Flirt
+141,6671,Sprinter 6671 to Dordrecht,Flirt
+142,7065,Sprinter 7065 to Almelo,SNG
+143,4667,Sprinter 4667 to Almere Oostvaarders,SNG
+144,6163,Sprinter 6163 to Groningen,SNG
+145,4367,Sprinter 4367 to Lelystad Centrum,SNG
+146,7668,Sprinter 7668 to Nijmegen,SNG
+147,704371,Sprinter 704371 to Amsterdam Centraal,SLT
+148,4857,Sprinter 4857 to Hoorn,SLT
+149,4861,Sprinter 4861 to Hoorn,SLT
+150,4258,Sprinter 4258 to Haarlem,SLT
+151,4859,Sprinter 4859 to Hoorn,SLT
+152,4263,Sprinter 4263 to Leiden Centraal,SLT
+153,5567,Sprinter 5567 to Baarn,SLT
+154,4069,Sprinter 4069 to Rotterdam Centraal,SLT
+155,6664,Sprinter 6664 to Nijmegen,Flirt
+156,6567,Sprinter 6567 to Deurne,Flirt
+157,4171,Sprinter 4171 to Leiden Centraal,SNG
+158,5767,Sprinter 5767 to Utrecht Centraal,SLT
+159,8971,Sprinter 8971 to Utrecht Centraal,SLT
+160,6069,Sprinter 6069 to 's-Hertogenbosch,SLT
+161,5762,Sprinter 5762 to Amsterdam RAI,SLT
+162,4966,Sprinter 4966 to Almere Centrum,SLT
+163,9066,Sprinter 9066 to Lelystad Centrum,SNG
+164,4364,Sprinter 4364 to Amsterdam RAI,SLT
+165,4165,Sprinter 4165 to Leiden Centraal,SNG
+166,4169,Sprinter 4169 to Leiden Centraal,SNG
+167,7666,Sprinter 7666 to Nijmegen,Flirt
+168,5060,Sprinter 5060 to Den Haag Centraal,SNG
+169,4173,Sprinter 4173 to Hoofddorp,SNG
+170,9068,Sprinter 9068 to Lelystad Centrum,SNG
+171,5967,Sprinter 5967 to Roosendaal,SNG
+172,9063,Sprinter 9063 to Leeuwarden,SNG
+173,6172,Sprinter 6172 to Zwolle,SNG
+174,5057,Sprinter 5057 to Rotterdam Stadion,SNG
+175,1171,Intercity 1171 to Eindhoven Centraal,ICNG
+176,1162,Intercity 1162 to Den Haag Centraal,ICNG
+177,1169,Intercity 1169 to Eindhoven Centraal,ICNG
+178,1164,Intercity 1164 to Den Haag Centraal,ICNG
+179,1167,Intercity 1167 to Eindhoven Centraal,ICNG
+180,9560,Eurocity Direct 9560 to Brussel-Zuid,ICNG
+181,9556,Eurocity Direct 9556 to Brussel-Zuid,ICNG
+182,9564,Eurocity Direct 9564 to Brussel-Zuid,ICNG
+183,9567,Eurocity Direct 9567 to Amsterdam Centraal,ICNG
+184,1564,Intercity 1564 to Amsterdam Centraal,ICM
+185,1768,Intercity 1768 to Rotterdam Centraal,DDZ
+186,564,Intercity 564 to Rotterdam Centraal,VIRM
+187,1765,Intercity 1765 to Enschede,DDZ
+188,3656,Intercity 3656 to Zwolle,VIRM
+189,2862,Intercity 2862 to Rotterdam Centraal,ICM
+190,3666,Intercity 3666 to Zwolle,DDZ
+191,3662,Intercity 3662 to Zwolle,DDZ
+192,3668,Intercity 3668 to Zwolle,VIRM
+193,3657,Intercity 3657 to Vlissingen,DDZ
+194,3667,Intercity 3667 to Vlissingen,DDZ
+195,3660,Intercity 3660 to Zwolle,VIRM
+196,3655,Intercity 3655 to Vlissingen,VIRM
+197,1764,Intercity 1764 to Rotterdam Centraal,DDZ
+198,3664,Intercity 3664 to Zwolle,VIRM
+199,1767,Intercity 1767 to Enschede,DDZ
+200,3658,Intercity 3658 to Zwolle,VIRM
+201,3073,Intercity 3073 to Nijmegen,VIRM
+202,2970,Intercity 2970 to Enkhuizen,VIRM
+203,3568,Intercity 3568 to Den Haag Centraal,VIRM
+204,2358,Intercity 2358 to Amsterdam Centraal,VIRM
+205,3064,Intercity 3064 to Den Helder,VIRM
+206,703571,Intercity 703571 to Schiphol Airport,VIRM
+207,2761,Intercity 2761 to Maastricht,VIRM
+208,2972,Intercity 2972 to Enkhuizen,VIRM
+209,3970,Intercity 3970 to Eindhoven Centraal,VIRM
+210,3062,Intercity 3062 to Den Helder,VIRM
+211,3967,Intercity 3967 to Heerlen,VIRM
+212,3169,Intercity 3169 to Nijmegen,VIRM
+213,3060,Intercity 3060 to Den Helder,VIRM
+214,2763,Intercity 2763 to Maastricht,VIRM
+215,3067,Intercity 3067 to Nijmegen,VIRM
+216,765,Intercity 765 to Groningen,ICM
+217,662,Intercity 662 to Rotterdam Centraal,VIRM
+218,703560,Intercity 703560 to Rotterdam Centraal,VIRM
+219,2764,Intercity 2764 to Alkmaar,VIRM
+220,3166,Intercity 3166 to Amsterdam RAI,VIRM
+221,2160,Intercity 2160 to Amsterdam Centraal,VIRM
+222,2361,Intercity 2361 to Rotterdam Centraal,VIRM
+223,30959,Stoptrein 30959 to Winterswijk,GTW
+224,37861,Stoptrein 37861 to Delfzijl,GTW
+225,8061,Stoptrein 8061 to Emmen,GTW
+226,30860,Stoptrein 30860 to Zutphen,GTW
+227,3859,Sneltrein 3859 to Emmen,GTW
+228,32466,Stoptrein 32466 to Roermond,Flirt
+229,32464,Stoptrein 32464 to Roermond,Flirt
+230,31154,Stoptrein 31154 to Tiel,GTW
+231,30958,Stoptrein 30958 to Arnhem Centraal,GTW
