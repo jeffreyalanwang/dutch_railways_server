@@ -5,6 +5,7 @@ import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
 import jakarta.transaction.Transactional
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -91,9 +92,8 @@ class SearchServiceTest(
             ),
             types = listOf(Station::class),
             batchSize = 10,
-        ).toList().run {
-            map { assertIs<Station>(it); it }
-        }
+        ).onEach { assertIs<Station>(it) }
+            .toList()
 
         assertTrue(results.size > 1)
         assertEquals("Eindhoven Centraal", results.first().name)

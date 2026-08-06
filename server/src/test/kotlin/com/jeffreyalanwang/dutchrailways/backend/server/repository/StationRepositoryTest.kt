@@ -2,16 +2,14 @@ package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
 import com.jeffreyalanwang.dutchrailways.backend.server.DutchRailwaysServerApplication
 import jakarta.transaction.Transactional
+import org.geolatte.geom.G2D
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 
 /**
@@ -68,6 +66,42 @@ class StationRepositoryTest(
             assertFalse(address.isBlank())
             assertFalse(geom?.isEmpty ?: false)
         }
+
+    }
+
+    @Transactional
+    @Test
+    fun `Station geom processing`() {
+
+        val stationId = 1176 // Gouda
+        val position = run {
+            val lon = 4.704444477700654
+            val lat = 52.017501833627215
+            G2D(lon, lat)
+        }
+        val reversedPosition = position.run { G2D(lat, lon) }
+
+        val station = findById(stationId).get()
+        assertNotEquals(reversedPosition, station.geom?.position, "`lat` and `lon` are swapped")
+        assertEquals(position, station.geom?.position)
+
+    }
+
+    @Transactional
+    @Test
+    fun `Hibernate spatial search properties`() {
+
+        val stationId = 1176 // Gouda
+        val lon = 4.704444477700654
+        val lat = 52.017501833627215
+
+        val station = findById(stationId).get()
+
+        assertNotEquals(lat, station.lon, "`lat` and `lon` are swapped")
+        assertNotEquals(lon, station.lat)
+
+        assertEquals(lat, station.lat)
+        assertEquals(lon, station.lon)
 
     }
 }

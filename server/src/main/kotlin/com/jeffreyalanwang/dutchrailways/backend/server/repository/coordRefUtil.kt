@@ -2,7 +2,7 @@
 
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
-import com.jeffreyalanwang.dutchrailways.api.util.buildPositionSequence
+import com.jeffreyalanwang.dutchrailways.api.util.mapPositionSequence
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 import org.geolatte.geom.*
@@ -32,9 +32,8 @@ internal class PositionConverter<P1: Position, P2: Position>(
     private val transform1to2 = factory.createTransform(proj4jCrs1, proj4jCrs2)
     private val transform2to1 = factory.createTransform(proj4jCrs2, proj4jCrs1)
 
-    private val tempDest = ProjCoordinate()
-    fun P1.toP2() = transform(transform1to2, tempDest, constructP2)
-    fun P2.toP1() = transform(transform2to1, tempDest, constructP1)
+    fun P1.toP2() = transform(transform1to2, constructP2)
+    fun P2.toP1() = transform(transform2to1, constructP1)
 
     companion object {
         typealias PositionConstructor<P> = (x: Double, y: Double, z: Double) -> P
@@ -46,12 +45,12 @@ internal class PositionConverter<P1: Position, P2: Position>(
             if (coordinateDimension > 2) getCoordinate(2) else Double.NaN,
         )
 
-        private fun <P1: Position, P2: Position> P1.transform(
+        private inline fun <P1: Position, P2: Position> P1.transform(
             transform: Proj4jCoordinateTransform,
-            tempDest: ProjCoordinate,
             constructP2: PositionConstructor<P2>,
+            tempDest: () -> ProjCoordinate = { ProjCoordinate() },
         ) = toProjCoordinate()
-            .let { transform.transform(it, tempDest) }
+            .let { transform.transform(it, tempDest()) }
             .run { constructP2(x, y, z) }
     }
 }
@@ -104,6 +103,10 @@ internal class PositionConverterFromG2D private constructor(
     }
 }
 
+/**
+ * JPA converter facilitating entries in G2D/WGS84/LonLat coordinate system,
+ * with an arbitrary coordinate system in-database via [positionConverter].
+ */
 @Converter
 internal open class PointConverterFromG2D(
     private val positionConverter: PositionConverterFromG2D,
@@ -118,6 +121,10 @@ internal open class PointConverterFromG2D(
     }
 }
 
+/**
+ * JPA converter facilitating entries in G2D/WGS84/LonLat coordinate system,
+ * with an arbitrary coordinate system in-database via [positionConverter].
+ */
 @Converter
 internal open class MultiPolygonConverterFromG2D(
     private val positionConverter: PositionConverterFromG2D,
@@ -133,19 +140,12 @@ internal open class MultiPolygonConverterFromG2D(
 
 }
 
-private inline fun <S: Position, reified T: Position> PositionSequence<S>.convertTo(block: (S) -> T): PositionSequence<T> =
-    buildPositionSequence(size()) {
-        forEach {
-            add(block(it))
-        }
-    }
-
 private fun <S: Position, T: Position> Point<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =
     block(position)
         .let { Point(it, crs) }
 
 private inline fun <S: Position, reified T: Position> LineString<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =
-    positions.convertTo(block)
+    positions.mapPositionSequence { block(it) }
         .let { LineString(it, crs) }
 
 private inline fun <S: Position, reified T: Position> LinearRing<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =

@@ -17,7 +17,7 @@ data class GeoCoords(
 data class GeoLinearRing(
     val points: List<GeoCoords>
 ): LinearRing<G2D>(
-    PositionSequence<_, G2D>(points) { it.position },
+    points.mapPositionSequence { it.position },
     WGS84,
 ) {
     constructor(obj: LinearRing<G2D>) : this(obj.positions.map { GeoCoords(it) })

@@ -27,7 +27,8 @@ private infix fun Double.isNear(other: Double): Boolean {
 }
 
 private fun assertNear(expected: Double, actual: Double) {
-    if (!(expected isNear actual)) assertEquals(expected, actual) // easy way to make the error message
+    if (!(expected isNear actual))
+        assertEquals(expected, actual) // easy way to make the error message
 }
 
 private fun assertNotNear(expected: Double, actual: Double) {

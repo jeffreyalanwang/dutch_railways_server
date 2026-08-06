@@ -24,11 +24,18 @@ inline fun <reified P: Position> PositionSequence(
     source: Collection<P>,
 ) = buildPositionSequence(source.size) { addAll(source) }
 
-inline fun <S, reified T: Position> PositionSequence(
-    source: Collection<S>,
+inline fun <S : Position, reified T: Position> PositionSequence<S>.mapPositionSequence(
     transform: (S) -> T,
-) = buildPositionSequence(source.size) {
-        source.forEach {
-            add(transform(it))
+) = buildPositionSequence(size()) {
+        forEach { s: S ->
+            add(transform(s))
+        }
+    }
+
+inline fun <S, reified T: Position> Collection<S>.mapPositionSequence(
+    transform: (S) -> T,
+) = buildPositionSequence(size) {
+        forEach { s: S ->
+            add(transform(s))
         }
     }
