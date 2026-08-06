@@ -2,7 +2,7 @@ package com.jeffreyalanwang.dutchrailways.backend.server.controller.query
 
 import com.jeffreyalanwang.dutchrailways.api.PointJourney
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.GraphQlConfig
-import com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder
+import com.jeffreyalanwang.dutchrailways.backend.server.processing.journey.JourneyFinder
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.ninjasquad.springmockk.MockkBean

@@ -5,9 +5,9 @@ import java.time.OffsetDateTime
 /**
  * A journey represented as a list of time/place points.
  */
-data class PointJourney(val points: List<JourneyPoint>) {
+open class PointJourney(val points: List<JourneyPoint>) {
 
-    data class JourneyPoint(
+    open class JourneyPoint(
         val time: OffsetDateTime,
         val station: Int,
         val passService: Int?,

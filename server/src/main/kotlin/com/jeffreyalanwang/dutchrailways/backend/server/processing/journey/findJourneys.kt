@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.processing
+package com.jeffreyalanwang.dutchrailways.backend.server.processing.journey
 
 import com.jeffreyalanwang.dutchrailways.api.PointJourney
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.RangeRouteQueryStrategy

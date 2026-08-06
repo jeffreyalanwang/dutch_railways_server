@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.flow
 import org.hibernate.search.engine.search.predicate.dsl.BooleanPredicateClausesStep
 import org.hibernate.search.engine.search.predicate.dsl.PredicateFinalStep
 import org.hibernate.search.engine.search.predicate.dsl.TypedSearchPredicateFactory
-import org.hibernate.search.engine.search.query.SearchFetchable
 import org.hibernate.search.engine.spatial.GeoBoundingBox
 import org.hibernate.search.engine.spatial.GeoPoint
 import org.hibernate.search.mapper.orm.Search
@@ -82,15 +81,4 @@ private fun GeoRect.toHibernateSearch() = object : GeoBoundingBox {
 private fun GeoCoords.toHibernateSearch() = object : GeoPoint {
     override fun latitude() = this@toHibernateSearch.latitude
     override fun longitude() = this@toHibernateSearch.longitude
-}
-
-private fun <T> SearchFetchable<T>.flow(batchSize: Int) = flow<T> {
-    scroll(batchSize).use { resultScroll ->
-        while (true) resultScroll.next().run {
-            if (!hasHits()) return@flow
-            for (hit in hits()) {
-                emit(hit)
-            }
-        }
-    }
 }

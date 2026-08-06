@@ -1,5 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.controller
 
+import graphql.schema.DataFetchingEnvironment
+import graphql.schema.SelectedField
 import graphql.schema.idl.RuntimeWiring
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactor.asFlux
@@ -55,3 +57,16 @@ internal fun <K: Any, V: Any> BatchLoaderRegistry.RegistrationSpec<K, V>.registe
 internal fun RuntimeWiringConfigurer(
     block: RuntimeWiring.Builder.() -> Unit,
 ) = RuntimeWiringConfigurer { it.block() }
+
+/**
+ * Get a child field from the one being currently processed, by name.
+ *
+ * @param name  The actual name, rather than potentially an alias,
+ *              of an immediate child field that the client selected.
+ */
+internal fun DataFetchingEnvironment.childField(name: String) = selectionSet.immediateFields.find { it.name == name }
+
+/**
+ * Get the set of selected field names which are immediate children of this one.
+ */
+internal val SelectedField.selectedFields get() = selectionSet.immediateFields.map { it.name as String }.toSet()
