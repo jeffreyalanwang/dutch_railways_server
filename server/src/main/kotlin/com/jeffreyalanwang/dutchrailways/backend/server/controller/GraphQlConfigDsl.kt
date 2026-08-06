@@ -1,14 +1,11 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.controller
 
-import graphql.schema.DataFetcher
 import graphql.schema.idl.RuntimeWiring
-import graphql.schema.idl.TypeRuntimeWiring
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactor.asFlux
 import org.dataloader.BatchLoaderEnvironment
 import org.springframework.core.convert.converter.Converter
 import org.springframework.core.convert.support.ConfigurableConversionService
-import org.springframework.data.querydsl.binding.QuerydslBindings
 import org.springframework.graphql.data.GraphQlArgumentBinder
 import org.springframework.graphql.data.method.annotation.support.AnnotatedControllerDetectionSupport
 import org.springframework.graphql.execution.BatchLoaderRegistry
@@ -41,6 +38,9 @@ internal inline fun <reified S : Any, reified T : Any> ConfigurableConversionSer
 
 internal inline fun <reified K: Any, reified V: Any> BatchLoaderRegistry.forTypePair() = forTypePair(K::class.java, V::class.java)
 
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+@JvmName("registerBatchLoaderAsync")
 internal fun <K: Any, V: Any> BatchLoaderRegistry.RegistrationSpec<K, V>.registerBatchLoader(
     loader: BatchLoaderEnvironment.(List<K>) -> Flow<V>,
 ) = registerBatchLoader { ids, environment -> environment.loader(ids).asFlux() }
@@ -55,18 +55,3 @@ internal fun <K: Any, V: Any> BatchLoaderRegistry.RegistrationSpec<K, V>.registe
 internal fun RuntimeWiringConfigurer(
     block: RuntimeWiring.Builder.() -> Unit,
 ) = RuntimeWiringConfigurer { it.block() }
-
-context(wiringBuilder: RuntimeWiring.Builder)
-internal fun configureType(
-    typename: String,
-    block: TypeRuntimeWiring.Builder.() -> Unit,
-) = wiringBuilder.type(typename) { it.block(); it }
-
-context(wiringBuilder: TypeRuntimeWiring.Builder)
-internal infix fun String.fetches(
-    dataFetcher: DataFetcher<*>,
-) = wiringBuilder.dataFetcher(this, dataFetcher)
-
-context(bindings: QuerydslBindings)
-internal val defaultBinding get() = null
-

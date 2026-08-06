@@ -2,7 +2,7 @@ package com.jeffreyalanwang.dutchrailways.backend.server.processing.search
 
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
+import com.jeffreyalanwang.dutchrailways.api.GeoRect
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.graphql.data.pagination.CursorEncoder.base64

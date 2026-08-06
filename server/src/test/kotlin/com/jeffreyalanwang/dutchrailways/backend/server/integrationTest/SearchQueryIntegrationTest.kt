@@ -1,7 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
-import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
+import com.jeffreyalanwang.dutchrailways.api.GeoCoords
+import com.jeffreyalanwang.dutchrailways.api.GeoRect
 import org.intellij.lang.annotations.Language
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureHttpGraphQlTester

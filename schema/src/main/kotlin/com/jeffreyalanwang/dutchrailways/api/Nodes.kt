@@ -1,8 +1,5 @@
 package com.jeffreyalanwang.dutchrailways.api
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
-import com.jeffreyalanwang.dutchrailways.api.util.GeoMultiPolygon
-
 data class PassService(
     val id: Int,
     val name: String,

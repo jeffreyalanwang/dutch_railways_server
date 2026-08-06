@@ -1,7 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.controller.query
 
+import com.jeffreyalanwang.dutchrailways.api.GeoCoords
 import com.jeffreyalanwang.dutchrailways.api.PointJourney.JourneyPoint
-import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.forTypePair
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.registerBatchLoader
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository

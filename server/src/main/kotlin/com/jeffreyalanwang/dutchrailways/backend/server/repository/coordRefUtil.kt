@@ -2,7 +2,9 @@
 
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
-import com.jeffreyalanwang.dutchrailways.api.util.mapPositionSequence
+import com.jeffreyalanwang.dutchrailways.api.util.mapToMultiPolygon
+import com.jeffreyalanwang.dutchrailways.api.util.mapToPolygon
+import com.jeffreyalanwang.dutchrailways.api.util.mapToPositionSequence
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 import org.geolatte.geom.*
@@ -140,22 +142,31 @@ internal open class MultiPolygonConverterFromG2D(
 
 }
 
-private fun <S: Position, T: Position> Point<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =
-    block(position)
-        .let { Point(it, crs) }
+private fun <S: Position, T: Position> Point<S>.convertTo(
+    crs: GeoLatteCoordinateReferenceSystem<T>,
+    block: (S) -> T,
+) = Point(block(position), crs)
 
-private inline fun <S: Position, reified T: Position> LineString<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =
-    positions.mapPositionSequence { block(it) }
+private inline fun <S: Position, reified T: Position> LineString<S>.convertTo(
+    crs: GeoLatteCoordinateReferenceSystem<T>,
+    transform: (S) -> T,
+) = positions
+        .mapToPositionSequence { transform(it) }
         .let { LineString(it, crs) }
 
-private inline fun <S: Position, reified T: Position> LinearRing<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =
-    (this as LineString<S>).convertTo(crs, block)
+private inline fun <S: Position, reified T: Position> LinearRing<S>.convertTo(
+    crs: GeoLatteCoordinateReferenceSystem<T>,
+    transform: (S) -> T,
+) = (this as LineString<S>)
+        .convertTo(crs, transform)
         .let { LinearRing(it) }
 
-private inline fun <S: Position, reified T: Position> Polygon<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =
-    map { linearRing -> linearRing.convertTo(crs, block) }
-        .let { rings -> Polygon(*rings.toTypedArray()) }
+private inline fun <S: Position, reified T: Position> Polygon<S>.convertTo(
+    crs: GeoLatteCoordinateReferenceSystem<T>,
+    transform: (S) -> T,
+) = mapToPolygon { linearRing -> linearRing.convertTo(crs, transform) }
 
-private inline fun <S: Position, reified T: Position> MultiPolygon<S>.convertTo(crs: GeoLatteCoordinateReferenceSystem<T>, block: (S) -> T) =
-    map { polygon -> polygon.convertTo(crs, block) }
-        .let { polygons -> MultiPolygon(*polygons.toTypedArray()) }
+private inline fun <S: Position, reified T: Position> MultiPolygon<S>.convertTo(
+    crs: GeoLatteCoordinateReferenceSystem<T>,
+    transform: (S) -> T,
+) = mapToMultiPolygon { polygon -> polygon.convertTo(crs, transform) }

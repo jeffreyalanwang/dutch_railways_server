@@ -1,7 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.processing.search
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
-import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
+import com.jeffreyalanwang.dutchrailways.api.GeoCoords
+import com.jeffreyalanwang.dutchrailways.api.GeoRect
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.PassService
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Station
 import jakarta.transaction.Transactional

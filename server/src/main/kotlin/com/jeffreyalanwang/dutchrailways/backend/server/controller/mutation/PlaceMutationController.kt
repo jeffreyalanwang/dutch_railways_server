@@ -39,7 +39,7 @@ class PlaceMutationController(
         ?.run {
             name = details.name
             address = details.address
-            geom = details.geom
+            geom = details.geom.toGeoLatte()
 
             stationRepository.save(this)
         }

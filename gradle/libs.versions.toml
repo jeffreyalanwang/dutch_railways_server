@@ -6,6 +6,7 @@ proj4j = "1.4.3"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.7" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
@@ -16,6 +17,7 @@ kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version = "0.8.0" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
 kotlinx-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor" }
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.11.0" }
 
 kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
@@ -34,7 +36,9 @@ hibernate-search-backend-lucene = { group = "org.hibernate.search", name = "hibe
 spring-boot-starter-graphql = { group = "org.springframework.boot", name = "spring-boot-starter-graphql", version.ref = "spring-boot" }
 spring-boot-starter-webmvc = { group = "org.springframework.boot", name = "spring-boot-starter-webmvc", version.ref = "spring-boot" }
 graphql-java-extended-scalars = { group = "com.graphql-java", name = "graphql-java-extended-scalars", version = "24.0" }
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.18.4" }
+jackson-kotlin = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version = "2.18.4" }
+jackson = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.21.4" }
+spring-boot-starter-kotlinx-serialization = { group = "org.springframework.boot", name = "spring-boot-starter-kotlinx-serialization-json", version.ref = "spring-boot" }
 
 spring-boot-webtestclient = { group = "org.springframework.boot", name = "spring-boot-webtestclient", version.ref = "spring-boot" }
 spring-boot-data-jpa-test = { group = "org.springframework.boot", name = "spring-boot-data-jpa-test", version.ref = "spring-boot" }

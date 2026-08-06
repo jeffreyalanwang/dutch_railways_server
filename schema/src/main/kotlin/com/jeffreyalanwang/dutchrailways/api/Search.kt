@@ -1,7 +1,5 @@
 package com.jeffreyalanwang.dutchrailways.api
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
-
 data class SearchRequest(
     val anyLike: String?,
     val nameLike: String?,

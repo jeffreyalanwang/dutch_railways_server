@@ -3,6 +3,8 @@ package com.jeffreyalanwang.dutchrailways.backend.server.repository
 import com.jeffreyalanwang.dutchrailways.backend.server.DutchRailwaysServerApplication
 import jakarta.transaction.Transactional
 import org.geolatte.geom.G2D
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -70,16 +72,15 @@ class StationRepositoryTest(
     }
 
     @Transactional
-    @Test
-    fun `Station geom processing`() {
+    @ParameterizedTest
+    @CsvSource(
+        "1176, 4.704444477700654, 52.017501833627215", // Station Gouda
+        "1155, 5.481389125142196, 51.443332672028480", // Eindhoven Centraal
+    )
+    fun `Station geom processing`(stationId: Int, lon: Double, lat: Double) {
 
-        val stationId = 1176 // Gouda
-        val position = run {
-            val lon = 4.704444477700654
-            val lat = 52.017501833627215
-            G2D(lon, lat)
-        }
-        val reversedPosition = position.run { G2D(lat, lon) }
+        val position = G2D(lon, lat)
+        val reversedPosition = G2D(lat, lon)
 
         val station = findById(stationId).get()
         assertNotEquals(reversedPosition, station.geom?.position, "`lat` and `lon` are swapped")
@@ -88,12 +89,12 @@ class StationRepositoryTest(
     }
 
     @Transactional
-    @Test
-    fun `Hibernate spatial search properties`() {
-
-        val stationId = 1176 // Gouda
-        val lon = 4.704444477700654
-        val lat = 52.017501833627215
+    @ParameterizedTest
+    @CsvSource(
+        "1176, 4.704444477700654, 52.017501833627215", // Station Gouda
+        "1155, 5.481389125142196, 51.443332672028480", // Eindhoven Centraal
+    )
+    fun `Hibernate spatial search properties`(stationId: Int, lon: Double, lat: Double) {
 
         val station = findById(stationId).get()
 

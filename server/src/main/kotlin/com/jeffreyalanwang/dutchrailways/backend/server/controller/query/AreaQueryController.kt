@@ -1,6 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.controller.query
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoMultiPolygon
+import com.jeffreyalanwang.dutchrailways.api.GeoMultiPolygon
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.forTypePair
 import com.jeffreyalanwang.dutchrailways.backend.server.controller.registerBatchLoader
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.AreaRepository

@@ -1,6 +1,5 @@
 package com.jeffreyalanwang.dutchrailways.api
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
 import java.time.OffsetDateTime
 
 data class MutationPassService(

@@ -1,7 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.processing.search
 
-import com.jeffreyalanwang.dutchrailways.api.util.GeoCoords
-import com.jeffreyalanwang.dutchrailways.api.util.GeoRect
+import com.jeffreyalanwang.dutchrailways.api.GeoCoords
+import com.jeffreyalanwang.dutchrailways.api.GeoRect
 import com.jeffreyalanwang.dutchrailways.backend.server.processing.search.InitReindexBehavior.ReindexAll
 import jakarta.persistence.EntityManager
 import kotlinx.coroutines.Job
