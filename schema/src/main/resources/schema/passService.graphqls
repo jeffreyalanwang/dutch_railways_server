@@ -15,7 +15,6 @@ extend type Mutation {
     deletePassService(id: ID!): ID
 }
 
-# TODO modify database so that amenities are applied on the Trainset
 input MutationPassService {
     name: String!
     trainset: Trainset!

@@ -18,7 +18,6 @@ kotlin {
 }
 
 dependencies {
-    // TODO Factor out the [dataSource] module
     implementation(project(":routeQuery"))
     implementation(project(":schema"))
 

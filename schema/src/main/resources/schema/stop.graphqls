@@ -23,6 +23,6 @@ extend input MutationPassService {
 
 input MutationStop {
     station: ID!
-    arriveTime: DateTime = null # TODO double-check that arriveTime and departTime are only nullable at start/end
+    arriveTime: DateTime = null
     departTime: DateTime = null
 }
