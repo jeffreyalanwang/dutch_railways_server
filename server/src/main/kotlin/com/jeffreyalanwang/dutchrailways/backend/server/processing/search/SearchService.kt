@@ -7,9 +7,6 @@ import jakarta.persistence.EntityManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
-import org.hibernate.search.engine.search.predicate.dsl.BooleanPredicateClausesStep
-import org.hibernate.search.engine.search.predicate.dsl.PredicateFinalStep
-import org.hibernate.search.engine.search.predicate.dsl.TypedSearchPredicateFactory
 import org.hibernate.search.engine.spatial.GeoBoundingBox
 import org.hibernate.search.engine.spatial.GeoPoint
 import org.hibernate.search.mapper.orm.Search
@@ -45,33 +42,40 @@ class SearchService(
         types: Collection<KClass<out T>>,
         batchSize: Int,
     ) = flow {
+        val near = near?.toHibernateSearch()
+
         initJob.join()
 
         newSession()
             .search(types.java)
-            .where {
-                val paths = SearchFieldPaths[types] // Get only the field paths for the types passed into [search] above
-                it.bool()
-                    .shouldIfNotNull(query = anyLike) { query, f ->
-                        f.match().fields(*paths.allStrings.arr()).matching(query).fuzzy(2)
+            .where { it ->
+                it.bool().apply {
+                    val paths = SearchFieldPaths[types] // Get only the field paths for the types passed into [search] above
+
+                    if (anyLike != null) should { it ->
+                        it.match()
+                            .fields(*paths.allStrings.arr<String>())
+                                .matching(anyLike)
+                            .fuzzy(2)
                     }
-                    .shouldIfNotNull(query = nameLike) { query, f ->
-                        f.match().fields(*paths.name.arr()).matching(query).fuzzy(2)
+                    if (nameLike != null) should { it ->
+                        it.match()
+                            .fields(*paths.name.arr<String>())
+                                .matching(nameLike)
+                            .fuzzy(2)
                     }
-                    .shouldIfNotNull(query = near) { query, f ->
-                        f.spatial().within().fields(*paths.geom.arr()).boundingBox(query.toHibernateSearch())
+                    if (near != null) should { it ->
+                        it.spatial().within()
+                            .fields(*paths.geom.arr<String>())
+                                .boundingBox(near)
                     }
+                }
             }
             .flow(batchSize)
             .let { emitAll(it) }
     }
 
 }
-
-private fun <Q, SR> BooleanPredicateClausesStep<SR, *>.shouldIfNotNull(
-    query: Q?,
-    clauseContributor: (query: Q, f: TypedSearchPredicateFactory<SR>) -> PredicateFinalStep,
-) = if (query == null) this else should { f -> clauseContributor(query, f) }
 
 private fun GeoRect.toHibernateSearch() = object : GeoBoundingBox {
     override fun topLeft() = this@toHibernateSearch.northwest.toHibernateSearch()

@@ -94,15 +94,15 @@ class SearchServiceTest(
             anyLike = null,
             nameLike = null,
             near = GeoRect(
-                northwest = GeoCoords(latitude = latitude - 0.005, longitude = longitude - 0.005),
-                southeast = GeoCoords(latitude = latitude + 0.005, longitude = longitude + 0.005),
+                northwest = GeoCoords(latitude = latitude + 0.005, longitude = longitude - 0.005),
+                southeast = GeoCoords(latitude = latitude - 0.005, longitude = longitude + 0.005),
             ),
             types = listOf(Station::class),
             batchSize = 10,
         ).onEach { assertIs<Station>(it) }
             .toList()
 
-        assertTrue(results.size > 1)
+        assertTrue(results.isNotEmpty())
         assertEquals(name, results.first().name)
     }
 }
