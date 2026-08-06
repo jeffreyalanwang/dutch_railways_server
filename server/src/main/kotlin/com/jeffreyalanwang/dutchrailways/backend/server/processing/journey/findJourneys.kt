@@ -11,9 +11,9 @@ import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.Gener
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericTripDetails.Leg
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.StopType
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.PassServiceTimetable
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.PassServiceRepository
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.StationRepository
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.dto.PassServiceTimetable
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

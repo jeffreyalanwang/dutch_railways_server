@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutchrailways.backend.server.dto
+package com.jeffreyalanwang.dutchrailways.backend.server.repository.dto
 
 import java.time.Instant
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop as StopEntity

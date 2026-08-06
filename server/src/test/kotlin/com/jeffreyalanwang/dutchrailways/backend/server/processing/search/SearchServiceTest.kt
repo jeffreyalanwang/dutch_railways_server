@@ -92,7 +92,7 @@ class SearchServiceTest(
     fun `Query with nearby GeoRect`(name: String, latitude: Double, longitude: Double) = runBlocking {
         val results = searchService.search(
             anyLike = null,
-            nameLike = null,
+            nameLike = name.takeLast(4),
             near = GeoRect(
                 northwest = GeoCoords(latitude = latitude + 0.005, longitude = longitude - 0.005),
                 southeast = GeoCoords(latitude = latitude - 0.005, longitude = longitude + 0.005),
@@ -103,6 +103,7 @@ class SearchServiceTest(
             .toList()
 
         assertTrue(results.isNotEmpty())
+        assertTrue(results.size > 1) // GeoRect should bias, but not limit
         assertEquals(name, results.first().name)
     }
 }

@@ -3,7 +3,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
 import com.jeffreyalanwang.dutchrailways.api.Trainset
-import com.jeffreyalanwang.dutchrailways.backend.server.dto.PassServiceTimetable
+import com.jeffreyalanwang.dutchrailways.backend.server.repository.dto.PassServiceTimetable
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.*
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository

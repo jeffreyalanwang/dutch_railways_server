@@ -57,17 +57,20 @@ class SearchService(
                             .fields(*paths.allStrings.arr<String>())
                                 .matching(anyLike)
                             .fuzzy(2)
+                            .boost(.5f)
                     }
                     if (nameLike != null) should { it ->
                         it.match()
                             .fields(*paths.name.arr<String>())
                                 .matching(nameLike)
                             .fuzzy(2)
+                            .boost(1f)
                     }
                     if (near != null) should { it ->
                         it.spatial().within()
                             .fields(*paths.geom.arr<String>())
                                 .boundingBox(near)
+                            .boost(2f)
                     }
                 }
             }
