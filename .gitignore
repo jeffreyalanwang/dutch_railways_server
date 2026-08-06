@@ -1,10 +1,10 @@
 local.properties
-/database/extra/data_src/osm2pgsql-bin/**/*
-!/database/extra/data_src/osm2pgsql-bin/osm2pgsql.exe
-!/database/extra/data_src/osm2pgsql-bin/README.md
-!/database/extra/data_src/osm2pgsql-bin/scripts/osm2pgsql-replication
+/database/scraping/data_src/osm2pgsql-bin/**/*
+!/database/scraping/data_src/osm2pgsql-bin/osm2pgsql.exe
+!/database/scraping/data_src/osm2pgsql-bin/README.md
+!/database/scraping/data_src/osm2pgsql-bin/scripts/osm2pgsql-replication
+/database/scraping/data_src/*.zip
 /server/lucene/
-/database/scraping/data_src/provinces.zip
 
 # Below is auto-generated.
 
@@ -48,5 +48,3 @@ out/
 
 ### Kotlin ###
 .kotlin
-
-
