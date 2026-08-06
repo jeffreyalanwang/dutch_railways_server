@@ -11,6 +11,7 @@ description = "Spring Boot server application container"
 
 kotlin {
     compilerOptions {
+        jvmToolchain(21)
         freeCompilerArgs.add(
             "-Xjsr305=strict",
         )
