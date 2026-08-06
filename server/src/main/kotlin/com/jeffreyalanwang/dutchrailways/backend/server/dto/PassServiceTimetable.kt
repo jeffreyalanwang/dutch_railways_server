@@ -1,18 +1,17 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.dto
 
-import java.io.Serializable
 import java.time.Instant
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.entity.Stop as StopEntity
 
 // Data from repository for consumption by
-// [com.jeffreyalanwang.dutchrailways.backend.server.processing.JourneyFinder].
+// [com.jeffreyalanwang.dutchrailways.backend.server.processing.journey.JourneyFinder].
 
 data class PassServiceTimetable(
     val id: Int = 0,
     val stops: List<Stop>,
-) : Serializable {
+) {
 
-    interface Stop : Serializable {
+    interface Stop {
         val arriveTime: Instant?
         val departTime: Instant?
         val stationId: Int
