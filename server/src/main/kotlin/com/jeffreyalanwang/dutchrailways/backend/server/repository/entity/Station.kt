@@ -9,6 +9,7 @@ import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.GeoPointBindin
 import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.Latitude
 import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.Longitude
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*
+import org.jetbrains.annotations.VisibleForTesting
 
 @Converter
 private class LatLngConverterEpsg28992: PointConverterFromG2D(EPSG_28992_POSITION_CONVERTER)

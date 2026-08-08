@@ -8,6 +8,7 @@ kotlin {
 
 dependencies {
     testImplementation(rootLibs.bundle("test.junit"))
+    testRuntimeOnly(rootLibs.library("junit.platform.launcher"))
 }
 
 tasks.withType<Test> {

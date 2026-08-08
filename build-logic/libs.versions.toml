@@ -3,6 +3,7 @@ kotlin = "2.4.+"
 spring-boot = "4.1.+"
 hibernate-search = "8.4.+"
 proj4j = "1.4.+"
+play-services-maps = "20.0.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -22,7 +23,7 @@ kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-seria
 
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
-junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version = "6.+" }
 
 hibernate-spatial = { group = "org.hibernate.orm", name = "hibernate-spatial", version = "7.4.+" }
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
@@ -46,8 +47,9 @@ spring-boot-data-jpa-test = { group = "org.springframework.boot", name = "spring
 spring-boot-graphql-test = { group = "org.springframework.boot", name = "spring-boot-graphql-test", version.ref = "spring-boot" }
 spring-boot-webmvc-test = { group = "org.springframework.boot", name = "spring-boot-webmvc-test", version.ref = "spring-boot" }
 springmockk = { group = "com.ninja-squad", name = "springmockk", version = "5.0.+" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 
 [bundles]
 hibernate-search = ["hibernate-search-mapper-orm", "hibernate-search-backend-lucene"]
 proj4j = ["proj4j", "proj4j-epsg"]
-test-junit = ["kotlin-test", "junit-platform-launcher", "junit-jupiter-params"]
+test-junit = ["kotlin-test", "junit-jupiter-params"]

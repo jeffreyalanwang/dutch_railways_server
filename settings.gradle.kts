@@ -13,8 +13,7 @@ dependencyResolutionManagement {
 }
 
 includeBuild("build-logic")
-
-include("server")
+include("geometryUtil")
 include("routeQuery")
 include("schema")
-
+include("server")

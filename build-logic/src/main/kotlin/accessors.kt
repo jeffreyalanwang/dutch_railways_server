@@ -24,3 +24,4 @@ fun Project.kotlin(configuration: KotlinJvmProjectExtension.() -> Unit) = config
 
 fun DependencyHandler.implementation(dependencyNotation: Provider<*>) = add("implementation", dependencyNotation)
 fun DependencyHandler.testImplementation(dependencyNotation: Provider<*>) = add("testImplementation", dependencyNotation)
+fun DependencyHandler.testRuntimeOnly(dependencyNotation: Provider<*>) = add("testRuntimeOnly", dependencyNotation)

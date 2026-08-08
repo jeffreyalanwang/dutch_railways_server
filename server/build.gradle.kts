@@ -1,3 +1,5 @@
+import sun.jvmstat.monitor.MonitoredVmUtil.jvmArgs
+
 plugins {
     id("backend-conventions")
     id("spring-conventions")
@@ -7,6 +9,7 @@ plugins {
 description = "Spring Boot server application container"
 
 dependencies {
+    implementation(project(":geometryUtil"))
     implementation(project(":routeQuery"))
     implementation(project(":schema"))
 
@@ -22,10 +25,16 @@ dependencies {
 
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.hibernate.spatial)
-    implementation(libs.geolatte.geom)
-    implementation(libs.bundles.proj4j)
     runtimeOnly(libs.postgresql)
     testImplementation(libs.spring.boot.data.jpa.test)
+    testImplementation(testFixtures(project(":geometryUtil")))
 
     implementation(libs.bundles.hibernate.search)
+}
+
+tasks.compileTestKotlin {
+    compilerOptions {
+        // Allow JUnit [ArgumentsProvider]s to read parameter names
+        freeCompilerArgs.add("-java-parameters")
+    }
 }

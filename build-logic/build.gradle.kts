@@ -16,3 +16,11 @@ dependencies {
     implementation(libs.plugins.kotlin.jvm)
     implementation(libs.plugins.spring.boot)
 }
+
+gradlePlugin {
+    plugins {
+        named("common-compatibility-conventions") {
+            description = "Convention plugin for a module that may be imported by both frontend and backend code."
+        }
+    }
+}

@@ -1,8 +1,8 @@
 package com.jeffreyalanwang.dutchrailways.api
 
-import com.jeffreyalanwang.dutchrailways.api.util.mapToMultiPolygon
-import com.jeffreyalanwang.dutchrailways.api.util.mapToPolygon
-import com.jeffreyalanwang.dutchrailways.api.util.mapToPositionSequence
+import com.jeffreyalanwang.util.geolatte.mapToMultiPolygon
+import com.jeffreyalanwang.util.geolatte.mapToPolygon
+import com.jeffreyalanwang.util.geolatte.mapToPositionSequence
 import org.geolatte.geom.*
 import org.geolatte.geom.crs.CoordinateReferenceSystems.WGS84
 
