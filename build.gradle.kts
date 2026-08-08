@@ -1,5 +1,3 @@
-import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
-
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.spring) apply false
