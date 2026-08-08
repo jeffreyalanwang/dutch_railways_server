@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.kotlin.jpa) apply false
 }
 
+group = "com.jeffreyalanwang.dutchrailways.backend"
+
 subprojects {
     tasks.withType<Test> {
         filter.isFailOnNoMatchingTests = false

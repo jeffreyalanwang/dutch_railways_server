@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-group = "com.jeffreyalanwang.dutchrailways.backend"
+group = parent!!.group
 description = "Implementation of transit route planning algorithms"
 
 kotlin {
@@ -14,7 +14,6 @@ kotlin {
 dependencies {
     testImplementation(libs.kotlinx.datetime)
     testImplementation(libs.bundles.test.junit5)
-    testImplementation(kotlin("test"))
 }
 
 tasks.test {

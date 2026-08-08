@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-group = "com.jeffeyalanwang.dutchrailways.api"
-version = "GraphQL schema and supporting types"
+group = "com.jeffreyalanwang.dutchrailways.api"
+description = "GraphQL schema and supporting types"
 
 kotlin {
     // This module may need to run on a lower JVM version

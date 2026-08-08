@@ -6,15 +6,13 @@ plugins {
     alias(libs.plugins.kotlin.jpa)
 }
 
-group = "com.jeffreyalanwang.dutchrailways.backend"
+group = parent!!.group
 description = "Spring Boot server application container"
 
 kotlin {
+    jvmToolchain(21)
     compilerOptions {
-        jvmToolchain(21)
-        freeCompilerArgs.add(
-            "-Xjsr305=strict",
-        )
+        freeCompilerArgs.add("-Xjsr305=strict")
     }
 }
 
