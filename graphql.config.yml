@@ -1,7 +1,15 @@
 # This file serves as a directive for injected GraphQL queries
 # in automated test suite code.
 
-schema: "./**/resources/schema/*.graphqls"
+schema:
+  - "schema/src/main/resources/schema/base.graphqls"
+  - "schema/src/main/resources/schema/findJourneys.graphqls"
+  - "schema/src/main/resources/schema/metadata.graphqls"
+  - "schema/src/main/resources/schema/passService.graphqls"
+  - "schema/src/main/resources/schema/place.graphqls"
+  - "schema/src/main/resources/schema/search.graphqls"
+  - "schema/src/main/resources/schema/stop.graphqls"
+  - "schema/src/main/resources/schema/types.graphqls"
 extensions:
   endpoints:
     # Allows us to use IntelliJ scratch files to query the server
