@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.spring) apply false
@@ -13,3 +15,9 @@ subprojects {
         filter.isFailOnNoMatchingTests = false
     }
 }
+
+//tasks.register<BootBuildImage>("buildImage") {
+//    group = "build"
+//    description = "Build a Docker image with the Spring Boot server and database"
+//    buildpacks
+//}
