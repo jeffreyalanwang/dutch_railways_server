@@ -10,26 +10,26 @@ import kotlin.time.Instant
  *  * The departure time of the trip at `stations[i]`
  *  * The arrival time of the trip at `stations[i + 1]`
  */
-class GenericTripDetails<EStation>(
-    val stations: List<EStation>,
-    val times: List<Leg>,
+public class GenericTripDetails<EStation>(
+    public val stations: List<EStation>,
+    public val times: List<Leg>,
 ) {
-    class Leg(
-        val departTime: Instant,
-        val arriveTime: Instant,
+    public class Leg(
+        public val departTime: Instant,
+        public val arriveTime: Instant,
     )
 
-    companion object {
+    public companion object {
         /** For testing only. */
-        fun <EStation> of(
+        public fun <EStation> of(
             stations: List<EStation>,
             times: List<Pair<Instant, Instant>>,
-        ) = GenericTripDetails(
+        ): GenericTripDetails<EStation> = GenericTripDetails(
             stations,
             times.map { Leg(it.first, it.second) }
         )
     }
 }
 
-fun List<GenericTripDetails.Leg>.isSortedAndUnique() =
+public fun List<GenericTripDetails.Leg>.isSortedAndUnique(): Boolean =
     isSortedBy { it.departTime } && distinctBy { it.departTime }.size == size

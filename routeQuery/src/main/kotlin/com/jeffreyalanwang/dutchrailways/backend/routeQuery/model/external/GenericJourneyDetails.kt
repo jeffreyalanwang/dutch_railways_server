@@ -9,11 +9,11 @@ package com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external
  *    station in the list, or [finalStation] if this is the last leg.
  * @property finalStation   The station identifier at the arrival of the trip.
  */
-class GenericJourneyDetails<ETrip, EStation>(
-    val legStartPoints: List<LegStartPoint<ETrip, EStation>>,
-    val finalStation: EStation,
+public class GenericJourneyDetails<ETrip, EStation>(
+    public val legStartPoints: List<LegStartPoint<ETrip, EStation>>,
+    public val finalStation: EStation,
 ) {
-    data class LegStartPoint<ETrip, EStation>(
+    public data class LegStartPoint<ETrip, EStation>(
         val originStation: EStation,
         val trip: ETrip,
     )
@@ -24,9 +24,9 @@ class GenericJourneyDetails<ETrip, EStation>(
      * @return  Null if [legStartPoints] is empty (i.e., start station is [finalStation]).
      *          List alternates between start and end stops.
      */
-    fun <EStop> toFlatStops(
+    public fun <EStop> toFlatStops(
         selector: (trip: ETrip, station: EStation, stopType: StopType) -> EStop
-    ) = if (legStartPoints.isEmpty()) null
+    ): List<EStop>? = if (legStartPoints.isEmpty()) null
         else buildList<EStop>(legStartPoints.size * 2) {
             for (i in legStartPoints.indices) {
                 val (fromStation, trip) = legStartPoints[i]
@@ -39,7 +39,7 @@ class GenericJourneyDetails<ETrip, EStation>(
             }
         }
 
-    fun toFlatStops() = toFlatStops(::Triple)
+    public fun toFlatStops(): List<Triple<ETrip, EStation, StopType>>? = toFlatStops(::Triple)
 }
 
-enum class StopType { LEG_START, LEG_END }
+public enum class StopType { LEG_START, LEG_END }

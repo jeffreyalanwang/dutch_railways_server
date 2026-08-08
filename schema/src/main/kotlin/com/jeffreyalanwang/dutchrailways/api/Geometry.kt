@@ -6,42 +6,42 @@ import com.jeffreyalanwang.dutchrailways.api.util.mapToPositionSequence
 import org.geolatte.geom.*
 import org.geolatte.geom.crs.CoordinateReferenceSystems.WGS84
 
-data class GeoCoords(
+public data class GeoCoords(
     val latitude: Double,
     val longitude: Double,
 ) {
-    constructor(obj: G2D) : this(latitude = obj.lat, longitude = obj.lon)
-    constructor(obj: Point<G2D>) : this(obj.position)
+    public constructor(obj: G2D) : this(latitude = obj.lat, longitude = obj.lon)
+    public constructor(obj: Point<G2D>) : this(obj.position)
 
-    fun toGeoLattePosition() = G2D(longitude, latitude)
-    fun toGeoLatte() = Point(toGeoLattePosition(), WGS84)
+    public fun toGeoLattePosition(): G2D = G2D(longitude, latitude)
+    public fun toGeoLatte(): Point<G2D> = Point(toGeoLattePosition(), WGS84)
 }
 
-data class GeoLinearRing(
+public data class GeoLinearRing(
     val points: List<GeoCoords>
 ) {
-    constructor(obj: LinearRing<G2D>) : this(obj.positions.map { GeoCoords(it) })
-    fun toGeoLatte() = LinearRing(
+    public constructor(obj: LinearRing<G2D>) : this(obj.positions.map { GeoCoords(it) })
+    public fun toGeoLatte(): LinearRing<G2D> = LinearRing(
         points.mapToPositionSequence { it.toGeoLattePosition() },
         WGS84,
     )
 }
 
-data class GeoPolygon(
+public data class GeoPolygon(
     val rings: List<GeoLinearRing>
 ) {
-    constructor(obj: Polygon<G2D>) : this(obj.map { GeoLinearRing(it) })
-    fun toGeoLatte() = rings.mapToPolygon { it.toGeoLatte() }
+    public constructor(obj: Polygon<G2D>) : this(obj.map { GeoLinearRing(it) })
+    public fun toGeoLatte(): Polygon<G2D> = rings.mapToPolygon { it.toGeoLatte() }
 }
 
-data class GeoMultiPolygon(
+public data class GeoMultiPolygon(
     val polygons: List<GeoPolygon>
 ) {
-    constructor(obj: MultiPolygon<G2D>) : this(obj.map { GeoPolygon(it) })
-    fun toGeoLatte() = polygons.mapToMultiPolygon { it.toGeoLatte() }
+    public constructor(obj: MultiPolygon<G2D>) : this(obj.map { GeoPolygon(it) })
+    public fun toGeoLatte(): MultiPolygon<G2D> = polygons.mapToMultiPolygon { it.toGeoLatte() }
 }
 
-data class GeoRect(
+public data class GeoRect(
     val northwest: GeoCoords,
     val southeast: GeoCoords,
 )

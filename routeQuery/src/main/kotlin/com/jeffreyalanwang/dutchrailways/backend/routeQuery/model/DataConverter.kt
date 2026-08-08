@@ -5,11 +5,11 @@ import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph.TripId
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.obj.Journey
 
-class StationNotFoundException : IllegalArgumentException {
-    constructor(message: String) : super(message)
-    constructor(message: String, cause: Throwable) : super(message, cause)
+public class StationNotFoundException : IllegalArgumentException {
+    public constructor(message: String) : super(message)
+    public constructor(message: String, cause: Throwable) : super(message, cause)
 
-    constructor(
+    public constructor(
         externalStation: Any,
         stationsKey: List<Any>,
     ) : this(
@@ -17,7 +17,7 @@ class StationNotFoundException : IllegalArgumentException {
         "(containing total of ${stationsKey.size} stations)."
     )
 
-    constructor(
+    public constructor(
         station: Any,
         cause: Throwable,
     ) : this(

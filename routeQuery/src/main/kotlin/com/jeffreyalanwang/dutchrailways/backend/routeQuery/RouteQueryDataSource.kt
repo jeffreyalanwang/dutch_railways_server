@@ -44,7 +44,7 @@ private class DataConverterImpl<ETrip: Any, EStation: Any>(
  * This class sets up these internal objects and provides a way to convert with
  * the external model.
  */
-class RouteQueryDataSource<ETrip: Any, EStation: Any> private constructor(
+public class RouteQueryDataSource<ETrip: Any, EStation: Any> private constructor(
     trips: GraphAttribute<TripId, Trip>,
     stations: GraphAttribute<StationId, Station>,
     tripsKey: List<ETrip>,
@@ -53,7 +53,7 @@ class RouteQueryDataSource<ETrip: Any, EStation: Any> private constructor(
     internal val transitGraph: TransitGraph = TransitGraphImpl(trips, stations)
     internal val dataConverter: DataConverter<ETrip, EStation> = DataConverterImpl(tripsKey, stationsKey)
 
-    companion object {
+    public companion object {
         /**
          * Create a [RouteQueryDataSource] from a relational model,
          * where we can cheaply create a set of [Station]s instead of
@@ -64,7 +64,7 @@ class RouteQueryDataSource<ETrip: Any, EStation: Any> private constructor(
          * @param stops Must be co-indexed with [trips].
          *              Flattened stop times must be sorted and unique.
          */
-        fun <KTrip: Any, KStation: Any> fromRelational(
+        public fun <KTrip: Any, KStation: Any> fromRelational(
             trips: Iterable<KTrip>,
             stations: Iterable<KStation>,
             stops: Iterable<GenericTripDetails<KStation>>,
@@ -88,10 +88,11 @@ class RouteQueryDataSource<ETrip: Any, EStation: Any> private constructor(
         /**
          * @see [fromRelational].
          */
-        fun <KTrip: Any, KStation: Any> fromRelational(
+        public fun <KTrip: Any, KStation: Any> fromRelational(
             trips: Iterable<Pair<KTrip, GenericTripDetails<KStation>>>,
             stations: Iterable<KStation>,
-        ) = with(trips.unzip()) { fromRelational(first, stations, second) }
+        ): RouteQueryDataSource<KTrip, KStation> =
+            trips.unzip().run { fromRelational(first, stations, second) }
 
         /**
          *
@@ -100,7 +101,7 @@ class RouteQueryDataSource<ETrip: Any, EStation: Any> private constructor(
          * @param stops  Must be co-indexed with [trips].
          *               Flattened stop times must be sorted and unique.
          */
-        fun <ETrip: Any, EStation: Any> fromTrips(
+        public fun <ETrip: Any, EStation: Any> fromTrips(
             trips: Iterable<ETrip>,
             stops: Iterable<GenericTripDetails<EStation>>,
         ): RouteQueryDataSource<ETrip, EStation> {
@@ -119,9 +120,10 @@ class RouteQueryDataSource<ETrip: Any, EStation: Any> private constructor(
             )
         }
 
-        fun <ETrip: Any, EStation: Any> fromTrips(
+        public fun <ETrip: Any, EStation: Any> fromTrips(
             vararg trips: Pair<ETrip, GenericTripDetails<EStation>>,
-        ) = with(trips.unzip()) { fromTrips(first, second) }
+        ): RouteQueryDataSource<ETrip, EStation> =
+            trips.unzip().run { fromTrips(first, second) }
     }
 }
 

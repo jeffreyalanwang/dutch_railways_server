@@ -1,11 +1,12 @@
 package com.jeffreyalanwang.dutchrailways.backend.routeQuery
 
+import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.external.GenericJourneyDetails
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph.StationId
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph.TransitGraph
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.obj.Journey
 import kotlin.time.Instant
 
-abstract class RangeRouteQueryStrategy {
+public abstract class RangeRouteQueryStrategy {
 
     /**
      * @param timeRange   Inclusive.
@@ -19,11 +20,11 @@ abstract class RangeRouteQueryStrategy {
 
     /** @throws com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.StationNotFoundException */
     context(dataSource: RouteQueryDataSource<ETrip, EStation>)
-    operator fun <ETrip: Any, EStation: Any> invoke(
+    public operator fun <ETrip: Any, EStation: Any> invoke(
         origin: EStation,
         destination: EStation,
         timeRange: ClosedRange<Instant>,
-    ) = with(dataSource.dataConverter) {
+    ): List<GenericJourneyDetails<ETrip, EStation>> = with(dataSource.dataConverter) {
             val origin = origin.convertToInternal()
             val destination = destination.convertToInternal()
             val result =

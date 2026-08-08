@@ -1,24 +1,24 @@
 package com.jeffreyalanwang.dutchrailways.api
 
-interface PassService {
-    val id: Int
-    val name: String
-    val trainset: Trainset
-    val amenities: List<Amenity>
+public interface PassService {
+    public val id: Int
+    public val name: String
+    public val trainset: Trainset
+    public val amenities: List<Amenity>
 }
 
-sealed interface Place {
-    val id: Int
-    val name: String
-    val locatedIn: List<Area>
+public sealed interface Place {
+    public val id: Int
+    public val name: String
+    public val locatedIn: List<Area>
 }
 
-interface Area : Place {
-    val contains: List<Place>
-    val geom: GeoMultiPolygon
+public interface Area : Place {
+    public val contains: List<Place>
+    public val geom: GeoMultiPolygon
 }
 
-interface Station : Place {
-    val address: String
-    val geom: GeoCoords
+public interface Station : Place {
+    public val address: String
+    public val geom: GeoCoords
 }

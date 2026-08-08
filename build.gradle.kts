@@ -13,7 +13,7 @@ subprojects {
     }
 }
 
-tasks.register<Task>("buildImage") {
-    group = "build"
-    description = "Build a Docker image with the Spring Boot server and database"
-}
+//tasks.register<BuildImageTask>("buildImage") {
+//    group = "build"
+//    description = "Build a Docker image with the Spring Boot server and database"
+//}

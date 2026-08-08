@@ -27,7 +27,7 @@ junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-para
 hibernate-spatial = { group = "org.hibernate.orm", name = "hibernate-spatial", version = "7.4.+" }
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
 postgresql = { module = "org.postgresql:postgresql", version = "42.7.+" }
-geolatte-geom = { module = "org.geolatte:geolatte-geom", version = "1.12" }
+geolatte-geom = { module = "org.geolatte:geolatte-geom", version = "1.11" }
 proj4j = { module = "org.locationtech.proj4j:proj4j", version.ref = "proj4j" }
 proj4j-epsg = { module = "org.locationtech.proj4j:proj4j-epsg", version.ref = "proj4j" }
 

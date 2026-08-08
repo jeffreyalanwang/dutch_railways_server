@@ -8,7 +8,7 @@ import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.graph
 import com.jeffreyalanwang.dutchrailways.backend.routeQuery.model.internal.obj.Journey
 import kotlin.time.Instant
 
-object RRaptor: RangeRouteQueryStrategy() {
+public object RRaptor: RangeRouteQueryStrategy() {
 
     context(graph: TransitGraph)
     override fun invoke(

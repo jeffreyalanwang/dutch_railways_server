@@ -1,6 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.api
 
-enum class Trainset {
+public enum class Trainset {
     SLT,
     ICM,
     DDZ,
@@ -11,7 +11,7 @@ enum class Trainset {
     Flirt,
 }
 
-enum class Amenity {
+public enum class Amenity {
     STROOM,
     TOILET,
     WIFI,
