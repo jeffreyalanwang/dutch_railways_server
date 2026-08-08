@@ -5,6 +5,7 @@ plugins {
 rootProject.name = "dutch_railways_server"
 
 dependencyResolutionManagement {
+    @Suppress("UnstableApiUsage")
     repositories {
         mavenCentral()
     }

@@ -1,17 +1,13 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-
-plugins {
-    alias(libs.plugins.kotlin.jvm)
-}
+plugins.apply(rootLibs.plugin("kotlin.jvm"))
 
 group = parent!!.group
 
-configure<KotlinJvmProjectExtension> {
+kotlin {
     jvmToolchain(21)
 }
 
 dependencies {
-    testImplementation(libs.bundles.test.junit5)
+    testImplementation(rootLibs.bundle("test.junit5"))
 }
 
 tasks.withType<Test> {

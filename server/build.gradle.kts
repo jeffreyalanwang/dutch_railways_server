@@ -4,17 +4,11 @@ plugins {
     alias(libs.plugins.spring.dependency.management)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.kotlin.jpa)
+    id("backend-conventions")
+    id("spring-conventions")
 }
 
-group = parent!!.group
 description = "Spring Boot server application container"
-
-kotlin {
-    jvmToolchain(21)
-    compilerOptions {
-        freeCompilerArgs.add("-Xjsr305=strict")
-    }
-}
 
 dependencies {
     implementation(project(":routeQuery"))
@@ -38,21 +32,4 @@ dependencies {
     testImplementation(libs.spring.boot.data.jpa.test)
 
     implementation(libs.bundles.hibernate.search)
-
-    testImplementation(libs.bundles.test.junit5)
-    testImplementation(libs.springmockk)
-}
-
-tasks.test {
-    useJUnitPlatform()
-
-    jvmArgs("-Dspring.profiles.active=test")
-
-    // Formally load mockk agent, to appease JVM >=21
-    classpath
-        .find { "byte-buddy-agent" in it.name }
-        ?.let { jvmArgs("-javaagent:${it.absolutePath}") }
-
-    // Required for springmockk
-    jvmArgs("--add-opens=java.base/java.lang.reflect=ALL-UNNAMED")
 }
