@@ -22,4 +22,5 @@ fun PluginContainer.apply(aliasProvider: Provider<PluginDependency>) = apply(ali
 
 fun Project.kotlin(configuration: KotlinJvmProjectExtension.() -> Unit) = configure<KotlinJvmProjectExtension>(configuration)
 
+fun DependencyHandler.implementation(dependencyNotation: Provider<*>) = add("implementation", dependencyNotation)
 fun DependencyHandler.testImplementation(dependencyNotation: Provider<*>) = add("testImplementation", dependencyNotation)

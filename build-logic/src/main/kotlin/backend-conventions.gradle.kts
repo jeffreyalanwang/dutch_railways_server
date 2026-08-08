@@ -7,7 +7,7 @@ kotlin {
 }
 
 dependencies {
-    testImplementation(rootLibs.bundle("test.junit5"))
+    testImplementation(rootLibs.bundle("test.junit"))
 }
 
 tasks.withType<Test> {

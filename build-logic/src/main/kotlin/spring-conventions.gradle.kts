@@ -1,4 +1,6 @@
 plugins.apply("backend-conventions")
+plugins.apply(rootLibs.plugin("kotlin-spring"))
+plugins.apply(rootLibs.plugin("spring-boot"))
 
 kotlin {
     compilerOptions {
@@ -7,7 +9,7 @@ kotlin {
 }
 
 dependencies {
-    testImplementation(rootLibs.bundle("test.junit5"))
+    implementation(platform(rootLibs.library("spring-boot-bom")))
     testImplementation(rootLibs.library("springmockk"))
 }
 

@@ -14,4 +14,5 @@ kotlin {
 
 dependencies {
     implementation(libs.plugins.kotlin.jvm)
+    implementation(libs.plugins.spring.boot)
 }

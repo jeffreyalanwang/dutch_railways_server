@@ -8,24 +8,25 @@ proj4j = "1.4.+"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
-spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.+" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 
 [libraries]
 
+spring-boot-bom = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }
+
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version = "0.8.+" }
-kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
-kotlinx-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.11.+" }
+kotlinx-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor", version = "1.11.+" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.11.+" }
 
-kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
 
 hibernate-spatial = { group = "org.hibernate.orm", name = "hibernate-spatial", version = "7.4.+" }
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
-postgresql = { module = "org.postgresql:postgresql", version = "42.7.13" }
+postgresql = { module = "org.postgresql:postgresql", version = "42.7.+" }
 geolatte-geom = { module = "org.geolatte:geolatte-geom", version = "1.12" }
 proj4j = { module = "org.locationtech.proj4j:proj4j", version.ref = "proj4j" }
 proj4j-epsg = { module = "org.locationtech.proj4j:proj4j-epsg", version.ref = "proj4j" }
@@ -49,4 +50,4 @@ springmockk = { group = "com.ninja-squad", name = "springmockk", version = "5.0.
 [bundles]
 hibernate-search = ["hibernate-search-mapper-orm", "hibernate-search-backend-lucene"]
 proj4j = ["proj4j", "proj4j-epsg"]
-test-junit5 = ["kotlin-test-junit5", "junit-platform-launcher", "junit-jupiter-params"]
+test-junit = ["kotlin-test", "junit-platform-launcher", "junit-jupiter-params"]

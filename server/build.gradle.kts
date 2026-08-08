@@ -1,11 +1,7 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.spring)
-    alias(libs.plugins.spring.dependency.management)
-    alias(libs.plugins.spring.boot)
-    alias(libs.plugins.kotlin.jpa)
     id("backend-conventions")
     id("spring-conventions")
+    alias(libs.plugins.kotlin.jpa)
 }
 
 description = "Spring Boot server application container"
