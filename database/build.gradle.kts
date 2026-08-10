@@ -1,6 +1,5 @@
 import java.time.OffsetDateTime
-
-private fun Provider<Directory>.dir(path: String) = map { it.dir(path) }
+private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
 
 plugins {
     `java-test-fixtures`
