@@ -1,5 +1,3 @@
-import sun.jvmstat.monitor.MonitoredVmUtil.jvmArgs
-
 plugins {
     id("backend-conventions")
     id("spring-conventions")

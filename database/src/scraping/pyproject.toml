@@ -1,0 +1,16 @@
+[project]
+name = "scraping"
+version = "0.1.0"
+description = "Generate data with which to populate the database using various free APIs"
+requires-python = ">=3.14"
+dependencies = [
+    "configparser>=7.2.0",
+    "geopy>=2.5.0",
+    "ipykernel>=7.3.0",
+    "pandas>=3.0.5",
+    "papermill>=2.7.0",
+    "pydantic>=2.13.4",
+    "pyyaml>=6.0.3",
+    "requests>=2.34.2",
+    "tqdm>=4.70.0",
+]
