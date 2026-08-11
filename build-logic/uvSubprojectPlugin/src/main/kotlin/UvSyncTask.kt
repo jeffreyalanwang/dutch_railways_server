@@ -21,7 +21,7 @@ abstract class UvSyncTask @Inject constructor(
     @get:InputFile
     private val pyprojectFile = uvProjectDir.file("pyproject.toml")
 
-    @get:OutputFile
+    @get:InputFile
     private val uvLockFile = uvProjectDir.file("uv.lock")
 
     init { globalArgs("sync") }

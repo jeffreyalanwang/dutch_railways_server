@@ -38,3 +38,19 @@ tasks.register<UvRunTask>("scrapeData") {
             "-p", "working_dir", scrapingOutDir.get(), // control output location
     )
 }
+
+tasks.register("buildDatabase") {
+    dependsOn("buildDatabase")
+    doLast { TODO() }
+}
+
+tasks.register("buildDockerVolume") {
+    dependsOn("buildDatabase")
+    doLast { TODO() }
+}
+
+tasks.register("generateTestFixtures") {
+    dependsOn("scrapeData")
+    dependsOn("buildDatabase")
+    doLast { TODO() }
+}
