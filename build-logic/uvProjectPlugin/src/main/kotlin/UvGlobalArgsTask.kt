@@ -1,8 +1,8 @@
+import com.pswidersk.gradle.python.uv.UvTask
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import javax.inject.Inject
-import com.pswidersk.gradle.python.uv.UvTask
 
 /**
  * A [UvTask] with protected top-level args (those passed first, directly to `uv`).

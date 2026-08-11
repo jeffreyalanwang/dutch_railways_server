@@ -13,7 +13,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("python-uv-subproject") {
+        register("python-uv-project") {
             description = listOf(
                 "Extensions to com.pswidersk.python-uv-plugin",
                 "for working with a nested uv project.",

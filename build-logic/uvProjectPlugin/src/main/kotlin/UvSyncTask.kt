@@ -1,8 +1,6 @@
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputFile
 import org.gradle.kotlin.dsl.property
 import javax.inject.Inject
 

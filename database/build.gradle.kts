@@ -1,9 +1,18 @@
 import java.time.OffsetDateTime
+private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mimic [FileProperty.dir]
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
+
+//buildscript {
+//    dependencies {
+//        classpath("org.testcontainers:testcontainers:2.0.5")
+//        classpath("org.testcontainers:postgresql:1.21.4")
+//    }
+//}
 
 plugins {
     `java-test-fixtures`
-    id("python-uv-subproject")
+    id("python-uv-project")
+
     alias(libs.plugins.local.properties)
 }
 
@@ -21,6 +30,7 @@ tasks.register<UvRunTask>("scrapeData") {
     description = "Scrape data from online APIs to CSV format."
 
     inputs.property("lastRunDate", OffsetDateTime.now().toLocalDate())
+    inputs.file(scrapingOutDir.file("ns.ipynb"))
     outputs.dir(scrapingOutDir.dir("ns_results"))
 
     doFirst {
@@ -40,7 +50,7 @@ tasks.register<UvRunTask>("scrapeData") {
 }
 
 tasks.register("buildDatabase") {
-    dependsOn("buildDatabase")
+    inputs.dir(scrapingOutDir)
     doLast { TODO() }
 }
 
