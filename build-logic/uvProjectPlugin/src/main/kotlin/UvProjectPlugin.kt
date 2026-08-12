@@ -20,18 +20,23 @@ class UvProjectPlugin : Plugin<Project> {
     }
 
     override fun apply(target: Project): Unit = target.run {
-        plugins.apply(UvPlugin::class)
-        plugins.apply(JavaBasePlugin::class)
+        apply<UvPlugin>()
+        apply<JavaBasePlugin>()
 
+        // Configure uv project directory (containing `pyproject.toml` to sync to)
         val (uvProjectDirValue) = extensions.create<Extension>("uvProject").apply {
             uvProjectDir.convention(layout.projectDirectory)
         }
         afterEvaluate {
+            // Register as a source set so IntelliJ sees it as a module
             extensions.getByType<SourceSetContainer>().create(uvProjectDirValue.name.get())
         }
 
+        // Register a single sync task for the declared project
         val syncTask = tasks.register<UvSyncTask>("syncUvProject")
 
+        // Associate all [UvProjectTask]s with the project directory,
+        // and configure (if requested) dependency on the sync task
         tasks.withType<UvProjectTask>().configureEach {
             uvProjectDir = uvProjectDirValue
         }

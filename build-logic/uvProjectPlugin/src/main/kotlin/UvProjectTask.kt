@@ -15,10 +15,9 @@ abstract class UvProjectTask @Inject constructor(
     open val requiresSync = objects.property<Boolean>()
         .convention(true)
 
-    @get:Internal
+    @get:Input
     abstract val uvProjectDir: DirectoryProperty
 
-    @get:Input
     private val uvProjectDirPath = uvProjectDir.map { it.asFile.path }
 
     init {

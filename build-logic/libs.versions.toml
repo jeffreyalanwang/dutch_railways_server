@@ -4,7 +4,8 @@ spring-boot = "4.1.+"
 hibernate-search = "8.4.+"
 proj4j = "1.4.+"
 play-services-maps = "20.0.0"
-postgres-docker = "18-trixie"
+postgres-docker = "18-bookworm"
+testcontainers = "2.0.5"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -13,7 +14,9 @@ kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotl
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 python-uv = { id = "com.pswidersk.python-uv-plugin", version = "0.4.21" }
-local-properties = { id = "com.github.b3er.local.properties", version = "1.1" }
+build-local-properties = { id = "com.github.b3er.local.properties", version = "1.1" }
+build-testcontainers = { id = "io.github.regulskimichal.testcontainers", version = "0.1.1" }
+build-download = { id = "de.undercouch.download", version = "5.6.0" }
 
 [libraries]
 
@@ -27,6 +30,9 @@ kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-seria
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version = "6.+" }
+
+testcontainers = { group = "org.testcontainers", name = "testcontainers", version.ref = "testcontainers" }
+testcontainers-postgresql = { group = "org.testcontainers", name = "testcontainers-postgresql", version.ref = "testcontainers" }
 
 hibernate-spatial = { group = "org.hibernate.orm", name = "hibernate-spatial", version = "7.4.+" }
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
@@ -56,3 +62,4 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 hibernate-search = ["hibernate-search-mapper-orm", "hibernate-search-backend-lucene"]
 proj4j = ["proj4j", "proj4j-epsg"]
 test-junit = ["kotlin-test", "junit-jupiter-params"]
+testcontainers-postgresql = ["testcontainers", "testcontainers-postgresql"]

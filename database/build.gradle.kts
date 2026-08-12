@@ -2,42 +2,36 @@ import de.undercouch.gradle.tasks.download.Download
 import de.undercouch.gradle.tasks.download.Verify
 import org.gradle.kotlin.dsl.testcontainersClasspath
 import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256
-import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.gradle.DatabaseType
+import org.testcontainers.gradle.StartContainersTask
 import org.testcontainers.gradle.getContainer
 import org.testcontainers.gradle.spec.JdbcContainerSpec
-import org.testcontainers.utility.MountableFile
 import java.time.OffsetDateTime
 
+private fun <T> Array<T>.plus(vararg elements: T) = plus(elements)
 private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mimic [FileProperty.dir]
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
 private fun JdbcContainerSpec.image(spec: Provider<String>) = image(spec.get())
 private infix fun String.imageTag(other: Provider<String>) = other.map { "$this:$it" }
-private fun FileSystemLocation.asTestContainerMountable() = MountableFile.forHostPath(this.asFile.path)
-private fun Provider<out FileSystemLocation>.asTestContainerMountable() = map { it.asTestContainerMountable() }
 private val Provider<SourceSet>.customDirectory get() = map { it.customDirectory }
-
-private var SourceSet.customDirectory
-    get() = extra["dir"] as Directory
-    set(it) { extra["dir"] = it }
 
 plugins {
     `java-test-fixtures`
     id("python-uv-project")
+    id("import-gpkg-task")
 
-    alias(libs.plugins.local.properties)
-
-    id("io.github.regulskimichal.testcontainers") version "0.1.1" // TODO: factor out
-    id("de.undercouch.download") version "5.6.0"
+    alias(libs.plugins.build.local.properties)
+    alias(libs.plugins.build.testcontainers)
+    alias(libs.plugins.build.download)
 }
 
 group = "com.jeffreyalanwang.dutchrailways.backend.database"
 
-val postgresDbName = "dutch_railways"
-val scrapingOutDir = layout.buildDirectory.dir("scraping")
-val areaShapefile = layout.buildDirectory.file("BestuurlijkeGebieden_2026.gpkg")
 val localProperties = ext.properties
+private var SourceSet.customDirectory
+    get() = extra["dir"] as Directory
+    set(it) { extra["dir"] = it }
 
 sourceSets {
     create("sql_scripts") {
@@ -49,127 +43,178 @@ uvProject {
     uvProjectDir = layout.projectDirectory.dir("src").dir("scraping")
 }
 
+dependencies {
+    testcontainersClasspath(libs.bundles.testcontainers.postgresql)
+}
+
+testcontainers {
+    jdbcContainer("postgres", DatabaseType.POSTGRESQL) {
+        image("postgres" imageTag libs.versions.postgres.docker)
+        username("postgres")
+        password("postgres")
+        databaseName("dutch_railways")
+    }
+}
+
+afterEvaluate {
+    tasks.named<StartContainersTask>("startPostgresContainer") {
+        doNotTrackState(
+            listOf(
+                "This container is only depended upon when",
+                "depending tasks require a running instance.",
+            ).joinToString(" ")
+        )
+    }
+}
+
 tasks.register<UvRunTask>("scrapeData") {
     description = "Scrape data from online APIs to CSV format."
 
+    val notebookInputFile = uvProjectDir.file("ns.ipynb").map { it.asFile }
+    val outDir = layout.buildDirectory.dir("scraping").map { it.asFile }
+    val outNotebook = outDir.map { it.resolve("ns.ipynb") }
+    val outNsDir = outDir.map { it.resolve("ns_results") }
+
+    onlyIf("Reduce reruns during development; remove this line for up-to-date production data") { false }
     inputs.property("lastRunDate", OffsetDateTime.now().toLocalDate())
-    inputs.file(scrapingOutDir.file("ns.ipynb"))
-    outputs.dir(scrapingOutDir.dir("ns_results"))
+    inputs.file(notebookInputFile)
+    outputs.dir(outNsDir)
 
     doFirst {
         // If we do not clear the output directory, the notebook is written
         // to try and reload the .pkl file generated from the last run
-        delete(scrapingOutDir)
+        outDir.get().run {
+            delete()
+            mkdirs()
+        }
     }
 
     environment(localProperties)
     workingDir(uvProjectDir) // allows discovery of the nsapi package
     args(
         "papermill",
-            uvProjectDir.file("ns.ipynb"),
-            scrapingOutDir.map { it.file("ns.ipynb") }.get(),
-            "-p", "working_dir", scrapingOutDir.get(), // control output location
+            notebookInputFile.get().absolutePath,
+            outNotebook.get().absolutePath,
+            "-p", "working_dir", outDir.get().absolutePath, // control output location
     )
 }
 
-dependencies {
-    testcontainersClasspath("org.testcontainers:testcontainers-postgresql:2.0.5") // TODO to version catalog
-}
-
-testcontainers {
-    jdbcContainer("postgres", DatabaseType.POSTGRESQL) {
-        image("postgres" imageTag libs.versions.postgres.docker)
-        databaseName(postgresDbName)
-    }
-    genericContainer("gdal") {
-        image("ghcr.io/osgeo/gdal:ubuntu-small-latest")
-    }
-}
-
-tasks.register<Download>("downloadShapefile") {
+tasks.register<Download>("downloadGpkg") {
     src("https://service.pdok.nl/kadaster/brk-bestuurlijke-gebieden/atom/downloads/BestuurlijkeGebieden_2026.gpkg")
-    dest(areaShapefile)
-    finalizedBy("verifyShapefile")
+    dest(layout.buildDirectory.file("BestuurlijkeGebieden_2026.gpkg"))
+    finalizedBy("verifyGpkg")
+    overwrite(false) // allow caching
 }
-
-tasks.register<Verify>("verifyShapefile") {
-    src(areaShapefile)
+tasks.register<Verify>("verifyGpkg") {
+    src(tasks.named<Download>("downloadGpkg").map { it.outputFiles.single() })
     algorithm(SHA_256)
     checksum("1EFA5BBED78BB5AA9D918D48BCABCD9A3C0E816671545E42CD68BE057B8423E6")
 }
 
-tasks.register("importShapefile") {
-    val container = testcontainers.getContainer<GenericContainer<*>>("gdal")
-    val areaShapefileContainer = areaShapefile.map { "/" + it.asFile.name }
+tasks.register<ImportGpkgTask>("importGpkg") {
+    dbContainer = testcontainers.getContainer<JdbcDatabaseContainer<*>>("postgres")
+    gpkgFile = tasks.named<Download>("downloadGpkg").map { it.outputFiles.single() }
 
-    dependsOn("startPostgresContainer")
-    dependsOn("startGdalContainer")
-    usesService(testcontainers.service)
-    finalizedBy("stopPostgresContainer")
-    finalizedBy("stopGdalContainer")
-
-    inputs.file(areaShapefile)
-
-    fun buildLayerImportCommand(srcLayerName: String, importedLayerName: String) = arrayOf(
-        "ogr2ogr",
-            "PG:dbname=$postgresDbName", // with username and password: "PG:dbname=dutch_railways user=postgres password=****"
-                areaShapefileContainer.get(),
-                srcLayerName,
-                "-nln", importedLayerName,
-            "-nlt", "PROMOTE_TO_MULTI",
-            "-lco", "GEOMETRY_NAME=geom",
-            "-lco", "FID=gid",
+    commonArgs(
+        "-nlt", "PROMOTE_TO_MULTI",
+        "-lco", "GEOMETRY_NAME=geom",
+        "-lco", "FID=gid",
     )
 
-    val mountableAreaShapefile = areaShapefile.asTestContainerMountable()
-    doLast {
-        container.get().run {
-            copyFileToContainer(mountableAreaShapefile.get(), areaShapefileContainer.get())
-            listOf("landgebied", "provinciegebied", "gemeentegebied")
-                .map { layerName -> layerName to "src_$layerName" }
-                .map { (srcLayerName, dbLayerName) ->
-                    buildLayerImportCommand(srcLayerName = srcLayerName, importedLayerName = dbLayerName) }
-                .forEach { args ->
-                    execInContainer(*args)
-                }
+    importLayers(
+        listOf(
+            "landgebied",
+            "provinciegebied",
+            "gemeentegebied",
+        ).map { layerName ->
+            layerName to "src_$layerName"
         }
-    }
+    )
 }
 
-tasks.register("buildDatabase") {
-    val container = testcontainers.getContainer<JdbcDatabaseContainer<*>>("postgres")
-    val initScripts = sourceSets.named("sql_scripts").customDirectory.dir("init")
+tasks.register("importSqlInitScripts") {
+    val postgresContainer = testcontainers.getContainer<JdbcDatabaseContainer<*>>("postgres")
+    val initScripts = sourceSets.named("sql_scripts").customDirectory.dir("init").map { it.asFile }
     val initScriptsContainer = "/sql"
+    val nsScrapingResults = tasks.named<UvRunTask>("scrapeData").map { it.outputs.files.singleFile }
 
     dependsOn("startPostgresContainer")
+    dependsOn("importGpkg")
     usesService(testcontainers.service)
     finalizedBy("stopPostgresContainer")
 
-    inputs.dir(scrapingOutDir.dir("ns_results"))
+    inputs.dir(nsScrapingResults)
     inputs.files(initScripts)
 
-    val postgresDbName = postgresDbName
+    // Configuration cache issues seem to arise unless we create
+    // these references scoped ge lsto the task block before using them
+    // in the task action block
+    val postgresDbName = postgresContainer.map { it.databaseName }
     val mountableInitScripts = initScripts.asTestContainerMountable()
-    val mountableNsData = scrapingOutDir.dir("ns_results").asTestContainerMountable()
+    val mountableNsData = nsScrapingResults.asTestContainerMountable()
     doLast {
-        container.get().run {
+        postgresContainer.get().run {
             copyFileToContainer(mountableInitScripts.get(), initScriptsContainer)
             copyFileToContainer(mountableNsData.get(), "/ns_data") // sql scripts hardcode filenames under `/ns_data`
             execInContainer(
                 "sh", "-c",
-                "cat $initScriptsContainer/* | psql -d $postgresDbName",
+                "cat $initScriptsContainer/* | psql -d ${postgresDbName.get()}",
             )
         }
     }
 }
 
-tasks.register("buildDockerVolume") {
-    dependsOn("buildDatabase")
-    doLast { TODO() }
+tasks.register("buildDatabaseDump") {
+    val postgresContainer = testcontainers.getContainer<JdbcDatabaseContainer<*>>("postgres")
+    val sqlDumpFile = layout.buildDirectory.dir("dumps").file("postgres.sql")
+    val pgDumpFile = layout.buildDirectory.dir("dumps").file("postgres.dump")
+
+    dependsOn("startPostgresContainer")
+    dependsOn("importGpkg")
+    dependsOn("importSqlInitScripts")
+    usesService(testcontainers.service)
+    finalizedBy("stopPostgresContainer")
+
+    outputs.file(sqlDumpFile)
+    outputs.file(pgDumpFile)
+
+    // Configuration cache issues seem to arise unless we create
+    // these references scoped ge lsto the task block before using them
+    // in the task action block
+    val sqlDumpPathHost = sqlDumpFile.map { it.asFile.absolutePath }
+    val pgDumpPathHost = pgDumpFile.map { it.asFile.absolutePath }
+    val sqlDumpPathContainer = sqlDumpFile.map { "/" + it.asFile.name }
+    val pgDumpPathContainer = sqlDumpFile.map { "/" + it.asFile.name }
+    val dumpCommandArgs = postgresContainer.map {
+        it.run {
+            arrayOf(
+                "pg_dump",
+                "-h", "localhost",
+                "-U", username,
+                "-d", databaseName,
+            )
+        }
+    }
+    doLast {
+        postgresContainer.get().run {
+            execInContainer(
+                *dumpCommandArgs.get().plus(
+                    "-f", sqlDumpPathContainer.get()
+                )
+            )
+            execInContainer(
+                *dumpCommandArgs.get().plus(
+                    "-F", "c",
+                    "-f", pgDumpPathContainer.get()
+                )
+            )
+            copyFileFromContainer(sqlDumpPathContainer.get(), sqlDumpPathHost.get())
+            copyFileFromContainer(pgDumpPathContainer.get(), pgDumpPathHost.get())
+        }
+    }
 }
 
-tasks.register("generateTestFixtures") {
-    dependsOn("scrapeData")
+tasks.register("buildDockerVolume") {
     dependsOn("buildDatabase")
     doLast { TODO() }
 }

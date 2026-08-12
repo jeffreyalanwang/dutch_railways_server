@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 
 include("convention")
 include("uvProjectPlugin")
+include("databaseBuildUtil")

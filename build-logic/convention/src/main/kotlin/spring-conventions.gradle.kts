@@ -1,6 +1,8 @@
-plugins.apply("backend-conventions")
-plugins.apply(rootLibs.plugin("kotlin-spring"))
-plugins.apply(rootLibs.plugin("spring-boot"))
+plugins.run {
+    apply("backend-conventions")
+    apply(rootLibs.plugin("kotlin-spring"))
+    apply(rootLibs.plugin("spring-boot"))
+}
 
 kotlin {
     compilerOptions {
