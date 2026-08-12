@@ -10,4 +10,4 @@ spring:
   jpa:
     database: POSTGRESQL
     hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties.hibernate.search.backend.directory.root: ./lucene/indexes
+    properties.hibernate.search.backend.directory.root: /tmp/lucene/indexes
