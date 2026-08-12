@@ -21,9 +21,16 @@ gradlePlugin {
         register("import-gpkg-task") {
             description = listOf(
                 "Provides a task which imports a gpkg",
-                "file into a Postgres database."
+                "file into a Postgres database.",
             ).joinToString(" ")
             implementationClass = "ImportGpkgPlugin"
+        }
+        register("import-sql-task") {
+            description = listOf(
+                "Provides a task to run SQL init scripts",
+                "(potentially with resource files).",
+            ).joinToString(" ")
+            implementationClass = "ImportSqlPlugin"
         }
     }
 }

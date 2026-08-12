@@ -1,31 +1,23 @@
-import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.internal.provider.PropertyFactory
+import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.services.ServiceReference
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import org.testcontainers.Testcontainers
-import org.testcontainers.containers.ContainerState
 import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.startupcheck.OneShotStartupCheckStrategy
-import org.testcontainers.gradle.TestcontainersBuildService
 import javax.inject.Inject
 
-abstract class ImportGpkgTask @Inject constructor(
-    propertyFactory: PropertyFactory,
-) : DefaultTask() {
+abstract class DbImportGpkgTask @Inject constructor(
+    objectFactory: ObjectFactory,
+) : DbImportTask(objectFactory) {
 
     @get:Input internal abstract val gdalContainer: Property<GenericContainer<*>>
-    @get:Input abstract val dbContainer: Property<JdbcDatabaseContainer<*>>
-    @get:Input val dbName = propertyFactory.property<String>().convention(dbContainer.map { it.databaseName })
 
     @get:Input abstract val gpkgFile: RegularFileProperty
-    private val mountableGpkg = gpkgFile.asFile.asTestContainerMountable()
-    private val gpkgContainerPath = "/source.gpkg"
+    private val mountableGpkgFile = gpkgFile.asFile.asTestContainerMountable()
+    private val gpkgFileContainerPath = "/source.gpkg"
 
     @get:Input abstract val importLayers: ListProperty<Pair<String, String>>
     @get:Input abstract val commonArgs: ListProperty<String>
@@ -34,19 +26,12 @@ abstract class ImportGpkgTask @Inject constructor(
     fun commonArgs(vararg args: String) = commonArgs.addAll(*args)
     fun commonArgs(args: Iterable<String>) = commonArgs.addAll(args)
 
-    @get:ServiceReference internal abstract val testcontainersService: Property<TestcontainersBuildService>
-
-    init {
-        dependsOn(dbContainer.map { it.startTaskName })
-        finalizedBy(dbContainer.map { it.stopTaskName })
-    }
-
     @TaskAction
     fun importGpkg() = gdalContainer.get()
         .apply { check(!isRunning) }
         .also { exposeHostPort(dbContainer.get()) }
         .also { checkIsGpkg(gpkgFile.get()) }
-        .withCopyFileToContainer(mountableGpkg.get(), gpkgContainerPath)
+        .withCopyFileToContainer(mountableGpkgFile.get(), gpkgFileContainerPath)
         .withStartupCheckStrategy(OneShotStartupCheckStrategy())
         .run {
             commands.get().forEach { command ->
@@ -80,7 +65,7 @@ abstract class ImportGpkgTask @Inject constructor(
             arrayOf(
                 "ogr2ogr",
                 dbConnectionString,
-                gpkgContainerPath,
+                gpkgFileContainerPath,
                 srcLayerName,
                 "-nln", dbLayerName,
             )
@@ -89,7 +74,3 @@ abstract class ImportGpkgTask @Inject constructor(
 }
 
 private fun checkIsGpkg(gpkg: RegularFile) = check(gpkg.asFile.extension == "gpkg")
-private fun exposeHostPort(mappedFromContainer: ContainerState) = mappedFromContainer.run {
-    if (host != "localhost") throw NotImplementedError()
-    Testcontainers.exposeHostPorts(firstMappedPort)
-}

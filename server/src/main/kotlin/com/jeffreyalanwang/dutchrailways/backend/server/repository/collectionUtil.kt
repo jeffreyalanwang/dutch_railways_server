@@ -75,7 +75,7 @@ internal class SetCompareBuilderScope<C> {
     private var inequalityFound = false
 
     inline infix fun <T> Iterable<T>.on(selector: (T) -> C) = when {
-        inequalityFound -> {}
+        inequalityFound -> Unit
 
         !keysInitialized -> {
             keys = (this as? Collection)?.run { HashSet(size) } ?: HashSet()
