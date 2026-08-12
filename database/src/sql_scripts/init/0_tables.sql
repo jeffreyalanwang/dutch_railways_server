@@ -1,0 +1,67 @@
+CREATE EXTENSION IF NOT EXISTS btree_gist;
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+CREATE TABLE TrainsetType (
+	Name VARCHAR(64) PRIMARY KEY
+);
+
+CREATE TABLE Amenity (
+	Id 			INT 		 PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	Description VARCHAR(256) NOT NULL
+);
+CREATE TABLE TrainsetAmenities (
+	TrainsetType VARCHAR(64) NOT NULL REFERENCES TrainsetType ON DELETE CASCADE ON UPDATE CASCADE,
+	Amenity 	 INT 		 NOT NULL REFERENCES Amenity 	  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE PassService (
+	Id      INT 		 PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	Name    VARCHAR(128) UNIQUE NOT NULL,
+	Consist VARCHAR(64)  NOT NULL 	 REFERENCES TrainsetType ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE Stop (
+	Service 	INT 		 NOT NULL REFERENCES PassService ON DELETE CASCADE ON UPDATE CASCADE,
+	ArriveTime  TIMESTAMP NOT NULL,
+	DepartTime 	TIMESTAMP NOT NULL,
+	Station 	INT 	  NOT NULL,
+	CHECK (ArriveTime < DepartTime),
+	EXCLUDE USING gist (
+		Service 						WITH = ,
+		TSRANGE(ArriveTime, DepartTime) WITH &&
+	),
+	PRIMARY KEY (Service, ArriveTime)
+);
+
+--	Allows quicker two-way FK referencing between `Place` and its subclasses.
+--	Safe to create before existence of tables.
+--	Must match the corresponding subclass table's name.
+CREATE TYPE PlaceSubclass AS ENUM ('Area', 'Station');
+
+CREATE TABLE Place (
+	Id 		  INT 			PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	Subclass  PlaceSubclass NOT NULL,
+	Name 	  VARCHAR(128) 	NOT NULL,
+	LocatedIn INT 			NULL
+);
+
+CREATE TABLE Area (
+	Id   INT 					PRIMARY KEY REFERENCES Place ON DELETE CASCADE ON UPDATE CASCADE,
+	Geom GEOMETRY(MULTIPOLYGON) NOT NULL
+);
+ALTER TABLE Area ADD CONSTRAINT AreaSrid
+    CHECK (ST_Srid(Geom) = 28992);
+CREATE INDEX IdxAreaGeom ON Area USING gist (Geom);
+ALTER TABLE Place ADD CONSTRAINT ParentArea
+	FOREIGN KEY (LocatedIn) REFERENCES Area ON DELETE RESTRICT ON UPDATE CASCADE;
+
+CREATE TABLE Station (
+	Id 		INT 	        PRIMARY KEY REFERENCES Place ON DELETE CASCADE ON UPDATE CASCADE,
+	Address VARCHAR(256)    NULL,
+	Geom 	GEOMETRY(POINT) NOT NULL
+);
+ALTER TABLE Station ADD CONSTRAINT StationSrid
+    CHECK (ST_Srid(Geom) = 28992);
+CREATE INDEX IdxStationGeom ON Station USING gist (Geom);
+ALTER TABLE Stop ADD CONSTRAINT StopStation --TODO2 make sure this appeared
+	FOREIGN KEY (Station) REFERENCES Station ON DELETE RESTRICT ON UPDATE CASCADE;

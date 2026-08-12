@@ -1,9 +1,4 @@
 local.properties
-/database/scraping/data_src/osm2pgsql-bin/**/*
-!/database/scraping/data_src/osm2pgsql-bin/osm2pgsql.exe
-!/database/scraping/data_src/osm2pgsql-bin/README.md
-!/database/scraping/data_src/osm2pgsql-bin/scripts/osm2pgsql-replication
-/database/scraping/data_src/*.zip
 /server/lucene/
 
 # Below is auto-generated.

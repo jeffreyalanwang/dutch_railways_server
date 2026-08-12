@@ -4,6 +4,7 @@ spring-boot = "4.1.+"
 hibernate-search = "8.4.+"
 proj4j = "1.4.+"
 play-services-maps = "20.0.0"
+postgres-docker = "18-trixie"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
