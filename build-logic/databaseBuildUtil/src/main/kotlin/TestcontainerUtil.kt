@@ -1,16 +1,7 @@
-import org.gradle.api.internal.provider.PropertyFactory
-import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.provider.Provider
-import org.gradle.kotlin.dsl.getByType
 import org.testcontainers.Testcontainers
-import org.testcontainers.containers.GenericContainer
-import org.testcontainers.utility.MountableFile
 import org.testcontainers.containers.ContainerState
-import org.testcontainers.containers.JdbcDatabaseContainer
-import org.testcontainers.gradle.TestcontainersExtension
-import org.testcontainers.gradle.getContainer
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.C
+import org.testcontainers.utility.MountableFile
 import java.io.File
 
 /** Convert a file so that it can be passed into [ContainerState.copyFileToContainer]. */

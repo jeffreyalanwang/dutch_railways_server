@@ -17,19 +17,17 @@ private val Directory.sortedFileList get() = asFileTree
     .map { childFile -> childFile.relativeTo(this.asFile).path }
     .sorted()
     .map { relativeChildPath -> this.file(relativeChildPath) }
-private object ExtrasDelegate : ReadWriteProperty<SourceSet, Directory> {
-    override fun getValue(thisRef: SourceSet, property: KProperty<*>) =
-        thisRef.extra[property.name] as Directory
-    override fun setValue(thisRef: SourceSet, property: KProperty<*>, value: Directory) {
-        thisRef.extra[property.name] = value
-    }
+private class ExtrasDelegate<T : ExtensionAware, V> : ReadWriteProperty<T, V> {
+    @Suppress("UNCHECKED_CAST") override fun getValue(thisRef: T, property: KProperty<*>) = thisRef.extra[property.name] as V
+    override fun setValue(thisRef: T, property: KProperty<*>, value: V) { thisRef.extra[property.name] = value }
 }
 
 plugins {
     `java-test-fixtures`
     id("python-uv-project")
     id("import-gpkg-task")
-//    id("import-sql-task")
+    id("import-sql-task")
+    id("gzip-task")
 
     alias(libs.plugins.build.local.properties)
     alias(libs.plugins.build.testcontainers)
@@ -39,7 +37,7 @@ plugins {
 group = "com.jeffreyalanwang.dutchrailways.backend.database"
 
 val localProperties = ext.properties
-private var SourceSet.otherSrcDir by ExtrasDelegate
+private var SourceSet.otherSrcDir by ExtrasDelegate<_, Directory>()
 
 sourceSets {
     create("sql_scripts") {
@@ -168,23 +166,11 @@ val exportDatabaseDumpTask = tasks.register<PostgresDumpTask>("exportDatabaseDum
 //    pgDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.dump")
 }
 
-val gzipDatabaseDumpTask = tasks.register("gzipDatabaseDump") {
+val gzipDatabaseDumpTask = tasks.register<GzipTask>("gzipDatabaseDump") {
     description = listOf(
         "Gzip the built database dump file to",
-        "create a final packaged init script"
+        "create a final packaged init script."
     ).joinToString(" ")
 
-    val inputFile = exportDatabaseDumpTask.map { it.sqlDumpOutputFile }
-    val outputFile = inputFile.zip(layout.buildDirectory) { srcFile, buildDir ->
-        buildDir.file("${ srcFile.get().asFile.nameWithoutExtension }.sql.gz")
-    }
-
-    inputs.file(inputFile)
-    outputs.file(outputFile)
-
-    doLast {
-        ant.withGroovyBuilder {
-            "gzip"("src" to inputFile, "zipfile" to outputFile)
-        }
-    }
+    inputFile = exportDatabaseDumpTask.flatMap { it.sqlDumpOutputFile }
 }

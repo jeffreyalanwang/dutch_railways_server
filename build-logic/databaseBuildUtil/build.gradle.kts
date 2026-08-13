@@ -32,5 +32,9 @@ gradlePlugin {
             ).joinToString(" ")
             implementationClass = "ImportSqlPlugin"
         }
+        register("gzip-task") {
+            description = "Provides a task to compress a file with gzip."
+            implementationClass = "GzipPlugin"
+        }
     }
 }
