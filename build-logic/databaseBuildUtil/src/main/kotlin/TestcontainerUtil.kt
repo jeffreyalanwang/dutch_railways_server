@@ -13,10 +13,6 @@ import org.testcontainers.gradle.getContainer
 import org.testcontainers.shaded.org.checkerframework.checker.units.qual.C
 import java.io.File
 
-fun ExtensionAware.getDbContainer(name: String) = extensions
-    .getByType<TestcontainersExtension>()
-    .getContainer<JdbcDatabaseContainer<*>>(name)
-
 /** Convert a file so that it can be passed into [ContainerState.copyFileToContainer]. */
 fun File.asTestContainerMountable(): MountableFile = MountableFile.forHostPath(toPath())
 

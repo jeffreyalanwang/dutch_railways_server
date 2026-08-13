@@ -11,7 +11,6 @@ import kotlin.reflect.KProperty
 private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mimic [FileProperty.dir]
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
 private fun JdbcContainerSpec.image(spec: Provider<String>) = image(spec.get())
-private val Provider<SourceSet>.otherSrcDir get() = map { it.otherSrcDir }
 private fun Task.dependsOnAndCopiesInputs(vararg tasks: Provider<out Task>) = tasks.forEachIndexed { i, task ->
     dependsOn(task)
     inputs.property(i.toString(), task.map { it.inputs.properties })
@@ -19,12 +18,10 @@ private fun Task.dependsOnAndCopiesInputs(vararg tasks: Provider<out Task>) = ta
 }
 private val Provider<out Task>.singleOutputFile get() = map { it.outputs.files.singleFile }.let { layout.file(it) }
 private val Provider<out Task>.singleOutputDir get() = map { it.outputs.files.singleFile }.let { layout.dir(it) }
-private val Provider<Directory>.sortedFileList get() = map { directory ->
-    val childrenAsRelativePaths = directory.asFileTree.map { it.relativeTo(directory.asFile).path }
-    childrenAsRelativePaths.sorted().map { relativeChildPath ->
-        directory.file(relativeChildPath)
-    }
-}
+private val Directory.sortedFileList get() = asFileTree
+    .map { childFile -> childFile.relativeTo(this.asFile).path }
+    .sorted()
+    .map { relativeChildPath -> this.file(relativeChildPath) }
 private object ExtrasDelegate : ReadWriteProperty<SourceSet, Directory> {
     override fun getValue(thisRef: SourceSet, property: KProperty<*>) =
         thisRef.extra[property.name] as Directory
@@ -70,17 +67,6 @@ testcontainers {
         username("postgres")
         password("postgres")
         databaseName("dutch_railways")
-    }
-}
-
-afterEvaluate {
-    tasks.named<StartContainersTask>("startPostgresContainer") {
-        doNotTrackState(
-            listOf(
-                "This container is only depended upon when",
-                "depending tasks require a running instance.",
-            ).joinToString(" ")
-        )
     }
 }
 
@@ -132,11 +118,20 @@ val verifyGpkgTask = tasks.register<Verify>("verifyGpkg") {
     checksum("1EFA5BBED78BB5AA9D918D48BCABCD9A3C0E816671545E42CD68BE057B8423E6")
 }
 
+afterEvaluate {
+    tasks.named<StartContainersTask>(startTaskName(containerName = postgresContainerName)) {
+        trackedFiles.from(scrapeDataTask.map { it.outputs.files })
+        trackedFiles.from(downloadGpkgTask.map { it.outputFiles })
+        trackedFiles.from(sourceSets.named("sql_scripts").map { it.otherSrcDir })
+    }
+}
+
 val importGpkgTask = tasks.register<ImportGpkgTask>("importGpkg") {
     description = listOf(
         "Import Area dataset to temporary tables in",
         "the database on the temporary Docker container",
     ).joinToString(" ")
+
     dbContainer(testcontainers, postgresContainerName)
     gpkgFile = downloadGpkgTask.map { it.outputFiles.single() }
 
@@ -162,9 +157,9 @@ val importSqlScriptsTask = tasks.register<ImportSqlTask>("importSqlScripts") {
     dependsOn(importGpkgTask)
 
     dbContainer(testcontainers, postgresContainerName)
-    initScripts = sourceSets.named("sql_scripts").otherSrcDir
-        .dir("init")
-        .sortedFileList
+    initScripts = sourceSets.named("sql_scripts").map {
+        it.otherSrcDir.dir("init").sortedFileList
+    }
     resource(scrapeDataTask.singleOutputDir, "/ns_data") // sql scripts hardcode filenames under `/ns_data`
 }
 

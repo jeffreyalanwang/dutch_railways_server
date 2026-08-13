@@ -31,12 +31,16 @@ abstract class DbImportTask @Inject constructor(
     val dbName = objectFactory.property<String>()
         .convention(dbContainer.map { it.databaseName })
 
-    init {
-        dependsOn(dbContainerName.map { startTaskName(containerName = it) })
-        finalizedBy(dbContainerName.map { stopTaskName(containerName = it) })
-    }
-
     @get:ServiceReference
     internal abstract val testcontainersService: Property<TestcontainersBuildService>
 
+    init {
+        onlyIf("Start task for testcontainer $dbContainerName was configured to skip execution.") {
+            testcontainersService.get().run {
+                wasContainerStarted(dbContainerName.get())
+            }
+        }
+        dependsOn(dbContainerName.map { startTaskName(containerName = it) })
+        finalizedBy(dbContainerName.map { stopTaskName(containerName = it) })
+    }
 }
