@@ -1,7 +1,5 @@
 import de.undercouch.gradle.tasks.download.Download
 import de.undercouch.gradle.tasks.download.Verify
-import org.gradle.kotlin.dsl.provideDelegate
-import org.gradle.kotlin.dsl.testcontainersClasspath
 import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.gradle.DatabaseType
@@ -12,13 +10,20 @@ import java.time.OffsetDateTime
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-private fun <T> Array<T>.plus(vararg elements: T) = plus(elements)
 private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mimic [FileProperty.dir]
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
 private fun JdbcContainerSpec.image(spec: Provider<String>) = image(spec.get())
 private infix fun String.imageTag(other: Provider<String>) = other.map { "$this:$it" }
 private val Provider<SourceSet>.otherSrcDir get() = map { it.otherSrcDir }
-private val Provider<Directory>.sortedFileList get() = map { it.asFileTree.files.sortedBy { file -> file.absolutePath } }
+private val Provider<out Task>.singleOutputFile get() = map { it.outputs.files.singleFile }.let { layout.file(it) }
+private val Provider<out Task>.singleOutputDir get() = map { it.outputs.files.singleFile }.let { layout.dir(it) }
+private fun Directory.clearAndMkdirs() = asFile.run { if (exists()) delete(); mkdirs() }
+private val Provider<Directory>.sortedFileList get() = map { directory ->
+    val childrenAsRelativePaths = directory.asFileTree.map { it.relativeTo(directory.asFile).path }
+    childrenAsRelativePaths.sorted().map { relativeChildPath ->
+        directory.file(relativeChildPath)
+    }
+}
 private object ExtrasDelegate : ReadWriteProperty<SourceSet, Directory> {
     override fun getValue(thisRef: SourceSet, property: KProperty<*>) =
         thisRef.extra[property.name] as Directory
@@ -65,7 +70,7 @@ testcontainers {
         databaseName("dutch_railways")
     }
 }
-val postgresContainer = testcontainers.getContainer<JdbcContainer<*>>("postgres")
+val postgresContainer = testcontainers.getContainer< JdbcDatabaseContainer<*>>("postgres")
 
 afterEvaluate {
     tasks.named<StartContainersTask>("startPostgresContainer") {
@@ -81,10 +86,10 @@ afterEvaluate {
 val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
     description = "Scrape data from online APIs to CSV format."
 
-    val notebookInputFile = uvProjectDir.file("ns.ipynb").map { it.asFile }
-    val outDir = layout.buildDirectory.dir("scraping").map { it.asFile }
-    val outNotebook = outDir.map { it.resolve("ns.ipynb") }
-    val outNsDir = outDir.map { it.resolve("ns_results") }
+    val notebookInputFile = uvProjectDir.file("ns.ipynb")
+    val outDir = layout.buildDirectory.dir("scraping")
+    val outNotebook = outDir.file("ns.ipynb")
+    val outNsDir = outDir.dir("ns_results")
 
     onlyIf("Reduce reruns during development; remove this line for up-to-date production data") { false }
     inputs.property("lastRunDate", OffsetDateTime.now().toLocalDate())
@@ -94,19 +99,16 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
     doFirst {
         // If we do not clear the output directory, the notebook is written
         // to try and reload the .pkl file generated from the last run
-        outDir.get().run {
-            delete()
-            mkdirs()
-        }
+        outDir.get().clearAndMkdirs()
     }
 
     environment(localProperties)
     workingDir(uvProjectDir) // allows discovery of the nsapi package
     args(
         "papermill",
-            notebookInputFile.get().absolutePath,
-            outNotebook.get().absolutePath,
-            "-p", "working_dir", outDir.get().absolutePath, // control output location
+            notebookInputFile.get().asFile.absolutePath,
+            outNotebook.get().asFile.absolutePath,
+            "-p", "working_dir", outDir.get().asFile.absolutePath, // control output location
     )
 }
 
@@ -150,57 +152,16 @@ tasks.register<ImportSqlTask>("importSqlScripts") {
     initScripts = sourceSets.named("sql_scripts").otherSrcDir
         .dir("init")
         .sortedFileList
-    resource(scrapeDataTask.map { it.outputs.files.singleFile }, "/ns_data") // sql scripts hardcode filenames under `/ns_data`
+    resource(scrapeDataTask.singleOutputDir, "/ns_data") // sql scripts hardcode filenames under `/ns_data`
 }
 
-tasks.register("buildDatabaseDump") {
-    val postgresContainer = postgresContainer
-    val sqlDumpFile = layout.buildDirectory.dir("dumps").file("postgres.sql")
-    val pgDumpFile = layout.buildDirectory.dir("dumps").file("postgres.dump")
-
-    dependsOn("startPostgresContainer")
+tasks.register<PostgresDumpTask>("buildDatabaseDump") {
     dependsOn("importGpkg")
     dependsOn("importSqlScripts")
-    usesService(testcontainers.service)
-    finalizedBy("stopPostgresContainer")
 
-    outputs.file(sqlDumpFile)
-    outputs.file(pgDumpFile)
-
-    // Configuration cache issues seem to arise unless we create
-    // these references scoped ge lsto the task block before using them
-    // in the task action block
-    val sqlDumpPathHost = sqlDumpFile.map { it.asFile.absolutePath }
-    val pgDumpPathHost = pgDumpFile.map { it.asFile.absolutePath }
-    val sqlDumpPathContainer = sqlDumpFile.map { "/" + it.asFile.name }
-    val pgDumpPathContainer = sqlDumpFile.map { "/" + it.asFile.name }
-    val dumpCommandArgs = postgresContainer.map {
-        it.run {
-            arrayOf(
-                "pg_dump",
-                "-h", "localhost",
-                "-U", username,
-                "-d", databaseName,
-            )
-        }
-    }
-    doLast {
-        postgresContainer.get().run {
-            execInContainer(
-                *dumpCommandArgs.get().plus(
-                    "-f", sqlDumpPathContainer.get()
-                )
-            )
-            execInContainer(
-                *dumpCommandArgs.get().plus(
-                    "-F", "c",
-                    "-f", pgDumpPathContainer.get()
-                )
-            )
-            copyFileFromContainer(sqlDumpPathContainer.get(), sqlDumpPathHost.get())
-            copyFileFromContainer(pgDumpPathContainer.get(), pgDumpPathHost.get())
-        }
-    }
+    dbContainer = postgresContainer
+    sqlDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.sql")
+    pgDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.dump")
 }
 
 tasks.register("buildDockerVolume") {

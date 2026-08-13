@@ -9,7 +9,7 @@ import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.startupcheck.OneShotStartupCheckStrategy
 import javax.inject.Inject
 
-abstract class DbImportGpkgTask @Inject constructor(
+abstract class ImportGpkgTask @Inject constructor(
     objectFactory: ObjectFactory,
 ) : DbImportTask(objectFactory) {
 

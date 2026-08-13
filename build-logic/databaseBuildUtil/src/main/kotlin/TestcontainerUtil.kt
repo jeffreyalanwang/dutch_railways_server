@@ -38,3 +38,5 @@ fun exposeHostPort(mappedFromContainer: ContainerState) = mappedFromContainer.ru
     if (host != "localhost") throw NotImplementedError()
     Testcontainers.exposeHostPorts(firstMappedPort)
 }
+
+fun <T> Array<T>.plus(vararg elements: T) = plus(elements)

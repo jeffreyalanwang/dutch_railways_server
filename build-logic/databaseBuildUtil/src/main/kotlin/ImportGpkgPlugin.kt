@@ -24,8 +24,8 @@ class ImportGpkgPlugin : Plugin<Project> {
         val gdalContainerImpl = extensions.getByType<TestcontainersExtension>()
             .getContainer<GenericContainer<*>>(GDAL_CONTAINER_NAME)
 
-        tasks.withType<DbImportGpkgTask>().configureEach {
-            gdalContainer = gdalContainerImpl
+        tasks.withType<ImportGpkgTask>().configureEach {
+            gdalContainer.set(gdalContainerImpl)
         }
     }
 
