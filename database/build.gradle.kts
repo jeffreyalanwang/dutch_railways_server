@@ -62,15 +62,15 @@ dependencies {
     testcontainersClasspath(libs.bundles.testcontainers.postgresql)
 }
 
+val postgresContainerName = "postgres"
 testcontainers {
-    jdbcContainer("postgres", DatabaseType.POSTGRESQL) {
+    jdbcContainer(postgresContainerName, DatabaseType.POSTGRESQL) {
         image("postgres" imageTag libs.versions.postgres.docker)
         username("postgres")
         password("postgres")
         databaseName("dutch_railways")
     }
 }
-val postgresContainer = testcontainers.getContainer< JdbcDatabaseContainer<*>>("postgres")
 
 afterEvaluate {
     tasks.named<StartContainersTask>("startPostgresContainer") {
@@ -113,19 +113,28 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
 }
 
 val downloadGpkgTask = tasks.register<Download>("downloadGpkg") {
+    description = "Download source dataset for Area database table"
+
     src("https://service.pdok.nl/kadaster/brk-bestuurlijke-gebieden/atom/downloads/BestuurlijkeGebieden_2026.gpkg")
     dest(layout.buildDirectory.file("BestuurlijkeGebieden_2026.gpkg"))
     finalizedBy("verifyGpkg")
     overwrite(false) // allow caching
 }
-tasks.register<Verify>("verifyGpkg") {
+val verifyGpkgTask = tasks.register<Verify>("verifyGpkg") {
+    description = "Verify source dataset for Area database table"
+
     src(downloadGpkgTask.map { it.outputFiles.single() })
     algorithm(SHA_256)
     checksum("1EFA5BBED78BB5AA9D918D48BCABCD9A3C0E816671545E42CD68BE057B8423E6")
 }
 
-tasks.register<ImportGpkgTask>("importGpkg") {
-    dbContainer = postgresContainer
+val importGpkgTask = tasks.register<ImportGpkgTask>("importGpkg") {
+    description = listOf(
+        "Import Area dataset to temporary tables in",
+        "the database on the temporary Docker container",
+    ).joinToString(" ")
+    dbContainerName = postgresContainerName
+//    dbContainer = getDbContainer(postgresContainerName)z
     gpkgFile = downloadGpkgTask.map { it.outputFiles.single() }
 
     commonArgs(
@@ -145,26 +154,47 @@ tasks.register<ImportGpkgTask>("importGpkg") {
     )
 }
 
-tasks.register<ImportSqlTask>("importSqlScripts") {
-    dependsOn("importGpkg")
+val importSqlScriptsTask = tasks.register<ImportSqlTask>("importSqlScripts") {
+    description = "Run SQL init scripts on database in the temporary Docker container"
+    dependsOn(importGpkgTask)
 
-    dbContainer = postgresContainer
+    dbContainerName = postgresContainerName
+//    dbContainer = getDbContainer(postgresContainerName)
     initScripts = sourceSets.named("sql_scripts").otherSrcDir
         .dir("init")
         .sortedFileList
     resource(scrapeDataTask.singleOutputDir, "/ns_data") // sql scripts hardcode filenames under `/ns_data`
 }
 
-tasks.register<PostgresDumpTask>("buildDatabaseDump") {
-    dependsOn("importGpkg")
-    dependsOn("importSqlScripts")
+val buildDatabaseDumpTask = tasks.register<PostgresDumpTask>("buildDatabaseDump") {
+    description = "Export the database on the temporary Docker container"
+    dependsOn(importGpkgTask)
+    dependsOn(importSqlScriptsTask)
 
-    dbContainer = postgresContainer
+    dbContainerName = postgresContainerName
+//    dbContainer = getDbContainer(postgresContainerName)
     sqlDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.sql")
-    pgDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.dump")
+//    // Binary dump is not useful for initializing a Postgres Docker container
+//    pgDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.dump")
 }
 
-tasks.register("buildDockerVolume") {
-    dependsOn("buildDatabase")
-    doLast { TODO() }
+val gzipDatabaseDumpTask = tasks.register("gzipDatabaseDump") {
+    description = listOf(
+        "Gzip the built database dump file to",
+        "create a final packaged init script"
+    ).joinToString(" ")
+
+    dependsOn(buildDatabaseDumpTask)
+    val inputFile = file("src/dist/large-file.txt")
+    val outputFile = file("build/distributions/large-file.txt.gz")
+
+    // Declare inputs and outputs for cache efficiency
+    inputs.file(inputFile)
+    outputs.file(outputFile)
+
+    doLast {
+        ant.withGroovyBuilder {
+            "gzip"("src" to inputFile, "zipfile" to outputFile)
+        }
+    }
 }
