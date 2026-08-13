@@ -12,6 +12,11 @@ private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mi
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
 private fun JdbcContainerSpec.image(spec: Provider<String>) = image(spec.get())
 private val Provider<SourceSet>.otherSrcDir get() = map { it.otherSrcDir }
+private fun Task.dependsOnAndCopiesInputs(vararg tasks: Provider<out Task>) = tasks.forEachIndexed { i, task ->
+    dependsOn(task)
+    inputs.property(i.toString(), task.map { it.inputs.properties })
+    inputs.files(task.map { it.inputs.files })
+}
 private val Provider<out Task>.singleOutputFile get() = map { it.outputs.files.singleFile }.let { layout.file(it) }
 private val Provider<out Task>.singleOutputDir get() = map { it.outputs.files.singleFile }.let { layout.dir(it) }
 private val Provider<Directory>.sortedFileList get() = map { directory ->
@@ -165,8 +170,7 @@ val importSqlScriptsTask = tasks.register<ImportSqlTask>("importSqlScripts") {
 
 val exportDatabaseDumpTask = tasks.register<PostgresDumpTask>("exportDatabaseDump") {
     description = "Export the database on the temporary Docker container"
-    dependsOn(importGpkgTask)
-    dependsOn(importSqlScriptsTask)
+    dependsOnAndCopiesInputs(importGpkgTask, importSqlScriptsTask)
 
     dbContainer(testcontainers, postgresContainerName)
     sqlDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.sql")
@@ -180,13 +184,11 @@ val gzipDatabaseDumpTask = tasks.register("gzipDatabaseDump") {
         "create a final packaged init script"
     ).joinToString(" ")
 
-    dependsOn(exportDatabaseDumpTask)
     val inputFile = exportDatabaseDumpTask.map { it.sqlDumpOutputFile }
     val outputFile = inputFile.zip(layout.buildDirectory) { srcFile, buildDir ->
         buildDir.file("${ srcFile.get().asFile.nameWithoutExtension }.sql.gz")
     }
 
-    // Declare inputs and outputs for cache efficiency
     inputs.file(inputFile)
     outputs.file(outputFile)
 

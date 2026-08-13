@@ -5,6 +5,7 @@ import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.startupcheck.OneShotStartupCheckStrategy
@@ -14,7 +15,8 @@ abstract class ImportGpkgTask @Inject constructor(
     objectFactory: ObjectFactory,
 ) : DbImportTask(objectFactory) {
 
-    @get:Input internal abstract val gdalContainer: Property<GenericContainer<*>>
+    @get:Internal internal abstract val gdalContainer: Property<GenericContainer<*>>
+    @get:Input internal var gdalContainerGradleInputKey = gdalContainer.map { it.dockerImageName }
 
     @get:InputFile abstract val gpkgFile: RegularFileProperty
     private val mountableGpkgFile = gpkgFile.asFile.asTestContainerMountable()

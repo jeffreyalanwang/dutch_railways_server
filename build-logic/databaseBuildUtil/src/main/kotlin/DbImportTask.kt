@@ -25,7 +25,7 @@ abstract class DbImportTask @Inject constructor(
         dbContainerName = name
         dbContainer = extension.getContainer<JdbcDatabaseContainer<*>>(name)
     }
-    @get:Input internal val dbContainerGradleInputKey = dbContainer.map { it.jdbcUrl }
+    @get:Input internal val dbContainerGradleInputKey = dbContainer.map { it.username + it.dockerImageName }
 
     @get:Input
     val dbName = objectFactory.property<String>()
