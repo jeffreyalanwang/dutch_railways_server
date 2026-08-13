@@ -1,7 +1,9 @@
 import org.gradle.api.DefaultTask
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
+import org.gradle.kotlin.dsl.assign
 import org.gradle.api.services.ServiceReference
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
@@ -17,11 +19,13 @@ abstract class DbImportTask @Inject constructor(
     objectFactory: ObjectFactory,
 ) : DefaultTask() {
 
-    @get:Internal
-    abstract val dbContainerName: Property<String>
-
-    @get:Input
-    abstract val dbContainer: Provider<JdbcDatabaseContainer<*>>
+    @get:Input abstract val dbContainerName: Property<String>
+    @get:Internal abstract val dbContainer: Property<JdbcDatabaseContainer<*>>
+    fun dbContainer(extension: TestcontainersExtension, name: String) {
+        dbContainerName = name
+        dbContainer = extension.getContainer<JdbcDatabaseContainer<*>>(name)
+    }
+    @get:Input internal val dbContainerGradleInputKey = dbContainer.map { it.jdbcUrl }
 
     @get:Input
     val dbName = objectFactory.property<String>()

@@ -1,13 +1,13 @@
-import mapEach
 import org.gradle.api.file.FileSystemLocation
 import org.gradle.api.file.RegularFile
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
-import java.nio.file.Path
 import javax.inject.Inject
 
 abstract class ImportSqlTask @Inject constructor(
@@ -20,8 +20,9 @@ abstract class ImportSqlTask @Inject constructor(
         it.asFile.asTestContainerMountable() to "/init_scripts/${it.asFile.name}"
     }
 
-    @get:Optional @get:InputFiles
-    abstract val resources: ListProperty<Pair<FileSystemLocation, String>>
+    @get:Internal abstract val resources: ListProperty<Pair<FileSystemLocation, String>>
+    @get:Optional @get:InputFiles private val resourceSrcs = resources.map { it.unzip().first }
+    @get:Optional @get:Input      private val resourceDests = resources.map { it.unzip().second }
     private val mountableResources = resources.mapEach { (file, containerPath) ->
         file.asFile.asTestContainerMountable() to containerPath
     }

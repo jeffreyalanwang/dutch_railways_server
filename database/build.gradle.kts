@@ -1,10 +1,8 @@
 import de.undercouch.gradle.tasks.download.Download
 import de.undercouch.gradle.tasks.download.Verify
 import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256
-import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.gradle.DatabaseType
 import org.testcontainers.gradle.StartContainersTask
-import org.testcontainers.gradle.getContainer
 import org.testcontainers.gradle.spec.JdbcContainerSpec
 import java.time.OffsetDateTime
 import kotlin.properties.ReadWriteProperty
@@ -13,11 +11,9 @@ import kotlin.reflect.KProperty
 private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mimic [FileProperty.dir]
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
 private fun JdbcContainerSpec.image(spec: Provider<String>) = image(spec.get())
-private infix fun String.imageTag(other: Provider<String>) = other.map { "$this:$it" }
 private val Provider<SourceSet>.otherSrcDir get() = map { it.otherSrcDir }
 private val Provider<out Task>.singleOutputFile get() = map { it.outputs.files.singleFile }.let { layout.file(it) }
 private val Provider<out Task>.singleOutputDir get() = map { it.outputs.files.singleFile }.let { layout.dir(it) }
-private fun Directory.clearAndMkdirs() = asFile.run { if (exists()) delete(); mkdirs() }
 private val Provider<Directory>.sortedFileList get() = map { directory ->
     val childrenAsRelativePaths = directory.asFileTree.map { it.relativeTo(directory.asFile).path }
     childrenAsRelativePaths.sorted().map { relativeChildPath ->
@@ -36,7 +32,7 @@ plugins {
     `java-test-fixtures`
     id("python-uv-project")
     id("import-gpkg-task")
-    id("import-sql-task")
+//    id("import-sql-task")
 
     alias(libs.plugins.build.local.properties)
     alias(libs.plugins.build.testcontainers)
@@ -65,7 +61,7 @@ dependencies {
 val postgresContainerName = "postgres"
 testcontainers {
     jdbcContainer(postgresContainerName, DatabaseType.POSTGRESQL) {
-        image("postgres" imageTag libs.versions.postgres.docker)
+        image(libs.versions.postgres.docker)
         username("postgres")
         password("postgres")
         databaseName("dutch_railways")
@@ -99,7 +95,10 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
     doFirst {
         // If we do not clear the output directory, the notebook is written
         // to try and reload the .pkl file generated from the last run
-        outDir.get().clearAndMkdirs()
+        outDir.get().asFile.run {
+            if (exists()) delete()
+            mkdirs()
+        }
     }
 
     environment(localProperties)
@@ -133,8 +132,7 @@ val importGpkgTask = tasks.register<ImportGpkgTask>("importGpkg") {
         "Import Area dataset to temporary tables in",
         "the database on the temporary Docker container",
     ).joinToString(" ")
-    dbContainerName = postgresContainerName
-//    dbContainer = getDbContainer(postgresContainerName)z
+    dbContainer(testcontainers, postgresContainerName)
     gpkgFile = downloadGpkgTask.map { it.outputFiles.single() }
 
     commonArgs(
@@ -158,21 +156,19 @@ val importSqlScriptsTask = tasks.register<ImportSqlTask>("importSqlScripts") {
     description = "Run SQL init scripts on database in the temporary Docker container"
     dependsOn(importGpkgTask)
 
-    dbContainerName = postgresContainerName
-//    dbContainer = getDbContainer(postgresContainerName)
+    dbContainer(testcontainers, postgresContainerName)
     initScripts = sourceSets.named("sql_scripts").otherSrcDir
         .dir("init")
         .sortedFileList
     resource(scrapeDataTask.singleOutputDir, "/ns_data") // sql scripts hardcode filenames under `/ns_data`
 }
 
-val buildDatabaseDumpTask = tasks.register<PostgresDumpTask>("buildDatabaseDump") {
+val exportDatabaseDumpTask = tasks.register<PostgresDumpTask>("exportDatabaseDump") {
     description = "Export the database on the temporary Docker container"
     dependsOn(importGpkgTask)
     dependsOn(importSqlScriptsTask)
 
-    dbContainerName = postgresContainerName
-//    dbContainer = getDbContainer(postgresContainerName)
+    dbContainer(testcontainers, postgresContainerName)
     sqlDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.sql")
 //    // Binary dump is not useful for initializing a Postgres Docker container
 //    pgDumpOutputFile = layout.buildDirectory.dir("dumps").file("postgres.dump")
@@ -184,9 +180,11 @@ val gzipDatabaseDumpTask = tasks.register("gzipDatabaseDump") {
         "create a final packaged init script"
     ).joinToString(" ")
 
-    dependsOn(buildDatabaseDumpTask)
-    val inputFile = file("src/dist/large-file.txt")
-    val outputFile = file("build/distributions/large-file.txt.gz")
+    dependsOn(exportDatabaseDumpTask)
+    val inputFile = exportDatabaseDumpTask.map { it.sqlDumpOutputFile }
+    val outputFile = inputFile.zip(layout.buildDirectory) { srcFile, buildDir ->
+        buildDir.file("${ srcFile.get().asFile.nameWithoutExtension }.sql.gz")
+    }
 
     // Declare inputs and outputs for cache efficiency
     inputs.file(inputFile)

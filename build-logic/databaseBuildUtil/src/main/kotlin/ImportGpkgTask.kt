@@ -4,6 +4,7 @@ import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.TaskAction
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.startupcheck.OneShotStartupCheckStrategy
@@ -15,7 +16,7 @@ abstract class ImportGpkgTask @Inject constructor(
 
     @get:Input internal abstract val gdalContainer: Property<GenericContainer<*>>
 
-    @get:Input abstract val gpkgFile: RegularFileProperty
+    @get:InputFile abstract val gpkgFile: RegularFileProperty
     private val mountableGpkgFile = gpkgFile.asFile.asTestContainerMountable()
     private val gpkgFileContainerPath = "/source.gpkg"
 
@@ -31,8 +32,8 @@ abstract class ImportGpkgTask @Inject constructor(
         .apply { check(!isRunning) }
         .also { exposeHostPort(dbContainer.get()) }
         .also { checkIsGpkg(gpkgFile.get()) }
-        .withCopyFileToContainer(mountableGpkgFile.get(), gpkgFileContainerPath)
-        .withStartupCheckStrategy(OneShotStartupCheckStrategy())
+        .withCopyFileToContainer(mountableGpkgFile.get(), gpkgFileContainerPath) // Caution: this could result in a lot of data transfer with a remote Testcontainer runtime
+        .withStartupCheckStrategy(OneShotStartupCheckStrategy()) // The GDAL container is executed once per command
         .run {
             commands.get().forEach { command ->
                 withCommand(*command).start()

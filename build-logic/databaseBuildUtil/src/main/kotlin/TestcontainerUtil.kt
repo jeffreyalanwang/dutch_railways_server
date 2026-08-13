@@ -42,8 +42,6 @@ fun camelCaseJoin(vararg parts: String) = parts
         acc + string.replaceFirstChar { it.uppercaseChar() }
     }
 
-inline fun <reified T : Any> PropertyFactory.property() = property(T::class.java)
-
 fun exposeHostPort(mappedFromContainer: ContainerState) = mappedFromContainer.run {
     if (host != "localhost") throw NotImplementedError()
     Testcontainers.exposeHostPorts(firstMappedPort)
