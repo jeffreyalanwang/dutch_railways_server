@@ -4,7 +4,7 @@ spring-boot = "4.1.+"
 hibernate-search = "8.4.+"
 proj4j = "1.4.+"
 play-services-maps = "20.0.0"
-postgres-docker = "postgis/postgis:18-master"
+postgres-docker = "kartoza/postgis:18-3.6" # [postgis/postgis:18-latest] does not include pg_cron
 testcontainers = "2.0.5"
 
 [plugins]

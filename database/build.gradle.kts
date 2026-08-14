@@ -2,6 +2,7 @@ import de.undercouch.gradle.tasks.download.Download
 import de.undercouch.gradle.tasks.download.Verify
 import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256
 import org.testcontainers.containers.JdbcDatabaseContainer
+import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.gradle.DatabaseType
 import org.testcontainers.gradle.getContainer
 import org.testcontainers.gradle.spec.JdbcContainerSpec
@@ -60,7 +61,7 @@ testcontainers {
     jdbcContainer(postgresContainerName, DatabaseType.POSTGRESQL) {
         image(libs.versions.postgres.docker)
         username("postgres")
-        password("postgres")
+        password("afs2398ds")
         databaseName("dutch_railways")
     }
 }
@@ -131,6 +132,23 @@ afterEvaluate {
         trackedFiles.from(scrapeDataTask.map { it.outputs.files })
         trackedFiles.from(downloadGpkgTask.map { it.outputFiles })
         trackedFiles.from(sourceSets.named("sql_scripts").map { it.otherSrcDir })
+
+        val container = testcontainers.getContainer<JdbcDatabaseContainer<*>>(postgresContainerName)
+        doFirst {
+            container.get().apply {
+                // We use a heavier image than standard postgres; give it 10 times as long
+                withStartupTimeoutSeconds(600) // note: doesn't seem to have effect
+
+                // Kartoza uses non-standard env variables
+                withEnv("POSTGRES_USER", username)
+                withEnv("POSTGRES_PASS", password)
+
+                // Kartoza's entrypoint script appears not to
+                // read command-line args properly; use none
+                // (normal behavior just turns off fsync)
+                withCommand()
+            }
+        }
     }
 }
 
@@ -188,4 +206,16 @@ val gzipDatabaseDumpTask = tasks.register<GzipTask>("gzipDatabaseDump") {
     ).joinToString(" ")
 
     inputFile = exportDatabaseDumpTask.flatMap { it.sqlDumpOutputFile }
+}
+
+tasks.register<Zip>("zipInitDbDir") {
+    description = listOf(
+        "Create zip archive which unzips into",
+        "root directory of a Postgres Docker",
+        "container to initialize the database",
+    ).joinToString(" ")
+    into("docker-entrypoint-initdb.d") {
+        from(gzipDatabaseDumpTask.map { it.outputFile })
+        from(sourceSets.named("sql_scripts").map { it.otherSrcDir.file("7_cron.sql") })
+    }
 }
