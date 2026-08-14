@@ -1,12 +1,9 @@
-import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
-import org.testcontainers.containers.ExecInContainerPattern.execInContainer
 import javax.inject.Inject
-import kotlin.collections.plus
 
 abstract class PostgresDumpTask @Inject constructor(
     objectFactory: ObjectFactory,
@@ -36,25 +33,27 @@ abstract class PostgresDumpTask @Inject constructor(
     }
 
     @TaskAction
-    fun saveDumps() = dbContainer.get().run {
-        check(isSqlDumpRequested || isPgDumpRequested)
-        if (isSqlDumpRequested) {
-            execInContainer(
-                *dumpCommandArgs.get().plus(
-                    "-f", sqlDumpPathContainer.get()
+    fun saveDumps() = dbContainer.get()
+        .apply { followStdErrTo(logger) }
+        .run {
+            check(isSqlDumpRequested || isPgDumpRequested)
+            if (isSqlDumpRequested) {
+                execInContainer(
+                    *dumpCommandArgs.get().plus(
+                        "-f", sqlDumpPathContainer.get()
+                    )
                 )
-            )
-            copyFileFromContainer(sqlDumpPathContainer.get(), sqlDumpPathHost.get())
-        }
-        if (isPgDumpRequested) {
-            execInContainer(
-                *dumpCommandArgs.get().plus(
-                    "-F", "c",
-                    "-f", pgDumpPathContainer.get()
+                copyFileFromContainer(sqlDumpPathContainer.get(), sqlDumpPathHost.get())
+            }
+            if (isPgDumpRequested) {
+                execInContainer(
+                    *dumpCommandArgs.get().plus(
+                        "-F", "c",
+                        "-f", pgDumpPathContainer.get()
+                    )
                 )
-            )
-            copyFileFromContainer(pgDumpPathContainer.get(), pgDumpPathHost.get())
+                copyFileFromContainer(pgDumpPathContainer.get(), pgDumpPathHost.get())
+            }
         }
-    }
 
 }

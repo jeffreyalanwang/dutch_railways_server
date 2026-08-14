@@ -31,17 +31,16 @@ abstract class ImportSqlTask @Inject constructor(
     )
 
     @TaskAction
-    fun importSql() = dbContainer.get().run {
-        mountableResources.get().forEach { (mountable, destPath) ->
-            copyFileToContainer(mountable, destPath)
+    fun importSql() = dbContainer.get()
+        .apply { followStdErrTo(logger) }
+        .run {
+            mountableResources.get().forEach { (mountable, destPath) ->
+                copyFileToContainer(mountable, destPath)
+            }
+            mountableInitScripts.get().forEach { (mountable, destPath) ->
+                copyFileToContainer(mountable, destPath)
+                execSqlScript(destPath, databaseName = dbName.get())
+            }
         }
-        mountableInitScripts.get().forEach { (mountable, destPath) ->
-            copyFileToContainer(mountable, destPath)
-            execInContainer(
-                "sh", "-c",
-                "cat $destPath | psql -d $dbName",
-            )
-        }
-    }
 
 }

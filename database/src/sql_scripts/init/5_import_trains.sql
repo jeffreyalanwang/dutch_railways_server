@@ -1,3 +1,5 @@
+BEGIN;
+
 --Station with its parent class' attributes.
 CREATE OR REPLACE VIEW StationFull AS (
     SELECT Id, Name, Address, Geom
@@ -128,7 +130,7 @@ INSERT INTO tmp_dummyInsert_PassService(csv_num, Name, Consist)
 CREATE TEMP TABLE tmp_Station (Id INT, Uic INT, Name VARCHAR, Lat Numeric, Lng Numeric, Address VARCHAR)
     ON COMMIT DROP;
 COPY tmp_Station
-    FROM 'ns_data/stations.csv'
+    FROM '/ns_data/stations.csv'
     WITH CSV HEADER QUOTE '"';
 INSERT INTO tmp_dummyInsert_Station(csv_uic, Name, Address, Geom)
     SELECT Uic, Name, Address, ST_Transform(ST_Point(Lng, Lat, 4326), 28992) AS Geom
@@ -148,3 +150,5 @@ INSERT INTO Stop(Service, ArriveTime, DepartTime, Station)
     FROM tmp_Stop, tmp_translateKey_Station, tmp_translateKey_PassService
     WHERE tmp_Stop.PassService_num = tmp_translateKey_PassService.csv_num
       AND tmp_Stop.Stations_uic = tmp_translateKey_Station.csv_uic;
+
+END;

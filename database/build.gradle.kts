@@ -1,9 +1,9 @@
 import de.undercouch.gradle.tasks.download.Download
 import de.undercouch.gradle.tasks.download.Verify
 import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256
-import org.springframework.aot.hint.predicate.RuntimeHintsPredicates.resource
+import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.gradle.DatabaseType
-import org.testcontainers.gradle.StartContainersTask
+import org.testcontainers.gradle.getContainer
 import org.testcontainers.gradle.spec.JdbcContainerSpec
 import java.time.OffsetDateTime
 import kotlin.properties.ReadWriteProperty
@@ -12,6 +12,8 @@ import kotlin.reflect.KProperty
 private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mimic [FileProperty.dir]
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
 private fun JdbcContainerSpec.image(spec: Provider<String>) = image(spec.get())
+private fun File.existsAndHasChildren() = walk().any { it != this }
+private fun Task.onlyIf(vararg onlyIfReason: String, onlyIfSpec: (Task) -> Boolean) = onlyIf(onlyIfReason.joinToString(" ") { it.trim() }, onlyIfSpec)
 private val Provider<out Task>.singleOutputDir get() = map { it.outputs.files.singleFile }.let { layout.dir(it) }
 private val Directory.sortedFileList get() = asFileTree
     .map { childFile -> childFile.relativeTo(this.asFile).path }
@@ -71,20 +73,32 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
     val outNotebook = outDir.file("ns.ipynb")
     val outNsDir = outDir.dir("ns_results")
 
-    onlyIf("Reduce reruns during development; remove this line for up-to-date production data") { false }
+    gradle.startParameter.run {
+        val scrapingDirExists = outDir.map { it.asFile.existsAndHasChildren() }
+        val wasExplicitlyRequested = taskNames.any { it == name || it == path || it.endsWith(":$name") }
+        val isRerun = systemPropertiesArgs.containsKey("rerun") || isRerunTasks
+
+        onlyIf(
+            "Reduce reruns during development; for up-to-date production data," ,
+            "pass --rerun and specify this task explicitly."                    ,
+        ) {
+            !scrapingDirExists.get() || (wasExplicitlyRequested && isRerun)
+        }
+    }
     inputs.property("lastRunDate", OffsetDateTime.now().toLocalDate())
     inputs.file(notebookInputFile)
     outputs.dir(outNsDir)
 
     doFirst {
-        // If we do not clear the output directory, the notebook is written
-        // to try and reload the .pkl file generated from the last run
+        // If we do not clear the output directory, the notebook tries
+        // to reload the .pkl files generated from the last run
         outDir.get().asFile.run {
-            if (exists()) delete()
+            if (exists()) walkBottomUp().forEach { it.delete() }
             mkdirs()
         }
     }
 
+    environment("TQDM_MININTERVAL" to 10, "TQDM_MAXINTERVAL" to 60)
     environment(localProperties)
     workingDir(uvProjectDir) // allows discovery of the nsapi package
     args(
@@ -92,6 +106,7 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
             notebookInputFile.get().asFile.absolutePath,
             outNotebook.get().asFile.absolutePath,
             "-p", "working_dir", outDir.get().asFile.absolutePath, // control output location
+            "--log-output",
     )
 }
 
@@ -112,7 +127,7 @@ val verifyGpkgTask = tasks.register<Verify>("verifyGpkg") {
 }
 
 afterEvaluate {
-    tasks.named<StartContainersTask>(startTaskName(containerName = postgresContainerName)) {
+    tasks.startTaskForContainer(postgresContainerName) {
         trackedFiles.from(scrapeDataTask.map { it.outputs.files })
         trackedFiles.from(downloadGpkgTask.map { it.outputFiles })
         trackedFiles.from(sourceSets.named("sql_scripts").map { it.otherSrcDir })
