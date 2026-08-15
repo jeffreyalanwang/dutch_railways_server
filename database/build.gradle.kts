@@ -40,7 +40,7 @@ plugins {
 
 group = "com.jeffreyalanwang.dutchrailways.backend.database"
 
-val localProperties = ext.properties
+val localProperties = ext.properties.mapValues { (k, v) -> v.toString() }
 private var SourceSet.otherSrcDir by ExtrasDelegate<_, Directory>()
 
 sourceSets.create("sql_scripts") {
@@ -133,7 +133,7 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
     }
 
     environment("TQDM_MININTERVAL" to 10, "TQDM_MAXINTERVAL" to 60)
-    environment(localProperties.mapValues { (k, v) -> v.toString() })
+    environment(localProperties)
     workingDir(uvProjectDir) // allows discovery of the nsapi package
     args(
         "papermill",
