@@ -56,6 +56,8 @@ spring-boot-webtestclient = { group = "org.springframework.boot", name = "spring
 spring-boot-data-jpa-test = { group = "org.springframework.boot", name = "spring-boot-data-jpa-test", version.ref = "spring-boot" }
 spring-boot-graphql-test = { group = "org.springframework.boot", name = "spring-boot-graphql-test", version.ref = "spring-boot" }
 spring-boot-webmvc-test = { group = "org.springframework.boot", name = "spring-boot-webmvc-test", version.ref = "spring-boot" }
+spring-boot-testcontainers = { group = "org.springframework.boot", name = "spring-boot-testcontainers", version.ref = "spring-boot" }
+spring-boot-test = { group = "org.springframework.boot", name = "spring-boot-test", version.ref = "spring-boot" }
 springmockk = { group = "com.ninja-squad", name = "springmockk", version = "5.0.+" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 

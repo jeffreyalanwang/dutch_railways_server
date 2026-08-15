@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
+import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -15,6 +16,7 @@ import kotlin.test.assertEquals
 
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
+@SampleDatabaseTest
 class StopsSubqueryIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {

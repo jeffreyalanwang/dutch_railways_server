@@ -1,13 +1,13 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
-import com.jeffreyalanwang.dutchrailways.backend.server.DutchRailwaysServerApplication
+import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
 import com.jeffreyalanwang.dutchrailways.api.Trainset
 import com.jeffreyalanwang.dutchrailways.backend.server.repository.SetCompareBuilderScope.Companion.allSetEqual
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -17,7 +17,7 @@ import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
  * Uses the same database as configured for production for convenience.
  */
 @SpringBootTest
-@ContextConfiguration(classes = [DutchRailwaysServerApplication::class])
+@SampleDatabaseTest
 class PassServiceRepositoryTest(
     @Autowired val passServiceRepository: PassServiceRepository,
 ) {

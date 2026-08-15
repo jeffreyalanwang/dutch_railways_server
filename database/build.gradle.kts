@@ -1,9 +1,12 @@
 import de.undercouch.gradle.tasks.download.Download
 import de.undercouch.gradle.tasks.download.Verify
+import org.gradle.accessors.dm.LibrariesForLibs
 import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256
 import org.testcontainers.gradle.DatabaseType
 import org.testcontainers.gradle.spec.JdbcContainerSpec
 import java.time.OffsetDateTime
+import javax.xml.catalog.CatalogManager.catalog
+import kotlin.collections.joinToString
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -23,6 +26,8 @@ private class ExtrasDelegate<T : ExtensionAware, V> : ReadWriteProperty<T, V> {
 }
 
 plugins {
+    alias(libs.plugins.kotlin.jvm)
+
     `java-test-fixtures`
     id("python-uv-project")
     id("import-gpkg-task")
@@ -39,10 +44,8 @@ group = "com.jeffreyalanwang.dutchrailways.backend.database"
 val localProperties = ext.properties
 private var SourceSet.otherSrcDir by ExtrasDelegate<_, Directory>()
 
-sourceSets {
-    create("sql_scripts") {
-        otherSrcDir = layout.projectDirectory.dir("src").dir("sql_scripts")
-    }
+sourceSets.create("sql_scripts") {
+    otherSrcDir = layout.projectDirectory.dir("src").dir("sql_scripts")
 }
 
 uvProject {
@@ -50,7 +53,40 @@ uvProject {
 }
 
 dependencies {
+    testFixturesImplementation(libs.spring.boot.test)
+    testFixturesImplementation(libs.spring.boot.data.jpa.test)
+    testFixturesImplementation(libs.spring.boot.testcontainers)
+    testFixturesApi(libs.bundles.testcontainers.postgresql)
     testcontainersClasspath(libs.bundles.testcontainers.postgresql)
+}
+
+val generateCatalogConstants = tasks.register("generateCatalogAccessors") {
+    description = "Generate required version catalog accessor for test fixture source compilation."
+    val sourceSet = sourceSets.testFixtures
+    val outputDir = layout.buildDirectory.dir("generated/source/catalog/${sourceSet.name}/kotlin")
+    val fileName = "InjectLibrariesForLibs.kt"
+    val value = libs.versions.docker.postgres.build
+    val valuePath = listOf("libs", "versions", "docker", "postgres", "build")
+
+    outputs.dir(outputDir)
+
+    doLast {
+        val output = valuePath
+            .run { dropLast(1) + """const val ${last()} = "${value.get()}"""" }
+            .reduceRight { valuePathElement, child ->
+                val child = child.prependIndent()
+                "object $valuePathElement {\n$child\n}"
+            }
+
+        outputDir.get()
+            .apply { asFile.mkdirs() }
+            .file(fileName)
+            .asFile.writeText(output)
+    }
+}
+
+kotlin.sourceSets.testFixtures {
+    kotlin.srcDir(generateCatalogConstants)
 }
 
 val postgresContainerName = "postgres"

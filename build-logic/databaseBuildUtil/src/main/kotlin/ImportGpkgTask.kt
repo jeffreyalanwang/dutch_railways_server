@@ -1,4 +1,3 @@
-import jdk.internal.vm.ThreadContainers.container
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
@@ -9,13 +8,8 @@ import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.output.OutputFrame
 import org.testcontainers.containers.startupcheck.OneShotStartupCheckStrategy
-import org.testcontainers.shaded.org.bouncycastle.cms.RecipientId.password
-import java.lang.System.lineSeparator
 import javax.inject.Inject
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 abstract class ImportGpkgTask @Inject constructor(
     objectFactory: ObjectFactory,

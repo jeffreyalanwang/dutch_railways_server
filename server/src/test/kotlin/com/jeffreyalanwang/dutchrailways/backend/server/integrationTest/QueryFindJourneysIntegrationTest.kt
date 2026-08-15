@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
+import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,9 +13,9 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
-
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
+@SampleDatabaseTest
 class QueryFindJourneysIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
 ) {

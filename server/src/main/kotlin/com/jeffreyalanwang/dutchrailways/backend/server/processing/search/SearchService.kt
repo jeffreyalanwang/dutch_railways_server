@@ -31,7 +31,7 @@ class SearchService(
         .massIndexer()
         .threadsToLoadObjects(THREAD_COUNT)
 
-    final val initJob: Job = transactionTemplate.execute {
+    val initJob: Job = transactionTemplate.execute {
         reindexOnInit.async { newIndexer() }
     }
 

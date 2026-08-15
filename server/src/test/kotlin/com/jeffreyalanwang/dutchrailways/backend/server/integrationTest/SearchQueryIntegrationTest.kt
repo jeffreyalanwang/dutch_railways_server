@@ -1,5 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
+import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
 import com.jeffreyalanwang.dutchrailways.api.GeoCoords
 import com.jeffreyalanwang.dutchrailways.api.GeoRect
 import org.intellij.lang.annotations.Language
@@ -9,12 +10,16 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.graphql.test.tester.HttpGraphQlTester
 import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
+import org.testcontainers.containers.ExecConfig
+import org.testcontainers.postgresql.PostgreSQLContainer
 import kotlin.test.Test
 
 @AutoConfigureHttpGraphQlTester
 @SpringBootTest
+@SampleDatabaseTest
 class SearchQueryIntegrationTest(
     @Autowired val graphQlTester: HttpGraphQlTester,
+    @Autowired private val dbContainer: PostgreSQLContainer,
 ) {
 
     val anyLike = "Uraniumweg" // Street name of Heerenveen IJsstadion
@@ -74,6 +79,12 @@ class SearchQueryIntegrationTest(
                 }
             }
         """.trimIndent()
+    }
+
+    init {
+        dbContainer.execInContainer(ExecConfig.builder().user(dbContainer.username)
+            .command(arrayOf("psql", "-c", "ALTER DATABASE postgres SET jit = off;"))
+            .build())
     }
 
     @Test

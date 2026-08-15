@@ -25,6 +25,7 @@ dependencies {
     implementation(libs.hibernate.spatial)
     runtimeOnly(libs.postgresql)
     testImplementation(libs.spring.boot.data.jpa.test)
+    testImplementation(testFixtures(project(":database")))
     testImplementation(testFixtures(project(":geometryUtil")))
 
     implementation(libs.bundles.hibernate.search)

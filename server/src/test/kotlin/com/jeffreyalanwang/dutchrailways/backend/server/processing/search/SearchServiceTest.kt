@@ -18,8 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertIs
+import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
 
 @SpringBootTest
+@SampleDatabaseTest
 class SearchServiceTest(
     @Autowired private val searchService: SearchService,
 ) {
