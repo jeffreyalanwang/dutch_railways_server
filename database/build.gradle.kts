@@ -109,13 +109,14 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
     gradle.startParameter.run {
         val scrapingDirExists = outDir.map { it.asFile.existsAndHasChildren() }
         val wasExplicitlyRequested = taskNames.any { it == name || it == path || it.endsWith(":$name") }
-        val isRerun = systemPropertiesArgs.containsKey("rerun") || isRerunTasks
+        val isRerun = systemPropertiesArgs.containsKey("rerun")
+        val isRerunTasks = isRerunTasks
 
         onlyIf(
             "Reduce reruns during development; for up-to-date production data," ,
             "pass --rerun and specify this task explicitly."                    ,
         ) {
-            !scrapingDirExists.get() || (wasExplicitlyRequested && isRerun)
+            !scrapingDirExists.get() || (wasExplicitlyRequested && isRerun) || isRerunTasks
         }
     }
     inputs.property("lastRunDate", OffsetDateTime.now().toLocalDate())
@@ -132,7 +133,7 @@ val scrapeDataTask = tasks.register<UvRunTask>("scrapeData") {
     }
 
     environment("TQDM_MININTERVAL" to 10, "TQDM_MAXINTERVAL" to 60)
-    environment(localProperties)
+    environment(localProperties.mapValues { (k, v) -> v.toString() })
     workingDir(uvProjectDir) // allows discovery of the nsapi package
     args(
         "papermill",
