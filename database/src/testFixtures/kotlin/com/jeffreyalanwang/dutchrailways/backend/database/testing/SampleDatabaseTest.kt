@@ -1,4 +1,4 @@
-package com.jeffreyalanwang.dutch_railways.backend.database.testing
+package com.jeffreyalanwang.dutchrailways.backend.database.testing
 
 import org.springframework.context.annotation.Import
 

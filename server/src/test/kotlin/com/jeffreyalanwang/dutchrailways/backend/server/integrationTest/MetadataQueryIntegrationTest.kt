@@ -11,7 +11,7 @@ import org.springframework.graphql.test.tester.entity
 import org.springframework.graphql.test.tester.entityList
 import java.time.ZoneId
 import com.jeffreyalanwang.dutchrailways.api.Amenity as AmenityEnum
-import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
+import com.jeffreyalanwang.dutchrailways.backend.database.testing.SampleDatabaseTest
 
 @SpringBootTest
 @AutoConfigureHttpGraphQlTester

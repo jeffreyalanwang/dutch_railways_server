@@ -1,6 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
-import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
+import com.jeffreyalanwang.dutchrailways.backend.database.testing.SampleDatabaseTest
 import com.jeffreyalanwang.dutchrailways.api.GeoCoords
 import com.jeffreyalanwang.dutchrailways.api.GeoRect
 import org.intellij.lang.annotations.Language

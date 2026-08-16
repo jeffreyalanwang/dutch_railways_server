@@ -1,6 +1,7 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.repository
 
-import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
+import com.jeffreyalanwang.dutchrailways.backend.database.testing.SampleDatabaseTest
+import com.jeffreyalanwang.util.geolatte.crs.assertNear
 import jakarta.transaction.Transactional
 import org.geolatte.geom.G2D
 import org.junit.jupiter.params.ParameterizedTest
@@ -82,7 +83,7 @@ class StationRepositoryTest(
 
         val station = stationRepository.findById(stationId).get()
         assertNotEquals(reversedPosition, station.geom?.position, "`lat` and `lon` are swapped")
-        assertEquals(position, station.geom?.position)
+        assertNear(position, station.geom?.position!!)
 
     }
 
@@ -99,8 +100,8 @@ class StationRepositoryTest(
         assertNotEquals(lat, station.lon, "`lat` and `lon` are swapped")
         assertNotEquals(lon, station.lat)
 
-        assertEquals(lat, station.lat)
-        assertEquals(lon, station.lon)
+        assertNear(lat, station.lat!!)
+        assertNear(lon, station.lon!!)
 
     }
 }

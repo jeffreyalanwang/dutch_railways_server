@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorit
 import org.testcontainers.gradle.DatabaseType
 import org.testcontainers.gradle.spec.JdbcContainerSpec
 import java.time.OffsetDateTime
-import javax.xml.catalog.CatalogManager.catalog
 import kotlin.collections.joinToString
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty

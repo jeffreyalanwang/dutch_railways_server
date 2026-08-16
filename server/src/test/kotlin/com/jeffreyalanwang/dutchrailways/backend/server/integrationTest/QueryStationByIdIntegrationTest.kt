@@ -1,6 +1,6 @@
 package com.jeffreyalanwang.dutchrailways.backend.server.integrationTest
 
-import com.jeffreyalanwang.dutch_railways.backend.database.testing.SampleDatabaseTest
+import com.jeffreyalanwang.dutchrailways.backend.database.testing.SampleDatabaseTest
 import org.intellij.lang.annotations.Language
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.graphql.test.autoconfigure.tester.AutoConfigureHttpGraphQlTester
