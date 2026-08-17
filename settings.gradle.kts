@@ -2,7 +2,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "dutch_railways_server"
+rootProject.name = "dutch-railways-server"
 
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")

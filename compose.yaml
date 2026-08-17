@@ -28,6 +28,7 @@ services:
     healthcheck:
       test: [
         "CMD-SHELL",
+        'su', 'postgres', '-c',
         'psql -U postgres -d dutch_railways -c "SELECT ST_Buffer( ST_SetSRID(''POINT(0 0)''::GEOMETRY, 4326), 1) AS geom ;"',
       ]
       interval: 10s

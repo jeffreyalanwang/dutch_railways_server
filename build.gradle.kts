@@ -17,10 +17,13 @@ subprojects {
 tasks.register<Exec>("publishDockerCompose") {
     description = "Publish to Docker Compose"
     inputs.files("compose.yaml")
+    dependsOn(":database:publishDbImage")
+    dependsOn(":server:publishBootImage")
     commandLine(
         "docker", "compose", "publish",
         "jeffreyalanwang/dutch-railways:$version",
     )
+    standardInput = System.`in`
 }
 
 tasks.register<Exec>("fetchAndRunDockerCompose") {
@@ -31,4 +34,5 @@ tasks.register<Exec>("fetchAndRunDockerCompose") {
             "oci://docker.io/jeffreyalanwang/dutch-railways:$version",
         "up",
     )
+    standardInput = System.`in`
 }
