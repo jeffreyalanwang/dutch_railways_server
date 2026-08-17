@@ -16,6 +16,7 @@ subprojects {
 
 tasks.register<Exec>("publishDockerCompose") {
     description = "Publish to Docker Compose"
+    inputs.files("compose.yaml")
     commandLine(
         "docker", "compose", "publish",
         "jeffreyalanwang/dutch-railways:$version",
