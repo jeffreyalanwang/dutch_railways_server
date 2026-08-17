@@ -32,9 +32,9 @@ tasks {
 }
 
 dependencies {
-    implementation(project(":geometryUtil"))
+    implementation("com.jeffreyalanwang.dutchrailways.lib:geometryUtil")
+    implementation("com.jeffreyalanwang.dutchrailways.lib:schema")
     implementation(project(":routeQuery"))
-    implementation(project(":schema"))
 
     implementation(libs.jackson.kotlin)
     implementation(libs.spring.boot.starter.graphql)
@@ -50,8 +50,8 @@ dependencies {
     implementation(libs.hibernate.spatial)
     runtimeOnly(libs.postgresql)
     testImplementation(libs.spring.boot.data.jpa.test)
+    testImplementation(testFixtures("com.jeffreyalanwang.dutchrailways.lib:geometryUtil"))
     testImplementation(testFixtures(project(":database")))
-    testImplementation(testFixtures(project(":geometryUtil")))
 
     implementation(libs.bundles.hibernate.search)
 }

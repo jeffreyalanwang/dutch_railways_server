@@ -35,6 +35,8 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 
     `java-test-fixtures`
+    id("backend-conventions")
+
     id("python-uv-project")
     id("import-gpkg-task")
     id("import-sql-task")
