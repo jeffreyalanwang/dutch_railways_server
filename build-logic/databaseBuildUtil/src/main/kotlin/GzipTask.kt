@@ -39,5 +39,5 @@ abstract class GzipTask @Inject constructor(
 }
 
 private fun AntBuilder.gzip(src: RegularFile, destfile: RegularFile) = withGroovyBuilder {
-    "gzip"("src" to src, "destfile" to destfile)
+    "gzip"("src" to src.asFile, "destfile" to destfile.asFile)
 }

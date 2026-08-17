@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.testcontainers.containers.output.OutputFrame
 import org.testcontainers.containers.output.OutputFrame.OutputType
-import org.testcontainers.containers.output.Slf4jLogConsumer
 import kotlin.time.Duration.Companion.minutes
 
 @TestConfiguration(proxyBeanMethods = false)

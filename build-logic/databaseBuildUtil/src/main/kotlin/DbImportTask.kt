@@ -35,6 +35,7 @@ abstract class DbImportTask @Inject constructor(
         dbContainerName.set( name )
         dbContainer.set( testcontainers.getContainer<JdbcDatabaseContainer<*>>(name) )
         dbContainerMarkerFile.set( tasks.startTaskForContainer(name).flatMap { it.markerFile } )
+        onlyIf { testcontainersService.get().wasContainerStarted(name) }
     }
 
     @get:Input

@@ -11,15 +11,9 @@ abstract class PostgresDumpTask @Inject constructor(
 
     @get:Optional @get:OutputFile
     abstract val sqlDumpOutputFile: RegularFileProperty
-    private val isSqlDumpRequested get() = sqlDumpOutputFile.isPresent
-    private val sqlDumpPathHost = sqlDumpOutputFile.map { it.asFile.absolutePath }
-    private val sqlDumpPathContainer = sqlDumpOutputFile.map { "/" + it.asFile.name }
 
     @get:Optional @get:OutputFile
     abstract val pgDumpOutputFile: RegularFileProperty
-    private val isPgDumpRequested get() = pgDumpOutputFile.isPresent
-    private val pgDumpPathHost = pgDumpOutputFile.map { it.asFile.absolutePath }
-    private val pgDumpPathContainer = pgDumpOutputFile.map { "/" + it.asFile.name }
 
     private val dumpCommandArgs = dbContainer.zip(dbName) { dbContainer, dbName ->
         // Postgres containers do not require a password
@@ -36,23 +30,34 @@ abstract class PostgresDumpTask @Inject constructor(
     fun saveDumps() = dbContainer.get()
         .apply { followStdErrTo(logger) }
         .run {
+            val isSqlDumpRequested = sqlDumpOutputFile.isPresent
+            val isPgDumpRequested = pgDumpOutputFile.isPresent
+
             check(isSqlDumpRequested || isPgDumpRequested)
             if (isSqlDumpRequested) {
+                val sqlDumpOutputFile = sqlDumpOutputFile.get()
+                val sqlDumpPathHost = sqlDumpOutputFile.asFile.absolutePath
+                val sqlDumpPathContainer = "/" + sqlDumpOutputFile.asFile.name
+
                 execInContainer(
                     *dumpCommandArgs.get().plus(
-                        "-f", sqlDumpPathContainer.get()
+                        "-f", sqlDumpPathContainer
                     )
                 )
-                copyFileFromContainer(sqlDumpPathContainer.get(), sqlDumpPathHost.get())
+                copyFileFromContainer(sqlDumpPathContainer, sqlDumpPathHost)
             }
             if (isPgDumpRequested) {
+                val pgDumpOutputFile = pgDumpOutputFile.get()
+                val pgDumpPathHost = pgDumpOutputFile.asFile.absolutePath
+                val pgDumpPathContainer = "/" + pgDumpOutputFile.asFile.name
+
                 execInContainer(
                     *dumpCommandArgs.get().plus(
                         "-F", "c",
-                        "-f", pgDumpPathContainer.get()
+                        "-f", pgDumpPathContainer
                     )
                 )
-                copyFileFromContainer(pgDumpPathContainer.get(), pgDumpPathHost.get())
+                copyFileFromContainer(pgDumpPathContainer, pgDumpPathHost)
             }
         }
 

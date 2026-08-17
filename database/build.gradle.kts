@@ -1,6 +1,7 @@
+@file:Suppress("AvoidApplyPluginMethod")
+
 import de.undercouch.gradle.tasks.download.Download
 import de.undercouch.gradle.tasks.download.Verify
-import org.gradle.accessors.dm.LibrariesForLibs
 import org.jetbrains.kotlin.org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256
 import org.testcontainers.gradle.DatabaseType
 import org.testcontainers.gradle.spec.JdbcContainerSpec
@@ -8,6 +9,9 @@ import java.time.OffsetDateTime
 import kotlin.collections.joinToString
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
+import com.google.cloud.tools.jib.gradle.BaseImageParameters
+import com.google.cloud.tools.jib.gradle.BuildImageTask
+import com.google.cloud.tools.jib.gradle.JibExtension
 
 private fun Provider<Directory>.file(path: String) = map { it.file(path) } // mimic [FileProperty.dir]
 private fun Provider<Directory>.dir(path: String) = map { it.dir(path) } // mimic [DirectoryProperty.dir]
@@ -19,6 +23,9 @@ private val Directory.sortedFileList get() = asFileTree
     .map { childFile -> childFile.relativeTo(this.asFile).path }
     .sorted()
     .map { relativeChildPath -> this.file(relativeChildPath) }
+private var BaseImageParameters.imageProperty: Provider<String>
+    get() = throw NotImplementedError()
+    set(value) { setImage(value) }
 private class ExtrasDelegate<T : ExtensionAware, V> : ReadWriteProperty<T, V> {
     @Suppress("UNCHECKED_CAST") override fun getValue(thisRef: T, property: KProperty<*>) = thisRef.extra[property.name] as V
     override fun setValue(thisRef: T, property: KProperty<*>, value: V) { thisRef.extra[property.name] = value }
@@ -36,20 +43,21 @@ plugins {
     alias(libs.plugins.build.local.properties)
     alias(libs.plugins.build.testcontainers)
     alias(libs.plugins.build.download)
+    alias(libs.plugins.build.jib)
 }
 
 group = "com.jeffreyalanwang.dutchrailways.backend.database"
+description = "Generation and packaging of database."
+version = "0.0.1"
 
 val localProperties = ext.properties.mapValues { (k, v) -> v.toString() }
 private var SourceSet.otherSrcDir by ExtrasDelegate<_, Directory>()
 
-sourceSets.create("sql_scripts") {
+val sqlScriptsSourceSet = sourceSets.create("sql_scripts") {
     otherSrcDir = layout.projectDirectory.dir("src").dir("sql_scripts")
 }
 
-uvProject {
-    uvProjectDir = layout.projectDirectory.dir("src").dir("scraping")
-}
+uvProject.uvProjectDir = layout.projectDirectory.dir("src").dir("scraping")
 
 dependencies {
     testFixturesImplementation(libs.spring.boot.test)
@@ -74,7 +82,7 @@ val generateCatalogConstants = tasks.register("generateCatalogAccessors") {
             .run { dropLast(1) + """const val ${last()} = "${value.get()}"""" }
             .reduceRight { valuePathElement, child ->
                 val child = child.prependIndent()
-                "object $valuePathElement {\n$child\n}"
+                "internal object $valuePathElement {\n$child\n}"
             }
 
         outputDir.get()
@@ -224,14 +232,59 @@ val gzipDatabaseDumpTask = tasks.register<GzipTask>("gzipDatabaseDump") {
     inputFile = exportDatabaseDumpTask.flatMap { it.sqlDumpOutputFile }
 }
 
-tasks.register<Zip>("zipInitDbDir") {
+val publishDbImageTask = tasks.register<BuildImageTask>("publishDbImage") {
     description = listOf(
-        "Create zip archive which unzips into",
-        "root directory of a Postgres Docker",
-        "container to initialize the database",
+        "Create a Postgres Docker container that",
+        "initializes the database on first run",
     ).joinToString(" ")
-    into("docker-entrypoint-initdb.d") {
-        from(gzipDatabaseDumpTask.map { it.outputFile })
-        from(sourceSets.named("sql_scripts").map { it.otherSrcDir.file("7_cron.sql") })
+
+    notCompatibleWithConfigurationCache("Jib plugin limitations")
+
+    JibExtension(project)
+    .also { setJibExtension(it) }
+    .apply {
+        configurationName = "emptyDummyConfiguration".also { configurations.register(it) }
+        container {
+            entrypoint = listOf("INHERIT")
+        }
+
+        from {
+            imageProperty = libs.versions.docker.postgres.runtime
+            platforms {
+                platform { os = "linux" ; architecture = "amd64" }
+                platform { os = "linux" ; architecture = "arm64" }
+            }
+        }
+        extraDirectories.paths {
+            path {
+                into = "/docker-entrypoint-initdb.d"
+
+                val gzippedDumpFile = gzipDatabaseDumpTask.flatMap { it.outputFile.asFile }
+
+                // Set Jib include path
+                setFrom(gzippedDumpFile.map { it.parentFile })
+                includes.add(gzippedDumpFile.map { it.name })
+
+                // Set Gradle task dependency
+                inputs.file(gzippedDumpFile)
+            }
+            path {
+                into = "/docker-entrypoint-initdb.d"
+
+                val sqlScriptsDir = sqlScriptsSourceSet.otherSrcDir
+                val fileName = "7_cron.sql"
+
+                // Set Jib include path
+                setFrom(sqlScriptsDir)
+                includes.add(fileName)
+
+                // Set Gradle task dependency
+                inputs.file(sqlScriptsDir.file(fileName))
+            }
+        }
+        to {
+            image = "jeffreyalanwang/dutch-railways-database"
+            tags = setOf("$version")
+        }
     }
 }

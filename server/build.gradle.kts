@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
     id("backend-conventions")
     id("spring-conventions")
@@ -5,6 +7,29 @@ plugins {
 }
 
 description = "Spring Boot server application container"
+version = "0.0.1"
+
+tasks {
+    compileTestKotlin {
+        compilerOptions {
+            // Allow JUnit [ArgumentsProvider]s to read parameter names
+            freeCompilerArgs.add("-java-parameters")
+        }
+    }
+
+    register<BootBuildImage>("publishBootImage") {
+        description = "Build and publish a Docker image."
+
+        dependsOn(check)
+
+        // defaults to docker.io using local Docker credentials
+        publish = true
+        imageName = "jeffreyalanwang/dutch-railways-server"
+        tags.add(imageName.map { "$it:$version" })
+
+        archiveFile = bootJar.flatMap { it.archiveFile }
+    }
+}
 
 dependencies {
     implementation(project(":geometryUtil"))
@@ -29,11 +54,4 @@ dependencies {
     testImplementation(testFixtures(project(":geometryUtil")))
 
     implementation(libs.bundles.hibernate.search)
-}
-
-tasks.compileTestKotlin {
-    compilerOptions {
-        // Allow JUnit [ArgumentsProvider]s to read parameter names
-        freeCompilerArgs.add("-java-parameters")
-    }
 }
