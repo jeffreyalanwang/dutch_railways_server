@@ -14,4 +14,6 @@ extensions:
   endpoints:
     # Allows us to use IntelliJ scratch files to query the server
     # when running it on localhost
-    default: http://localhost:8080/graphql
+    local: http://localhost:8080/dutch-railways/v1/graphql
+    local-compose: http://localhost:80/dutch-railways/v1/graphql
+    hosted: http://fajita-jw125.duckdns.org:80/dutch-railways/v1/graphql
